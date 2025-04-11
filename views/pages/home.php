@@ -1,804 +1,11 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/session-start.php' ?>
 
-<?php
-// Verificar si el usuario está autenticado
-//if(!isset($_SESSION['id'])) {
-    // Redireccionar al login si no hay sesión
-    //header("Location: " . APP_URL . "login");
-  //  exit();
-//}
-?>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    color: #1c1e21;
-    line-height: 1.5;
-    height: 100%;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-
-
-/* MAIN LAYOUT */
-.main-container {
-    display: grid;
-    grid-template-columns: 250px 1fr 300px;
-    gap: 20px;
-    max-width: 1300px;
-    margin: 80px auto 20px;
-    padding: 0 20px;
-}
-
-/* LEFT SIDEBAR */
-.sidebar-left {
-    position: sticky;
-    top: 80px;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-}
-
-.sidebar-section {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-.sidebar-heading {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: #1c1e21;
-}
-
-.event-card {
-    border-radius: 6px;
-    padding: 12px;
-    background-color: #f0f2f5;
-    margin-bottom: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.event-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.event-title {
-    font-weight: 600;
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-
-.event-date, .event-category {
-    font-size: 13px;
-    color: #65676b;
-    margin-bottom: 3px;
-}
-
-.event-button {
-    background-color: #e4e6eb;
-    color: #050505;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 0;
-    width: 100%;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background-color 0.2s;
-}
-
-.event-button:hover {
-    background-color: #d8dadf;
-}
-
-.navigation-menu {
-    list-style: none;
-}
-
-.navigation-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-bottom: 5px;
-}
-
-.navigation-item:hover {
-    background-color: #f0f2f5;
-}
-
-.navigation-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #e4e6eb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-}
-
-.navigation-icon i {
-    font-size: 16px;
-    color: #1877f2;
-}
-
-.navigation-text {
-    font-size: 15px;
-    font-weight: 500;
-}
-
-/* MAIN CONTENT */
-.main-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* FILTROS DE CATEGORÍA */
-.category-filters {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-}
-
-.filters-heading {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: #1c1e21;
-}
-
-.filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.filter-button {
-    background-color: #e4e6eb;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.filter-button:hover {
-    background-color: #d8dadf;
-}
-
-.filter-button.active {
-    background-color: #1877f2;
-    color: #fff;
-}
-
-/* CREAR PUBLICACIÓN */
-.create-post {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-}
-
-.create-post-header {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    align-items: center;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e4e6eb;
-    overflow: hidden;
-}
-
-.avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.create-post-input {
-    flex: 1;
-    border: none;
-    background-color: #f0f2f5;
-    border-radius: 20px;
-    padding: 10px 15px;
-    font-size: 15px;
-    outline: none;
-}
-
-.create-post-form {
-    padding-top: 15px;
-    border-top: 1px solid #e4e6eb;
-    display: none;
-}
-
-.create-post-form.active {
-    display: block;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-label {
-    display: block;
-    font-size: 14px;
-    color: #65676b;
-    margin-bottom: 6px;
-}
-
-.form-control {
-    width: 100%;
-    border: 1px solid #e4e6eb;
-    border-radius: 6px;
-    padding: 10px;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s;
-    font-family: inherit;
-}
-
-.form-control:focus {
-    border-color: #1877f2;
-}
-
-textarea.form-control {
-    min-height: 120px;
-    resize: none;
-}
-
-.form-row {
-    display: flex;
-    gap: 10px;
-}
-
-.form-group-half {
-    flex: 1;
-}
-
-.form-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.btn {
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-}
-
-.btn-primary {
-    background-color: #1877f2;
-    color: #fff;
-    flex: 1;
-}
-
-.btn-primary:hover {
-    background-color: #166fe5;
-}
-
-.btn-secondary {
-    background-color: #e4e6eb;
-    color: #050505;
-}
-
-.btn-secondary:hover {
-    background-color: #d8dadf;
-}
-
-/* PUBLICACIONES */
-.post {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-
-.post-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-}
-
-.post-author {
-    display: flex;
-    align-items: center;
-}
-
-.post-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e4e6eb;
-    margin-right: 10px;
-    overflow: hidden;
-}
-
-.post-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.post-author-name {
-    font-weight: 600;
-    font-size: 15px;
-}
-
-.post-time {
-    font-size: 13px;
-    color: #65676b;
-}
-
-.post-more {
-    color: #65676b;
-    cursor: pointer;
-    font-size: 20px;
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.post-more:hover {
-    background-color: #f0f2f5;
-}
-
-.post-image {
-    width: 100%;
-    max-height: 500px;
-    object-fit: cover;
-}
-
-.post-content {
-    padding: 12px 16px;
-}
-
-.post-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.post-description {
-    margin-bottom: 10px;
-    font-size: 15px;
-}
-
-.post-details {
-    font-size: 14px;
-    color: #65676b;
-}
-
-.post-details p {
-    margin-bottom: 5px;
-}
-
-.post-stats {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 16px;
-    border-top: 1px solid #e4e6eb;
-    border-bottom: 1px solid #e4e6eb;
-}
-
-.post-likes {
-    display: flex;
-    align-items: center;
-}
-
-.post-likes i {
-    color: #1877f2;
-    margin-right: 5px;
-}
-
-.post-comments-count {
-    color: #65676b;
-    cursor: pointer;
-}
-
-.post-actions {
-    display: flex;
-    padding: 4px 16px;
-}
-
-.post-action {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 0;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-    color: #65676b;
-}
-
-.post-action:hover {
-    background-color: #f0f2f5;
-}
-
-.post-action i {
-    margin-right: 6px;
-}
-
-.post-action.active {
-    color: #1877f2;
-}
-
-.post-comment-area {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.comment-input-wrapper {
-    flex: 1;
-    position: relative;
-}
-
-.comment-input {
-    width: 100%;
-    border: none;
-    background-color: #f0f2f5;
-    border-radius: 20px;
-    padding: 8px 40px 8px 12px;
-    font-size: 14px;
-    outline: none;
-}
-
-.comment-send {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #1877f2;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* RIGHT SIDEBAR */
-.sidebar-right {
-    position: sticky;
-    top: 80px;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-}
-
-.profile-card {
-    padding: 15px;
-}
-
-.profile-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.profile-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #e4e6eb;
-    margin-right: 12px;
-    overflow: hidden;
-}
-
-.profile-info {
-    flex: 1;
-}
-
-.profile-name {
-    font-weight: 600;
-    font-size: 17px;
-    margin-bottom: 3px;
-}
-
-.profile-email {
-    font-size: 14px;
-    color: #65676b;
-}
-
-.profile-details {
-    list-style: none;
-}
-
-.profile-item {
-    display: flex;
-    padding: 8px 0;
-    border-bottom: 1px solid #e4e6eb;
-}
-
-.profile-item-label {
-    width: 80px;
-    color: #65676b;
-    font-size: 14px;
-}
-
-.profile-item-value {
-    flex: 1;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.popular-events .event-card {
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.popular-events .event-title {
-    font-size: 14px;
-    margin-bottom: 3px;
-}
-
-.popular-events .event-description {
-    font-size: 12px;
-    color: #65676b;
-    margin-bottom: 3px;
-}
-
-/* FOOTER */
-.footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #fff;
-    border-top: 1px solid #e4e6eb;
-    margin-top: 20px;
-}
-
-.footer h3 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.footer p {
-    font-size: 14px;
-    color: #65676b;
-}
-
-/* MODAL */
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s;
-}
-
-.modal-backdrop.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal {
-    background-color: #fff;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 700px;
-    max-height: 90vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transform: translateY(20px);
-    opacity: 0;
-    transition: all 0.3s;
-}
-
-.modal-backdrop.active .modal {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid #e4e6eb;
-}
-
-.modal-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #1c1e21;
-}
-
-.modal-close {
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    color: #65676b;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-close:hover {
-    background-color: #f0f2f5;
-}
-
-.modal-body {
-    padding: 20px;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.modal-section {
-    margin-bottom: 20px;
-}
-
-.modal-section-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.modal-section-content {
-    background-color: #f0f2f5;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.modal-comments {
-    max-height: 200px;
-    overflow-y: auto;
-    margin-top: 15px;
-}
-
-.comment {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e4e6eb;
-}
-
-.comment:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.comment-author {
-    font-weight: 600;
-    margin-right: 5px;
-}
-
-.modal-comment-form {
-    display: flex;
-    margin-top: 15px;
-    gap: 10px;
-}
-
-.modal-comment-input {
-    flex: 1;
-    border: 1px solid #e4e6eb;
-    border-radius: 20px;
-    padding: 8px 15px;
-    outline: none;
-    font-size: 14px;
-}
-
-.modal-comment-btn {
-    background-color: #1877f2;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0 15px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1200px) {
-    .main-container {
-        grid-template-columns: 220px 1fr 250px;
-    }
-}
-
-@media (max-width: 992px) {
-    .main-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .sidebar-left, .sidebar-right {
-        display: none;
-    }
-}
-
-@media (max-width: 576px) {
-    .form-row {
-        flex-direction: column;
-    }
-    
-    .header-nav-item span {
-        display: none;
-    }
-    
-    .post-action span {
-        display: none;
-    }
-}
-</style>
-
 <!-- Font Awesome para iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <body>
-    <!-- Header principal -->
-    <header class="header">
-        <a href="<?php echo APP_URL; ?>home" class="header-logo">NexMeet</a>
-        
-        <nav class="header-nav">
-            <a href="<?php echo APP_URL; ?>home" class="header-nav-item active">
-                <i class="fas fa-home"></i> <span>Inicio</span>
-            </a>
-            <a href="<?php echo APP_URL; ?>mensajes" class="header-nav-item">
-                <i class="fas fa-comment"></i> <span>Mensajes</span>
-            </a>
-            <a href="<?php echo APP_URL; ?>perfil" class="header-nav-item">
-                <i class="fas fa-user"></i> <span>Perfil</span>
-            </a>
-            <?php if(isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'admin'): ?>
-            <a href="<?php echo APP_URL; ?>admin" class="header-nav-item">
-                <i class="fas fa-cog"></i> <span>Admin</span>
-            </a>
-            <?php endif; ?>
-            <a href="<?php echo APP_URL; ?>logout" class="header-nav-item logout">
-                <i class="fas fa-sign-out-alt"></i> <span>Salir</span>
-            </a>
-        </nav>
-    </header>
+    <?php require_once './views/partials/nav-bar.php'; ?>
 
     <!-- Contenedor principal -->
     <div class="main-container">
@@ -810,15 +17,15 @@ textarea.form-control {
                 <div id="eventos-feed">
                     <div class="event-card">
                         <h4 class="event-title">Torneo de fútbol 5vs5</h4>
-                        <p class="event-date">15/05/2025</p>
-                        <p class="event-category">Categoría: Deportes</p>
+                        <p class="event-date"><i class="far fa-calendar-alt"></i> 15/05/2025</p>
+                        <p class="event-category"><i class="fas fa-tag"></i> Deportes</p>
                         <button class="event-button ver-detalles" data-id="1">Ver detalles</button>
                     </div>
                     
                     <div class="event-card">
                         <h4 class="event-title">Curso de programación</h4>
-                        <p class="event-date">20/06/2025</p>
-                        <p class="event-category">Categoría: Tecnología</p>
+                        <p class="event-date"><i class="far fa-calendar-alt"></i> 20/06/2025</p>
+                        <p class="event-category"><i class="fas fa-tag"></i> Tecnología</p>
                         <button class="event-button ver-detalles" data-id="2">Ver detalles</button>
                     </div>
                 </div>
@@ -858,16 +65,71 @@ textarea.form-control {
         
         <!-- Contenido principal -->
         <main class="main-content">
+            <!-- Historias -->
+            <div class="stories-container">
+                <div class="story-item" data-id="new" data-owner="Tú">
+                    <div class="story-avatar no-story" style="position: relative;">
+                        <img src="https://via.placeholder.com/60" alt="Tu avatar">
+                        <div class="add-story">+</div>
+                    </div>
+                    <div class="story-username">Tu historia</div>
+                </div>
+                
+                <div class="story-item" data-id="1" data-owner="Ana López">
+                    <div class="story-avatar has-story">
+                        <img src="https://via.placeholder.com/60/ff5e00" alt="Avatar de Ana">
+                    </div>
+                    <div class="story-username">Ana López</div>
+                </div>
+                
+                <div class="story-item" data-id="2" data-owner="Carlos Pérez">
+                    <div class="story-avatar has-story">
+                        <img src="https://via.placeholder.com/60/00a2ff" alt="Avatar de Carlos">
+                    </div>
+                    <div class="story-username">Carlos Pérez</div>
+                </div>
+                
+                <div class="story-item" data-id="3" data-owner="María García">
+                    <div class="story-avatar has-story">
+                        <img src="https://via.placeholder.com/60/a200ff" alt="Avatar de María">
+                    </div>
+                    <div class="story-username">María García</div>
+                </div>
+                
+                <div class="story-item" data-id="4" data-owner="Juan Rodríguez">
+                    <div class="story-avatar has-story">
+                        <img src="https://via.placeholder.com/60/00ba21" alt="Avatar de Juan">
+                    </div>
+                    <div class="story-username">Juan Rodríguez</div>
+                </div>
+                
+                <div class="story-item" data-id="5" data-owner="Laura Martínez">
+                    <div class="story-avatar has-story">
+                        <img src="https://via.placeholder.com/60/ffd900" alt="Avatar de Laura">
+                    </div>
+                    <div class="story-username">Laura Martínez</div>
+                </div>
+                
+                <div class="story-item" data-id="6" data-owner="Miguel Sánchez">
+                    <div class="story-avatar has-story">
+                        <img src="https://via.placeholder.com/60/ff00d4" alt="Avatar de Miguel">
+                    </div>
+                    <div class="story-username">Miguel Sánchez</div>
+                </div>
+            </div>
+            
             <!-- Filtros de categoría -->
             <section class="category-filters">
-                <h3 class="filters-heading">¿Qué te interesa?</h3>
                 <div class="filter-buttons">
+                    <button class="filter-button active" data-category="all">Todos</button>
                     <button class="filter-button" data-category="deportes">Deportes</button>
                     <button class="filter-button" data-category="musica">Música</button>
                     <button class="filter-button" data-category="arte">Arte</button>
                     <button class="filter-button" data-category="tecnologia">Tecnología</button>
                     <button class="filter-button" data-category="viajes">Viajes</button>
                     <button class="filter-button" data-category="gastronomia">Gastronomía</button>
+                    <button class="filter-button" data-category="educacion">Educación</button>
+                    <button class="filter-button" data-category="networking">Networking</button>
                 </div>
             </section>
             
@@ -877,7 +139,7 @@ textarea.form-control {
                     <div class="avatar">
                         <img src="https://via.placeholder.com/40" alt="Avatar">
                     </div>
-                    <input type="text" class="create-post-input" placeholder="¿Qué evento quieres compartir?" id="create-post-trigger">
+                    <input type="text" class="create-post-input" placeholder="¿Qué evento quieres compartir?" id="create-post-trigger" readonly>
                 </div>
                 
                 <div class="create-post-form" id="create-post-form">
@@ -907,6 +169,8 @@ textarea.form-control {
                                     <option value="tecnologia">Tecnología</option>
                                     <option value="gastronomia">Gastronomía</option>
                                     <option value="viajes">Viajes</option>
+                                    <option value="educacion">Educación</option>
+                                    <option value="networking">Networking</option>
                                 </select>
                             </div>
                             
@@ -934,14 +198,14 @@ textarea.form-control {
             <!-- Eventos sugeridos -->
             <section id="eventos-sugeridos">
                 <!-- Post 1 -->
-                <article class="post" data-id="1">
+                <article class="post" data-id="1" data-category="deportes">
                     <div class="post-header">
                         <div class="post-author">
                             <div class="post-avatar">
-                                <img src="https://via.placeholder.com/40" alt="Avatar">
+                                <img src="https://via.placeholder.com/40/1877f2" alt="Avatar">
                             </div>
                             <div class="post-info">
-                                <div class="post-author-name">Usuario</div>
+                                <div class="post-author-name">Club Deportivo Local</div>
                                 <div class="post-time">Hace 2 horas</div>
                             </div>
                         </div>
@@ -950,14 +214,16 @@ textarea.form-control {
                         </div>
                     </div>
                     
-                    <img src="https://via.placeholder.com/800x400" alt="Imagen del evento" class="post-image">
+                    <img src="https://via.placeholder.com/800x400/1877f2/ffffff?text=Torneo+de+Fútbol" alt="Imagen del evento" class="post-image">
                     
                     <div class="post-content">
                         <h3 class="post-title">Torneo de fútbol amateur</h3>
-                        <p class="post-description">Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores!</p>
+                        <p class="post-description">Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores! Inscribe a tu equipo antes del 10 de mayo.</p>
                         <div class="post-details">
-                            <p><strong>Ubicación:</strong> Campo Municipal, Calle Principal #123</p>
-                            <p><strong>Fecha:</strong> 15/05/2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Campo Municipal, Calle Principal #123</p>
+                            <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> 15/05/2025</p>
+                            <p><i class="fas fa-tag"></i> <strong>Categoría:</strong> Deportes</p>
+                            <p><i class="fas fa-users"></i> <strong>Cupos disponibles:</strong> 8 equipos</p>
                         </div>
                     </div>
                     
@@ -997,14 +263,14 @@ textarea.form-control {
                 </article>
                 
                 <!-- Post 2 -->
-                <article class="post" data-id="2">
+                <article class="post" data-id="2" data-category="musica">
                     <div class="post-header">
                         <div class="post-author">
                             <div class="post-avatar">
-                                <img src="https://via.placeholder.com/40" alt="Avatar">
+                                <img src="https://via.placeholder.com/40/e91e63" alt="Avatar">
                             </div>
                             <div class="post-info">
-                                <div class="post-author-name">otro_usuario</div>
+                                <div class="post-author-name">Asociación Cultural Música Viva</div>
                                 <div class="post-time">Hace 5 horas</div>
                             </div>
                         </div>
@@ -1013,14 +279,16 @@ textarea.form-control {
                         </div>
                     </div>
                     
-                    <img src="https://via.placeholder.com/800x400" alt="Imagen del evento" class="post-image">
+                    <img src="https://via.placeholder.com/800x400/e91e63/ffffff?text=Concierto+de+Música+Clásica" alt="Imagen del evento" class="post-image">
                     
                     <div class="post-content">
                         <h3 class="post-title">Concierto de música clásica</h3>
-                        <p class="post-description">Disfruta de una velada con las mejores piezas de Mozart y Beethoven.</p>
+                        <p class="post-description">Disfruta de una velada con las mejores piezas de Mozart y Beethoven interpretadas por la Orquesta Filarmónica de la ciudad. Una experiencia única para los amantes de la música clásica.</p>
                         <div class="post-details">
-                            <p><strong>Ubicación:</strong> Auditorio Municipal, Avenida Central #456</p>
-                            <p><strong>Fecha:</strong> 20/05/2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Auditorio Municipal, Avenida Central #456</p>
+                            <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> 20/05/2025</p>
+                            <p><i class="fas fa-tag"></i> <strong>Categoría:</strong> Música</p>
+                            <p><i class="fas fa-ticket-alt"></i> <strong>Entradas:</strong> $150 - $300</p>
                         </div>
                     </div>
                     
@@ -1058,6 +326,71 @@ textarea.form-control {
                         </div>
                     </div>
                 </article>
+                
+                <!-- Post 3 -->
+                <article class="post" data-id="3" data-category="tecnologia">
+                    <div class="post-header">
+                        <div class="post-author">
+                            <div class="post-avatar">
+                                <img src="https://via.placeholder.com/40/4caf50" alt="Avatar">
+                            </div>
+                            <div class="post-info">
+                                <div class="post-author-name">TechMeetup</div>
+                                <div class="post-time">Hace 1 día</div>
+                            </div>
+                        </div>
+                        <div class="post-more">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                    </div>
+                    
+                    <img src="https://via.placeholder.com/800x400/4caf50/ffffff?text=Hackathon+2025" alt="Imagen del evento" class="post-image">
+                    
+                    <div class="post-content">
+                        <h3 class="post-title">Hackathon 2025: Innovación y Tecnología</h3>
+                        <p class="post-description">Participa en nuestro Hackathon anual donde desarrolladores, diseñadores y emprendedores se reúnen para crear soluciones innovadoras. Este año el tema es "Tecnología para el bienestar".</p>
+                        <div class="post-details">
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Centro de Innovación Digital, Plaza Tecnológica #789</p>
+                            <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> 10/06/2025 - 12/06/2025</p>
+                            <p><i class="fas fa-tag"></i> <strong>Categoría:</strong> Tecnología</p>
+                            <p><i class="fas fa-users"></i> <strong>Participantes:</strong> Equipos de 3-5 personas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="post-stats">
+                        <div class="post-likes">
+                            <i class="fas fa-thumbs-up"></i> 64 Me gusta
+                        </div>
+                        <div class="post-comments-count">27 comentarios</div>
+                    </div>
+                    
+                    <div class="post-actions">
+                        <div class="post-action like-action" data-id="3">
+                            <i class="far fa-thumbs-up"></i>
+                            <span>Me gusta</span>
+                        </div>
+                        <div class="post-action comment-action" data-id="3">
+                            <i class="far fa-comment-alt"></i>
+                            <span>Comentar</span>
+                        </div>
+                        <div class="post-action attend-action" data-id="3">
+                            <i class="far fa-calendar-check"></i>
+                            <span>Asistir</span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-comment-area">
+                        <div class="avatar">
+                            <img src="https://via.placeholder.com/32" alt="Avatar">
+                        </div>
+                        <div class="comment-input-wrapper">
+                            <input type="text" class="comment-input" placeholder="Escribe un comentario...">
+                            <button class="comment-send">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
             </section>
         </main>
         
@@ -1070,25 +403,31 @@ textarea.form-control {
                         <img src="https://via.placeholder.com/60" alt="Avatar de perfil">
                     </div>
                     <div class="profile-info">
-                        <div class="profile-name">Usuario</div>
-                        <div class="profile-email">email@ejemplo.com</div>
+                        <div class="profile-name"><?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?></div>
+                        <div class="profile-email"><?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'email@ejemplo.com'; ?></div>
                     </div>
                 </div>
                 
                 <ul class="profile-details">
                     <li class="profile-item">
-                        <div class="profile-item-label">Usuario:</div>
-                        <div class="profile-item-value"><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?></div>
+                        <div class="profile-item-label">Eventos:</div>
+                        <div class="profile-item-value">12 creados</div>
                     </li>
                     <li class="profile-item">
-                        <div class="profile-item-label">Email:</div>
-                        <div class="profile-item-value"><?php echo $_SESSION['email'] ?? 'email@ejemplo.com'; ?></div>
+                        <div class="profile-item-label">Asistiendo:</div>
+                        <div class="profile-item-value">8 eventos</div>
                     </li>
                     <li class="profile-item">
                         <div class="profile-item-label">Tipo:</div>
-                        <div class="profile-item-value"><?php echo $_SESSION['tipo'] ?? 'usuario'; ?></div>
+                        <div class="profile-item-value"><?php echo isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario'; ?></div>
                     </li>
                 </ul>
+                
+                <div style="text-align: center; margin-top: 10px;">
+                    <a href="<?php echo APP_URL; ?>perfil" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-user-edit"></i> Editar perfil
+                    </a>
+                </div>
             </section>
             
             <!-- Eventos populares -->
@@ -1097,49 +436,90 @@ textarea.form-control {
                 
                 <div class="event-card">
                     <h4 class="event-title">Festival de Cine</h4>
-                    <p class="event-description">Proyección de películas independientes</p>
-                    <p class="event-date">10/06/2025</p>
+                    <p class="event-description">Proyección de películas independientes y premiadas internacionalmente</p>
+                    <p class="event-date"><i class="far fa-calendar-alt"></i> 10/06/2025</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Centro Cultural Metropolitano</p>
                 </div>
                 
                 <div class="event-card">
                     <h4 class="event-title">Feria del Libro</h4>
-                    <p class="event-description">Presentaciones de autores y venta de libros</p>
-                    <p class="event-date">15/07/2025</p>
+                    <p class="event-description">Presentaciones de autores y venta de libros con descuentos especiales</p>
+                    <p class="event-date"><i class="far fa-calendar-alt"></i> 15/07/2025</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Parque Central</p>
+                </div>
+                
+                <div class="event-card">
+                    <h4 class="event-title">Maratón Urbana</h4>
+                    <p class="event-description">Recorrido de 42km por las principales avenidas de la ciudad</p>
+                    <p class="event-date"><i class="far fa-calendar-alt"></i> 22/08/2025</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Plaza Principal</p>
+                </div>
+            </section>
+            
+            <!-- Sugerencias de personas -->
+            <section class="sidebar-section">
+                <h3 class="sidebar-heading">Personas que quizás conozcas</h3>
+                
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <div class="avatar" style="margin-right: 10px;">
+                        <img src="https://via.placeholder.com/40/9c27b0" alt="Avatar">
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 14px;">Laura Sánchez</div>
+                        <div style="font-size: 12px; color: #65676b;">5 eventos en común</div>
+                    </div>
+                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
+                </div>
+                
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <div class="avatar" style="margin-right: 10px;">
+                        <img src="https://via.placeholder.com/40/3f51b5" alt="Avatar">
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 14px;">Carlos Méndez</div>
+                        <div style="font-size: 12px; color: #65676b;">3 eventos en común</div>
+                    </div>
+                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
+                </div>
+                
+                <div style="display: flex; align-items: center;">
+                    <div class="avatar" style="margin-right: 10px;">
+                        <img src="https://via.placeholder.com/40/ff9800" alt="Avatar">
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 14px;">Ana Torres</div>
+                        <div style="font-size: 12px; color: #65676b;">7 eventos en común</div>
+                    </div>
+                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
                 </div>
             </section>
         </aside>
     </div>
     
-    <!-- Footer -->
-    <footer class="footer">
-        <h3>Gracias por visitar nuestra página</h3>
-        <p>Todos los derechos reservados &copy; <?php echo date('Y'); ?> NexMeet</p>
-    </footer>
-    
     <!-- Modal de detalles de evento -->
-    <div class="modal-backdrop" id="event-details-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title" id="evento-detalle-titulo">Detalles del evento</div>
-                <button class="modal-close" id="modal-close">&times;</button>
+    <div class="modal-backdrop" id="event-details-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000;">
+        <div class="modal" style="background: white; border-radius: 10px; width: 90%; max-width: 700px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e4e6eb;">
+                <div class="modal-title" id="evento-detalle-titulo" style="font-weight: 600; font-size: 20px;">Detalles del evento</div>
+                <button class="modal-close" id="modal-close" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #65676b;">&times;</button>
             </div>
             
-            <div class="modal-body">
-                <div class="modal-section">
-                    <h4 class="modal-section-title">Descripción</h4>
+            <div class="modal-body" style="padding: 20px; overflow-y: auto; flex: 1;">
+                <div class="modal-section" style="margin-bottom: 20px;">
+                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Descripción</h4>
                     <p id="evento-detalle-descripcion">Descripción del evento</p>
                 </div>
                 
-                <div class="modal-section">
-                    <h4 class="modal-section-title">Organizador</h4>
-                    <div class="modal-section-content">
+                <div class="modal-section" style="margin-bottom: 20px;">
+                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Organizador</h4>
+                    <div class="modal-section-content" style="background-color: #f0f2f5; padding: 15px; border-radius: 8px;">
                         <p>Nombre: <span id="nombreOrganizador">Nombre del organizador</span></p>
                     </div>
                 </div>
                 
-                <div class="modal-section">
-                    <h4 class="modal-section-title">Detalles</h4>
-                    <div class="modal-section-content">
+                <div class="modal-section" style="margin-bottom: 20px;">
+                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Detalles</h4>
+                    <div class="modal-section-content" style="background-color: #f0f2f5; padding: 15px; border-radius: 8px;">
                         <p>Fecha: <span id="evento-detalle-fecha">Fecha del evento</span></p>
                         <p>Categoría: <span id="evento-detalle-categoria">Categoría del evento</span></p>
                         <p>Ubicación: <span id="evento-detalle-ubicacion">Ubicación del evento</span></p>
@@ -1148,22 +528,22 @@ textarea.form-control {
                 </div>
                 
                 <div class="modal-section">
-                    <h4 class="modal-section-title">Comentarios</h4>
-                    <div id="comentarios" class="modal-comments">
+                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Comentarios</h4>
+                    <div id="comentarios" class="modal-comments" style="max-height: 200px; overflow-y: auto; margin-top: 15px;">
                         <!-- Los comentarios se cargarán dinámicamente aquí -->
-                        <div class="comment">
-                            <span class="comment-author">Juan Pérez:</span>
+                        <div class="comment" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;">
+                            <span class="comment-author" style="font-weight: 600; margin-right: 5px;">Juan Pérez:</span>
                             <span>¡Este evento está increíble!</span>
                         </div>
-                        <div class="comment">
-                            <span class="comment-author">Ana López:</span>
+                        <div class="comment" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;">
+                            <span class="comment-author" style="font-weight: 600; margin-right: 5px;">Ana López:</span>
                             <span>Me parece una gran oportunidad para conocer gente nueva.</span>
                         </div>
                     </div>
                     
-                    <div class="modal-comment-form">
-                        <input type="text" id="nuevoComentario" class="modal-comment-input" placeholder="Escribe un comentario...">
-                        <button id="enviarComentario" class="modal-comment-btn" data-evento-id="">Comentar</button>
+                    <div class="modal-comment-form" style="display: flex; margin-top: 15px; gap: 10px;">
+                        <input type="text" id="nuevoComentario" class="modal-comment-input" placeholder="Escribe un comentario..." style="flex: 1; border: 1px solid #e4e6eb; border-radius: 20px; padding: 8px 15px; outline: none; font-size: 14px;">
+                        <button id="enviarComentario" class="modal-comment-btn" data-evento-id="" style="background-color: #1877f2; color: #fff; border: none; border-radius: 6px; padding: 0 15px; font-weight: 500; cursor: pointer;">Comentar</button>
                     </div>
                 </div>
             </div>
@@ -1201,35 +581,43 @@ textarea.form-control {
                     // Cargar datos de ejemplo
                     if (eventoId === '1') {
                         document.getElementById('evento-detalle-titulo').textContent = 'Torneo de fútbol amateur';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores!';
+                        document.getElementById('evento-detalle-descripcion').textContent = 'Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores! Inscribe a tu equipo antes del 10 de mayo.';
                         document.getElementById('nombreOrganizador').textContent = 'Club Deportivo Local';
                         document.getElementById('evento-detalle-fecha').textContent = '15/05/2025';
                         document.getElementById('evento-detalle-categoria').textContent = 'Deportes';
                         document.getElementById('evento-detalle-likes').textContent = '42';
                         document.getElementById('evento-detalle-ubicacion').textContent = 'Campo Municipal, Calle Principal #123';
-                    } else {
+                    } else if (eventoId === '2') {
                         document.getElementById('evento-detalle-titulo').textContent = 'Concierto de música clásica';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Disfruta de una velada con las mejores piezas de Mozart y Beethoven.';
+                        document.getElementById('evento-detalle-descripcion').textContent = 'Disfruta de una velada con las mejores piezas de Mozart y Beethoven interpretadas por la Orquesta Filarmónica de la ciudad. Una experiencia única para los amantes de la música clásica.';
                         document.getElementById('nombreOrganizador').textContent = 'Asociación Cultural Música Viva';
                         document.getElementById('evento-detalle-fecha').textContent = '20/05/2025';
                         document.getElementById('evento-detalle-categoria').textContent = 'Música';
                         document.getElementById('evento-detalle-likes').textContent = '18';
                         document.getElementById('evento-detalle-ubicacion').textContent = 'Auditorio Municipal, Avenida Central #456';
+                    } else if (eventoId === '3') {
+                        document.getElementById('evento-detalle-titulo').textContent = 'Hackathon 2025: Innovación y Tecnología';
+                        document.getElementById('evento-detalle-descripcion').textContent = 'Participa en nuestro Hackathon anual donde desarrolladores, diseñadores y emprendedores se reúnen para crear soluciones innovadoras. Este año el tema es "Tecnología para el bienestar".';
+                        document.getElementById('nombreOrganizador').textContent = 'TechMeetup';
+                        document.getElementById('evento-detalle-fecha').textContent = '10/06/2025 - 12/06/2025';
+                        document.getElementById('evento-detalle-categoria').textContent = 'Tecnología';
+                        document.getElementById('evento-detalle-likes').textContent = '64';
+                        document.getElementById('evento-detalle-ubicacion').textContent = 'Centro de Innovación Digital, Plaza Tecnológica #789';
                     }
                     
-                    eventDetailsModal.classList.add('active');
+                    eventDetailsModal.style.display = 'flex';
                 });
             });
             
             // Cerrar modal
             modalClose.addEventListener('click', function() {
-                eventDetailsModal.classList.remove('active');
+                eventDetailsModal.style.display = 'none';
             });
             
             // Cerrar modal al hacer clic fuera de su contenido
             eventDetailsModal.addEventListener('click', function(e) {
                 if (e.target === eventDetailsModal) {
-                    eventDetailsModal.classList.remove('active');
+                    eventDetailsModal.style.display = 'none';
                 }
             });
             
@@ -1245,8 +633,9 @@ textarea.form-control {
                     // Crear y añadir el comentario al DOM
                     const comentarioDiv = document.createElement('div');
                     comentarioDiv.className = 'comment';
+                    comentarioDiv.style = 'margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;';
                     comentarioDiv.innerHTML = `
-                        <span class="comment-author"><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?>:</span>
+                        <span class="comment-author" style="font-weight: 600; margin-right: 5px;"><?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?>:</span>
                         <span>${nuevoComentario.value}</span>
                     `;
                     comentariosContainer.appendChild(comentarioDiv);
@@ -1264,7 +653,22 @@ textarea.form-control {
                 button.addEventListener('click', function() {
                     const input = commentInputs[index];
                     if (input.value.trim() !== '') {
-                        alert(`Comentario enviado: ${input.value}`);
+                        const post = button.closest('.post');
+                        const commentsCountEl = post.querySelector('.post-comments-count');
+                        const currentCount = parseInt(commentsCountEl.textContent);
+                        
+                        // Actualizar contador de comentarios
+                        commentsCountEl.textContent = `${currentCount + 1} comentarios`;
+                        
+                        // Agregar el comentario visualmente (en un sistema real, enviarías esto al servidor)
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Comentario publicado',
+                            text: 'Tu comentario ha sido añadido correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        
                         input.value = '';
                     }
                 });
@@ -1314,19 +718,34 @@ textarea.form-control {
                         icon.classList.remove('far');
                         icon.classList.add('fas');
                         this.classList.add('active');
-                        alert('Has confirmado tu asistencia al evento');
+                        
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Asistencia confirmada!',
+                            text: 'Has confirmado tu asistencia al evento',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     } else {
                         // Cancelar asistencia
                         icon.classList.remove('fas');
                         icon.classList.add('far');
                         this.classList.remove('active');
-                        alert('Has cancelado tu asistencia al evento');
+                        
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Asistencia cancelada',
+                            text: 'Has cancelado tu asistencia al evento',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     }
                 });
             });
             
             // Filtros de categoría
             const categoryButtons = document.querySelectorAll('.filter-button');
+            const eventPosts = document.querySelectorAll('.post');
             
             categoryButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -1338,8 +757,14 @@ textarea.form-control {
                     // Activar este botón
                     this.classList.add('active');
                     
-                    // Filtrar eventos (simulado)
-                    alert(`Filtrando eventos por categoría: ${category}`);
+                    // Filtrar eventos
+                    eventPosts.forEach(post => {
+                        if (category === 'all' || post.getAttribute('data-category') === category) {
+                            post.style.display = 'block';
+                        } else {
+                            post.style.display = 'none';
+                        }
+                    });
                 });
             });
             
@@ -1349,13 +774,86 @@ textarea.form-control {
             eventoForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Aquí enviarías los datos al servidor
+                // Aquí enviarías los datos al servidor usando AJAX
                 // Por ahora, solo mostramos un mensaje de éxito
-                alert('¡Evento creado con éxito!');
-                
-                // Resetear y cerrar formulario
-                createPostForm.classList.remove('active');
-                this.reset();
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Evento creado!',
+                    text: 'Tu evento ha sido publicado correctamente',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Resetear y cerrar formulario
+                        createPostForm.classList.remove('active');
+                        this.reset();
+                        
+                        // Simular la adición del nuevo evento al feed (en un sistema real, recargarías o añadirías con AJAX)
+                        window.location.reload();
+                    }
+                });
+            });
+            
+            // Manejo de historias
+            const storyItems = document.querySelectorAll('.story-item');
+            
+            storyItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const storyId = this.getAttribute('data-id');
+                    const storyOwner = this.getAttribute('data-owner');
+                    
+                    if (storyId === 'new') {
+                        // Modal para crear nueva historia
+                        Swal.fire({
+                            title: 'Crear nueva historia',
+                            html: `
+                                <div style="text-align: left; margin-bottom: 15px;">
+                                    <label for="story-content" style="display: block; margin-bottom: 5px; font-weight: 500;">Contenido:</label>
+                                    <textarea id="story-content" class="swal2-input" placeholder="¿Qué quieres compartir?" style="height: 100px;"></textarea>
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="story-image" style="display: block; margin-bottom: 5px; font-weight: 500;">Imagen (opcional):</label>
+                                    <input type="file" id="story-image" class="swal2-file" accept="image/*">
+                                </div>
+                            `,
+                            showCancelButton: true,
+                            confirmButtonText: 'Publicar',
+                            cancelButtonText: 'Cancelar',
+                            showLoaderOnConfirm: true,
+                            preConfirm: () => {
+                                const content = document.getElementById('story-content').value;
+                                if (!content.trim()) {
+                                    Swal.showValidationMessage('Por favor, ingresa algo para compartir');
+                                    return false;
+                                }
+                                return { content };
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Historia publicada!',
+                                    text: 'Tu historia estará visible durante 24 horas',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                                
+                                // Aquí se enviaría al servidor en un sistema real
+                            }
+                        });
+                    } else {
+                        // Ver historia existente
+                        Swal.fire({
+                            title: storyOwner,
+                            imageUrl: `https://via.placeholder.com/500x800?text=Historia+de+${storyOwner}`,
+                            imageWidth: 400,
+                            imageHeight: 600,
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            footer: '<div style="text-align: center; width: 100%;"><input type="text" placeholder="Enviar mensaje..." style="width: 80%; padding: 8px; border-radius: 20px; border: 1px solid #ccc;"></div>'
+                        });
+                    }
+                });
             });
         });
     </script>
