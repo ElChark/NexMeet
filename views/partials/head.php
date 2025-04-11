@@ -21,6 +21,12 @@
         case 'home':
             echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/home.css">';
             break;
+        case 'perfil':
+            echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/perfil.css">';
+            break;
+        case 'mensajes':
+            echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/messages.css">';
+            break;
     }
     ?>
     
