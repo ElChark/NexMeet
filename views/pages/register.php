@@ -1,0 +1,84 @@
+<?php require_once './views/partials/head.php' ?>
+<style>
+    body {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+    .register-container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        text-align: center;
+        backdrop-filter: blur(10px);
+        width: 25%;
+    }
+    .register-container h1 {
+        margin-bottom: 10px;
+    }
+    .register-container p {
+        margin-bottom: 20px;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #00c6ff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    button:hover {
+        background: #0072ff;
+    }
+    .login-link {
+        margin-top: 10px;
+    }
+    .login-link a {
+        color: #00c6ff;
+        text-decoration: none;
+    }
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+    .error-message {
+        color: #ff6b6b;
+        background: rgba(255, 107, 107, 0.1);
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        display: none;
+    }
+</style>
+<body>
+    <div class="register-container">
+        <h1>Regístrate en NexMeet</h1>
+        <div id="error-message" class="error-message"></div>
+        <form id="register-form" method="post" enctype="multipart/form-data" action="../../ajax/usuario-ajax.php">
+            <input type="text" id="new-username" name="nombre" placeholder="Usuario" required>
+            <input type="email" id="new-email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" id="new-password" name="contra" placeholder="Contraseña" required>
+            <input type="password" id="new-password2" name="contra2" placeholder="Repite la Contraseña" required>
+            <input type="date" id="new-birth" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" required>
+            <button type="submit">Registrarse</button>
+        </form>
+        <p class="login-link">¿Ya tienes cuenta? <a href="<?php echo APP_URL; ?>login">Iniciar Sesión</a></p>
+    </div>
+</body>
+</html>
