@@ -27,6 +27,12 @@
         case 'mensajes':
             echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/messages.css">';
             break;
+        case 'explorar':
+            echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/explorar.css">';
+            break;
+        case 'crearevento':
+            echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/crearevento.css">';
+            break;
     }
     ?>
     

@@ -163,14 +163,22 @@
             </div>
         </div>
         
-        <!-- Paginación -->
-        <div class="pagination">
-            <button class="pagination-btn active">1</button>
-            <button class="pagination-btn">2</button>
-            <button class="pagination-btn">3</button>
-            <button class="pagination-btn">4</button>
-            <button class="pagination-btn">5</button>
-            <button class="pagination-btn next"><i class="fas fa-chevron-right"></i></button>
+        <!-- Paginación mejorada -->
+        <div class="pagination-container">
+            <div class="pagination">
+                <a href="#" class="pagination-arrow prev" aria-label="Página anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a href="#" class="pagination-number active" data-page="1">1</a>
+                <a href="#" class="pagination-number" data-page="2">2</a>
+                <a href="#" class="pagination-number" data-page="3">3</a>
+                <a href="#" class="pagination-number" data-page="4">4</a>
+                <a href="#" class="pagination-number" data-page="5">5</a>
+                <a href="#" class="pagination-arrow next" aria-label="Página siguiente">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <div class="page-indicator">Página 1 de 5</div>
         </div>
     </div>
 
@@ -184,15 +192,6 @@
                     this.classList.add('active');
                     
                     // Aquí iría la lógica para filtrar eventos por categoría
-                    // Por ahora solo mostraremos un mensaje de éxito
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Categoría seleccionada',
-                        text: `Has seleccionado la categoría: ${this.textContent.trim()}`,
-                        confirmButtonColor: '#ff5a5f',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
                 });
             });
             
@@ -204,44 +203,7 @@
                     this.classList.add('active');
                     
                     if (this.textContent === 'Elegir fecha') {
-                        // Mostrar selector de fecha
-                        Swal.fire({
-                            title: 'Selecciona una fecha',
-                            html: '<input type="date" id="date-picker" class="swal2-input">',
-                            confirmButtonText: 'Filtrar',
-                            confirmButtonColor: '#ff5a5f',
-                            showCancelButton: true,
-                            cancelButtonText: 'Cancelar',
-                            preConfirm: () => {
-                                const date = document.getElementById('date-picker').value;
-                                if (!date) {
-                                    Swal.showValidationMessage('Por favor selecciona una fecha');
-                                }
-                                return { date };
-                            }
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Aquí iría la lógica para filtrar por la fecha seleccionada
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Fecha filtrada',
-                                    text: `Mostrando eventos para: ${result.value.date}`,
-                                    confirmButtonColor: '#ff5a5f',
-                                    timer: 1500,
-                                    showConfirmButton: false
-                                });
-                            }
-                        });
-                    } else {
-                        // Aquí iría la lógica para filtrar eventos por fecha
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Fecha seleccionada',
-                            text: `Mostrando eventos para: ${this.textContent.trim()}`,
-                            confirmButtonColor: '#ff5a5f',
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
+                        // Aquí podrías mostrar un selector de fecha (implementación adicional requerida)
                     }
                 });
             });
@@ -249,24 +211,7 @@
             // Manejador para botón de ubicación
             document.querySelector('.location-btn').addEventListener('click', function() {
                 const location = document.querySelector('.location-input').value.trim();
-                if (location) {
-                    // Aquí iría la lógica para filtrar eventos por ubicación
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Ubicación seleccionada',
-                        text: `Mostrando eventos cerca de: ${location}`,
-                        confirmButtonColor: '#ff5a5f',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Ubicación vacía',
-                        text: 'Por favor ingresa una ubicación para buscar',
-                        confirmButtonColor: '#ff5a5f'
-                    });
-                }
+                // Aquí iría la lógica para filtrar eventos por ubicación
             });
             
             // Manejador para botones de asistencia
@@ -276,371 +221,138 @@
                     const eventCard = this.closest('.event-card');
                     const eventTitle = eventCard.querySelector('.event-title').textContent;
                     
-                    Swal.fire({
-                        title: '¿Confirmar asistencia?',
-                        text: `¿Deseas confirmar tu asistencia a "${eventTitle}"?`,
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#ff5a5f',
-                        cancelButtonColor: '#6e7881',
-                        confirmButtonText: 'Sí, asistiré',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Cambiar estilo del botón
-                            this.textContent = 'Asistiré';
-                            this.classList.add('attending');
-                            
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Asistencia confirmada!',
-                                text: `Has confirmado tu asistencia a "${eventTitle}"`,
-                                confirmButtonColor: '#ff5a5f',
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                        }
-                    });
+                    // Cambiar estilo del botón sin alerta
+                    this.textContent = 'Asistiré';
+                    this.classList.add('attending');
+                    
+                    // También podrías mostrar una notificación en lugar de una alerta
+                    showNotification('¡Asistencia confirmada!', `Has confirmado tu asistencia a "${eventTitle}"`, 'success');
                 });
             });
             
-            // Manejador para los botones de paginación
-            const paginationButtons = document.querySelectorAll('.pagination-btn');
-            paginationButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (!this.classList.contains('next')) {
-                        paginationButtons.forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        
-                        // Aquí iría la lógica para cargar la página correspondiente
-                        // Por ahora solo mostraremos un mensaje
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Cambio de página',
-                            text: `Has navegado a la página ${this.textContent}`,
-                            confirmButtonColor: '#ff5a5f',
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-                    } else {
-                        // Lógica para el botón "Siguiente"
-                        let activeButton;
-                        paginationButtons.forEach((b, index) => {
-                            if (b.classList.contains('active') && index < paginationButtons.length - 2) {
-                                activeButton = index;
-                            }
-                        });
-                        
-                        if (activeButton !== undefined) {
-                            paginationButtons[activeButton].classList.remove('active');
-                            paginationButtons[activeButton + 1].classList.add('active');
-                            
-                            // Aquí iría la lógica para cargar la página siguiente
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'Página siguiente',
-                                text: `Has navegado a la página ${paginationButtons[activeButton + 1].textContent}`,
-                                confirmButtonColor: '#ff5a5f',
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                        }
-                    }
+            // Manejador para paginación mejorada
+            const paginationItems = document.querySelectorAll('.pagination-number');
+            const paginationPrev = document.querySelector('.pagination-arrow.prev');
+            const paginationNext = document.querySelector('.pagination-arrow.next');
+            const pageIndicator = document.querySelector('.page-indicator');
+            
+            function updatePage(pageNumber) {
+                // Actualizar clases activas
+                paginationItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Encontrar y activar el nuevo número de página
+                const newActivePage = document.querySelector(`.pagination-number[data-page="${pageNumber}"]`);
+                if (newActivePage) {
+                    newActivePage.classList.add('active');
+                }
+                
+                // Actualizar indicador de página
+                pageIndicator.textContent = `Página ${pageNumber} de 5`;
+                
+                // Deshabilitar/habilitar botones de navegación
+                if (pageNumber === 1) {
+                    paginationPrev.classList.add('disabled');
+                } else {
+                    paginationPrev.classList.remove('disabled');
+                }
+                
+                if (pageNumber === 5) { // Asumiendo que hay 5 páginas
+                    paginationNext.classList.add('disabled');
+                } else {
+                    paginationNext.classList.remove('disabled');
+                }
+                
+                // Desplazarse hacia arriba suavemente
+                window.scrollTo({
+                    top: document.querySelector('.filters-container').offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Aquí iría la lógica para cargar contenido de la nueva página
+                // Por ejemplo: loadPageContent(pageNumber);
+            }
+            
+            // Inicializar estado de paginación
+            updatePage(1);
+            
+            // Añadir eventos a los números de página
+            paginationItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageNumber = parseInt(this.getAttribute('data-page'));
+                    updatePage(pageNumber);
                 });
             });
+            
+            // Añadir eventos a los botones de navegación
+            paginationPrev.addEventListener('click', function(e) {
+                e.preventDefault();
+                const activePage = document.querySelector('.pagination-number.active');
+                const currentPage = parseInt(activePage.getAttribute('data-page'));
+                
+                if (currentPage > 1) {
+                    updatePage(currentPage - 1);
+                }
+            });
+            
+            paginationNext.addEventListener('click', function(e) {
+                e.preventDefault();
+                const activePage = document.querySelector('.pagination-number.active');
+                const currentPage = parseInt(activePage.getAttribute('data-page'));
+                
+                if (currentPage < 5) { // Asumiendo que hay 5 páginas
+                    updatePage(currentPage + 1);
+                }
+            });
+            
+            // Función para mostrar notificaciones en lugar de alertas
+            function showNotification(title, message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <div class="notification-icon">
+                            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                        </div>
+                        <div class="notification-text">
+                            <h4>${title}</h4>
+                            <p>${message}</p>
+                        </div>
+                        <button class="notification-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Mostrar con animación
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+                
+                // Cerrar al hacer clic
+                notification.querySelector('.notification-close').addEventListener('click', function() {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                });
+                
+                // Auto cerrar después de 3 segundos
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        notification.classList.remove('show');
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 300);
+                    }
+                }, 3000);
+            }
         });
     </script>
-
-    <style>
-        /* Estilos específicos para la página de exploración */
-        .explorer-container {
-            max-width: 1200px;
-            margin: 90px auto 30px;
-            padding: 0 20px;
-        }
-        
-        .page-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .page-header h1 {
-            font-size: 2.2rem;
-            color: var(--text-color);
-            margin-bottom: 10px;
-        }
-        
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--dark-gray);
-        }
-        
-        .filters-container {
-            background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .filter-group {
-            margin-bottom: 20px;
-        }
-        
-        .filter-group:last-child {
-            margin-bottom: 0;
-        }
-        
-        .filter-group h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-color);
-        }
-        
-        .category-buttons, .date-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .category-btn, .date-btn {
-            background-color: var(--light-gray);
-            border: none;
-            border-radius: 20px;
-            padding: 8px 15px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .category-btn i {
-            margin-right: 5px;
-        }
-        
-        .category-btn:hover, .date-btn:hover {
-            background-color: var(--medium-gray);
-        }
-        
-        .category-btn.active, .date-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .location-search {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .location-input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid var(--medium-gray);
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .location-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            width: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .location-btn:hover {
-            background-color: #e63946;
-        }
-        
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .event-card {
-            background-color: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .event-image {
-            position: relative;
-            height: 160px;
-        }
-        
-        .event-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .event-date {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            padding: 5px 10px;
-            text-align: center;
-            line-height: 1.2;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .event-day {
-            display: block;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        .event-month {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-        
-        .event-info {
-            padding: 15px;
-        }
-        
-        .event-category {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--secondary-color);
-            margin-bottom: 6px;
-        }
-        
-        .event-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-        
-        .event-location {
-            font-size: 14px;
-            color: var(--dark-gray);
-            margin-bottom: 15px;
-        }
-        
-        .event-location i {
-            color: var(--primary-color);
-            margin-right: 5px;
-        }
-        
-        .event-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-        
-        .event-price {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-        
-        .attend-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .attend-btn:hover {
-            background-color: #e63946;
-        }
-        
-        .attend-btn.attending {
-            background-color: var(--secondary-color);
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 30px;
-        }
-        
-        .pagination-btn {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--white);
-            border: 1px solid var(--medium-gray);
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .pagination-btn:hover {
-            background-color: var(--light-gray);
-        }
-        
-        .pagination-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .category-buttons, .date-buttons {
-                overflow-x: auto;
-                padding-bottom: 10px;
-                flex-wrap: nowrap;
-            }
-            
-            .category-btn, .date-btn {
-                white-space: nowrap;
-            }
-            
-            .events-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .events-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .pagination-btn {
-                width: 32px;
-                height: 32px;
-            }
-        }
-    </style>
 </body>
 </html>

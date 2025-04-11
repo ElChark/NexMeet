@@ -44,9 +44,13 @@
             </div>
         </div>
         
-        <!-- Menú de navegación del perfil -->
+        <!-- Menú de navegación del perfil en el nuevo orden -->
         <div class="profile-nav">
-            <div class="profile-nav-item active" data-tab="events">
+            <div class="profile-nav-item" data-tab="photos">
+                <i class="fas fa-image"></i>
+                <span>FOTOS</span>
+            </div>
+            <div class="profile-nav-item" data-tab="events">
                 <i class="fas fa-calendar-alt"></i>
                 <span>EVENTOS</span>
             </div>
@@ -58,16 +62,54 @@
                 <i class="fas fa-star"></i>
                 <span>ASISTIENDO</span>
             </div>
-            <div class="profile-nav-item" data-tab="photos">
-                <i class="fas fa-image"></i>
-                <span>FOTOS</span>
-            </div>
         </div>
         
         <!-- Contenido del perfil -->
         <div class="profile-content">
+            <!-- Pestaña de fotos (primera por defecto) -->
+            <div class="profile-tab" id="photos-tab">
+                <div class="photos-grid">
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/ff5a5f/ffffff?text=Foto+1" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/00a699/ffffff?text=Foto+2" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/484848/ffffff?text=Foto+3" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/ff5a5f/ffffff?text=Foto+4" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/00a699/ffffff?text=Foto+5" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/484848/ffffff?text=Foto+6" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/ff5a5f/ffffff?text=Foto+7" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/00a699/ffffff?text=Foto+8" alt="Foto">
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300/484848/ffffff?text=Foto+9" alt="Foto">
+                    </div>
+                </div>
+                
+                <div class="empty-message" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>No tienes fotos compartidas</h3>
+                    <p>Las fotos que compartas en eventos aparecerán aquí</p>
+                    <button class="upload-photo-button">Subir una foto</button>
+                </div>
+            </div>
+            
             <!-- Pestaña de eventos -->
-            <div class="profile-tab active" id="events-tab">
+            <div class="profile-tab" id="events-tab">
                 <div class="profile-grid">
                     <div class="profile-card">
                         <div class="card-image">
@@ -303,129 +345,101 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Pestaña de fotos -->
-            <div class="profile-tab" id="photos-tab">
-                <div class="photos-grid">
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/ff5a5f/ffffff?text=Foto+1" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/00a699/ffffff?text=Foto+2" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/484848/ffffff?text=Foto+3" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/ff5a5f/ffffff?text=Foto+4" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/00a699/ffffff?text=Foto+5" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/484848/ffffff?text=Foto+6" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/ff5a5f/ffffff?text=Foto+7" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/00a699/ffffff?text=Foto+8" alt="Foto">
-                    </div>
-                    <div class="photo-item">
-                        <img src="https://via.placeholder.com/300/484848/ffffff?text=Foto+9" alt="Foto">
-                    </div>
-                </div>
-                
-                <div class="empty-message" style="display: none;">
-                    <div class="empty-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3>No tienes fotos compartidas</h3>
-                    <p>Las fotos que compartas en eventos aparecerán aquí</p>
-                    <button class="upload-photo-button">Subir una foto</button>
-                </div>
-            </div>
         </div>
     </div>
     
     <!-- Formulario modal para editar perfil -->
-    <div class="modal-backdrop" id="edit-profile-modal" style="display: none;">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title">Editar perfil</div>
-                <button class="modal-close" id="edit-profile-close">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-                <form id="edit-profile-form">
-                    <div class="form-group">
-                        <label class="form-label" for="edit-username">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="edit-username" name="username" value="<?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?>">
+<div class="modal-backdrop" id="edit-profile-modal" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">Editar perfil</div>
+            <button class="modal-close" id="edit-profile-close">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <form id="edit-profile-form">
+                <!-- Previsualización de foto (opcional) -->
+                <div class="photo-preview">
+                    <img src="https://via.placeholder.com/150" alt="Foto de perfil" id="preview-profile-photo">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label required" for="edit-username">Nombre de usuario</label>
+                    <input type="text" class="form-control" id="edit-username" name="username" value="<?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?>" placeholder="Tu nombre completo">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label required" for="edit-email">Correo electrónico</label>
+                    <input type="email" class="form-control" id="edit-email" name="email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'email@ejemplo.com'; ?>" placeholder="tu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="edit-bio">Biografía</label>
+                    <textarea class="form-control" id="edit-bio" name="bio" placeholder="Cuéntanos sobre ti">Organizador de eventos | Amante de la música y la cultura</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="edit-website">Sitio web</label>
+                    <input type="text" class="form-control" id="edit-website" name="website" value="" placeholder="https://tusitio.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="edit-phone">Teléfono</label>
+                    <input type="text" class="form-control" id="edit-phone" name="phone" value="" placeholder="+123 456 7890">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Foto de perfil</label>
+                    <div class="file-upload-container">
+                        <button type="button" class="file-upload-btn">
+                            <i class="fas fa-camera"></i> Cambiar foto de perfil
+                        </button>
+                        <input type="file" id="profile-photo-upload" name="photo" accept="image/*">
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="edit-email">Correo electrónico</label>
-                        <input type="email" class="form-control" id="edit-email" name="email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'email@ejemplo.com'; ?>">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="edit-bio">Biografía</label>
-                        <textarea class="form-control" id="edit-bio" name="bio">Organizador de eventos | Amante de la música y la cultura</textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="edit-website">Sitio web</label>
-                        <input type="text" class="form-control" id="edit-website" name="website" value="">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="edit-phone">Teléfono</label>
-                        <input type="text" class="form-control" id="edit-phone" name="phone" value="">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Foto de perfil</label>
-                        <div class="file-upload-container">
-                            <button type="button" class="file-upload-btn">Cambiar foto</button>
-                            <input type="file" id="profile-photo-upload" name="photo" accept="image/*">
-                        </div>
-                    </div>
-                    
-                    <div class="form-buttons">
-                        <button type="button" class="btn btn-secondary" id="cancel-edit">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" id="cancel-edit">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Establecer la pestaña de fotos como activa al cargar la página
+            setActiveTab('photos');
+            
             // Manejadores para las pestañas del perfil
             const tabButtons = document.querySelectorAll('.profile-nav-item');
-            const tabContents = document.querySelectorAll('.profile-tab');
             
             tabButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Quitar clase activa de todos los botones
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    
-                    // Añadir clase activa al botón actual
-                    this.classList.add('active');
-                    
-                    // Mostrar la pestaña correspondiente
                     const tabName = this.getAttribute('data-tab');
-                    
-                    tabContents.forEach(tab => {
-                        tab.classList.remove('active');
-                    });
-                    
-                    document.getElementById(`${tabName}-tab`).classList.add('active');
+                    setActiveTab(tabName);
                 });
             });
+            
+            // Función para establecer la pestaña activa
+            function setActiveTab(tabName) {
+                // Remover clase activa de todas las pestañas
+                const allButtons = document.querySelectorAll('.profile-nav-item');
+                const allTabs = document.querySelectorAll('.profile-tab');
+                
+                allButtons.forEach(btn => btn.classList.remove('active'));
+                allTabs.forEach(tab => tab.classList.remove('active'));
+                
+                // Añadir clase activa a la pestaña seleccionada
+                const selectedButton = document.querySelector(`.profile-nav-item[data-tab="${tabName}"]`);
+                const selectedTab = document.getElementById(`${tabName}-tab`);
+                
+                if (selectedButton && selectedTab) {
+                    selectedButton.classList.add('active');
+                    selectedTab.classList.add('active');
+                }
+            }
             
             // Manejadores para el modal de editar perfil
             const editProfileButton = document.querySelector('.edit-profile-button');
@@ -504,61 +518,28 @@
             const newEventCard = document.querySelector('.new-event-card');
             
             newEventCard.addEventListener('click', function() {
-                Swal.fire({
-                    title: 'Crear nuevo evento',
-                    html: `
-                        <form id="new-event-form" class="swal2-form">
-                            <div class="form-group" style="margin-bottom: 15px; text-align: left;">
-                                <label style="display: block; margin-bottom: 5px; font-weight: 500;">Título del evento:</label>
-                                <input type="text" id="event-title" class="swal2-input" style="margin: 0; width: 100%;" placeholder="Título de tu evento">
-                            </div>
-                            <div class="form-group" style="margin-bottom: 15px; text-align: left;">
-                                <label style="display: block; margin-bottom: 5px; font-weight: 500;">Fecha:</label>
-                                <input type="date" id="event-date" class="swal2-input" style="margin: 0; width: 100%;">
-                            </div>
-                            <div class="form-group" style="margin-bottom: 15px; text-align: left;">
-                                <label style="display: block; margin-bottom: 5px; font-weight: 500;">Ubicación:</label>
-                                <input type="text" id="event-location" class="swal2-input" style="margin: 0; width: 100%;" placeholder="Ubicación del evento">
-                            </div>
-                            <div class="form-group" style="margin-bottom: 15px; text-align: left;">
-                                <label style="display: block; margin-bottom: 5px; font-weight: 500;">Descripción:</label>
-                                <textarea id="event-description" class="swal2-textarea" style="margin: 0; width: 100%;" placeholder="Describe tu evento"></textarea>
-                            </div>
-                        </form>
-                    `,
-                    showCancelButton: true,
-                    confirmButtonText: 'Crear evento',
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonColor: '#ff5a5f',
-                    preConfirm: () => {
-                        const title = document.getElementById('event-title').value;
-                        const date = document.getElementById('event-date').value;
-                        const location = document.getElementById('event-location').value;
-                        
-                        if (!title || !date || !location) {
-                            Swal.showValidationMessage('Por favor completa todos los campos');
-                            return false;
-                        }
-                        
-                        return {
-                            title,
-                            date,
-                            location
-                        };
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Evento creado!',
-                            text: 'Tu evento ha sido creado correctamente',
-                            confirmButtonText: 'Aceptar',
-                            confirmButtonColor: '#ff5a5f'
-                        });
-                    }
-                });
+                // Redireccionar a la página de creación de eventos
+                window.location.href = '<?php echo APP_URL; ?>crearevento';
             });
         });
     </script>
+
+    <style>
+        /* Asegúrate de incluir los estilos base */
+        html, body {
+            font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.5;
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+        
+        /* Estilos personalizados para las pestañas */
+        .profile-nav-item.active {
+            color: var(--primary-color);
+            border-top-color: var(--primary-color);
+        }
+    </style>
 </body>
 </html>
