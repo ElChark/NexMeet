@@ -1,8 +1,6 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/session-start.php' ?>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
 
@@ -10,192 +8,131 @@
     <div class="main-container">
         <!-- Sidebar izquierda -->
         <aside class="sidebar-left">
-            <!-- Tus eventos -->
-            <section class="sidebar-section">
-                <h3 class="sidebar-heading">Tus eventos</h3>
-                <div id="eventos-feed">
-                    <div class="event-card">
-                        <h4 class="event-title">Torneo de fútbol 5vs5</h4>
-                        <p class="event-date"><i class="far fa-calendar-alt"></i> 15/05/2025</p>
-                        <p class="event-category"><i class="fas fa-tag"></i> Deportes</p>
-                        <button class="event-button ver-detalles" data-id="1">Ver detalles</button>
+                        <!-- Eventos populares -->
+            <div class="popular-events-container">
+                <h3 class="sidebar-heading">Eventos populares</h3>
+                
+                <div class="event-mini-card">
+                    <div class="event-mini-image">
+                        <img src="https://via.placeholder.com/100/ff5a5f/ffffff?text=Evento" alt="Evento">
                     </div>
-                    
-                    <div class="event-card">
-                        <h4 class="event-title">Curso de programación</h4>
-                        <p class="event-date"><i class="far fa-calendar-alt"></i> 20/06/2025</p>
-                        <p class="event-category"><i class="fas fa-tag"></i> Tecnología</p>
-                        <button class="event-button ver-detalles" data-id="2">Ver detalles</button>
+                    <div class="event-mini-info">
+                        <h4>Festival de Cine</h4>
+                        <p><i class="far fa-calendar-alt"></i> 10/06/2025</p>
                     </div>
                 </div>
-            </section>
-            
-            <!-- Explorar -->
-            <section class="sidebar-section">
-                <h3 class="sidebar-heading">Explorar</h3>
-                <ul class="navigation-menu">
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <span class="navigation-text">Eventos cercanos</span>
-                    </li>
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <span class="navigation-text">Grupos</span>
-                    </li>
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="navigation-text">Destacados</span>
-                    </li>
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-bookmark"></i>
-                        </div>
-                        <span class="navigation-text">Guardados</span>
-                    </li>
-                </ul>
-            </section>
+                
+                <div class="event-mini-card">
+                    <div class="event-mini-image">
+                        <img src="https://via.placeholder.com/100/00a699/ffffff?text=Evento" alt="Evento">
+                    </div>
+                    <div class="event-mini-info">
+                        <h4>Feria del Libro</h4>
+                        <p><i class="far fa-calendar-alt"></i> 15/07/2025</p>
+                    </div>
+                </div>
+                
+                <a href="<?php echo APP_URL; ?>explorar" class="see-more-link">Ver más eventos <i class="fas fa-chevron-right"></i></a>
+            </div>
         </aside>
         
         <!-- Contenido principal -->
         <main class="main-content">
             <!-- Historias -->
             <div class="stories-container">
-                <div class="story-item" data-id="new" data-owner="Tú">
-                    <div class="story-avatar no-story" style="position: relative;">
-                        <img src="https://via.placeholder.com/60" alt="Tu avatar">
-                        <div class="add-story">+</div>
+                <div class="story-item" data-id="new">
+                    <div class="story-avatar-container your-story">
+                        <div class="story-avatar">
+                            <img src="https://via.placeholder.com/60" alt="Tu avatar">
+                        </div>
+                        <div class="add-story">
+                            <i class="fas fa-plus"></i>
+                        </div>
                     </div>
                     <div class="story-username">Tu historia</div>
                 </div>
                 
-                <div class="story-item" data-id="1" data-owner="Ana López">
-                    <div class="story-avatar has-story">
-                        <img src="https://via.placeholder.com/60/ff5e00" alt="Avatar de Ana">
+                <div class="story-item" data-id="1">
+                    <div class="story-avatar-container has-story">
+                        <div class="story-avatar">
+                            <img src="https://via.placeholder.com/60/ff5e00" alt="Avatar de Ana">
+                        </div>
                     </div>
-                    <div class="story-username">Ana López</div>
+                    <div class="story-username">Ana</div>
                 </div>
                 
-                <div class="story-item" data-id="2" data-owner="Carlos Pérez">
-                    <div class="story-avatar has-story">
-                        <img src="https://via.placeholder.com/60/00a2ff" alt="Avatar de Carlos">
+                <div class="story-item" data-id="2">
+                    <div class="story-avatar-container has-story">
+                        <div class="story-avatar">
+                            <img src="https://via.placeholder.com/60/00a2ff" alt="Avatar de Carlos">
+                        </div>
                     </div>
-                    <div class="story-username">Carlos Pérez</div>
+                    <div class="story-username">Carlos</div>
                 </div>
                 
-                <div class="story-item" data-id="3" data-owner="María García">
-                    <div class="story-avatar has-story">
-                        <img src="https://via.placeholder.com/60/a200ff" alt="Avatar de María">
+                <div class="story-item" data-id="3">
+                    <div class="story-avatar-container has-story">
+                        <div class="story-avatar">
+                            <img src="https://via.placeholder.com/60/a200ff" alt="Avatar de María">
+                        </div>
                     </div>
-                    <div class="story-username">María García</div>
+                    <div class="story-username">María</div>
                 </div>
                 
-                <div class="story-item" data-id="4" data-owner="Juan Rodríguez">
-                    <div class="story-avatar has-story">
-                        <img src="https://via.placeholder.com/60/00ba21" alt="Avatar de Juan">
+                <div class="story-item" data-id="4">
+                    <div class="story-avatar-container has-story">
+                        <div class="story-avatar">
+                            <img src="https://via.placeholder.com/60/00ba21" alt="Avatar de Juan">
+                        </div>
                     </div>
-                    <div class="story-username">Juan Rodríguez</div>
+                    <div class="story-username">Juan</div>
                 </div>
                 
-                <div class="story-item" data-id="5" data-owner="Laura Martínez">
-                    <div class="story-avatar has-story">
-                        <img src="https://via.placeholder.com/60/ffd900" alt="Avatar de Laura">
+                <div class="story-item" data-id="5">
+                    <div class="story-avatar-container has-story">
+                        <div class="story-avatar">
+                            <img src="https://via.placeholder.com/60/ffd900" alt="Avatar de Laura">
+                        </div>
                     </div>
-                    <div class="story-username">Laura Martínez</div>
+                    <div class="story-username">Laura</div>
                 </div>
                 
-                <div class="story-item" data-id="6" data-owner="Miguel Sánchez">
-                    <div class="story-avatar has-story">
-                        <img src="https://via.placeholder.com/60/ff00d4" alt="Avatar de Miguel">
+                <div class="story-item" data-id="6">
+                    <div class="story-avatar-container has-story">
+                        <div class="story-avatar">
+                            <img src="https://via.placeholder.com/60/ff00d4" alt="Avatar de Miguel">
+                        </div>
                     </div>
-                    <div class="story-username">Miguel Sánchez</div>
+                    <div class="story-username">Miguel</div>
                 </div>
             </div>
             
-            <!-- Filtros de categoría -->
-            <section class="category-filters">
-                <div class="filter-buttons">
-                    <button class="filter-button active" data-category="all">Todos</button>
-                    <button class="filter-button" data-category="deportes">Deportes</button>
-                    <button class="filter-button" data-category="musica">Música</button>
-                    <button class="filter-button" data-category="arte">Arte</button>
-                    <button class="filter-button" data-category="tecnologia">Tecnología</button>
-                    <button class="filter-button" data-category="viajes">Viajes</button>
-                    <button class="filter-button" data-category="gastronomia">Gastronomía</button>
-                    <button class="filter-button" data-category="educacion">Educación</button>
-                    <button class="filter-button" data-category="networking">Networking</button>
-                </div>
-            </section>
-            
             <!-- Crear publicación -->
-            <section class="create-post">
+            <div class="create-post">
                 <div class="create-post-header">
-                    <div class="avatar">
+                    <div class="user-avatar">
                         <img src="https://via.placeholder.com/40" alt="Avatar">
                     </div>
-                    <input type="text" class="create-post-input" placeholder="¿Qué evento quieres compartir?" id="create-post-trigger" readonly>
+                    <div class="create-post-input" id="create-post-trigger">
+                        <span>¿Qué evento quieres compartir?</span>
+                    </div>
                 </div>
                 
-                <div class="create-post-form" id="create-post-form">
-                    <form id="evento-form">
-                        <div class="form-group">
-                            <label class="form-label" for="shareText">Título del evento</label>
-                            <input type="text" class="form-control" id="shareText" name="titulo" placeholder="¿De qué trata tu evento?" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="shareDesc">Descripción</label>
-                            <textarea class="form-control" id="shareDesc" name="descripcion" placeholder="Describe los detalles de tu evento..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="shareLoc">Ubicación</label>
-                            <input type="text" class="form-control" id="shareLoc" name="ubicacion" placeholder="¿Dónde se realizará?" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group-half">
-                                <label class="form-label" for="shareCategory">Categoría</label>
-                                <select class="form-control" id="shareCategory" name="categoria">
-                                    <option value="deportes">Deportes</option>
-                                    <option value="musica">Música</option>
-                                    <option value="arte">Arte</option>
-                                    <option value="tecnologia">Tecnología</option>
-                                    <option value="gastronomia">Gastronomía</option>
-                                    <option value="viajes">Viajes</option>
-                                    <option value="educacion">Educación</option>
-                                    <option value="networking">Networking</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group-half">
-                                <label class="form-label" for="eventDate">Fecha</label>
-                                <input type="date" class="form-control" id="eventDate" name="fecha" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="eventImage">Imagen del evento</label>
-                            <input type="file" class="form-control" id="eventImage" name="imagen" accept="image/*">
-                        </div>
-                        
-                        <div class="form-buttons">
-                            <button type="button" class="btn btn-secondary" id="cancel-post">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i> Publicar evento
-                            </button>
-                        </div>
-                    </form>
+                <div class="create-post-actions">
+                    <a href="<?php echo APP_URL; ?>crearevento" class="create-action">
+                        <i class="fas fa-calendar-plus"></i> Evento
+                    </a>
+                    <a href="<?php echo APP_URL; ?>publicacion" class="create-action">
+                        <i class="fas fa-image"></i> Publicación
+                    </a>
+                    <a href="#" class="create-action">
+                        <i class="fas fa-video"></i> Historia
+                    </a>
                 </div>
-            </section>
+            </div>
             
-            <!-- Eventos sugeridos -->
-            <section id="eventos-sugeridos">
+            <!-- Feed de eventos -->
+            <div class="events-feed">
                 <!-- Post 1 -->
                 <article class="post" data-id="1" data-category="deportes">
                     <div class="post-header">
@@ -205,58 +142,65 @@
                             </div>
                             <div class="post-info">
                                 <div class="post-author-name">Club Deportivo Local</div>
-                                <div class="post-time">Hace 2 horas</div>
+                                <div class="post-time">2h</div>
                             </div>
                         </div>
                         <div class="post-more">
-                            <i class="fas fa-ellipsis-h"></i>
+                            <i class="fas fa-ellipsis"></i>
                         </div>
                     </div>
                     
-                    <img src="https://via.placeholder.com/800x400/1877f2/ffffff?text=Torneo+de+Fútbol" alt="Imagen del evento" class="post-image">
-                    
-                    <div class="post-content">
-                        <h3 class="post-title">Torneo de fútbol amateur</h3>
-                        <p class="post-description">Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores! Inscribe a tu equipo antes del 10 de mayo.</p>
-                        <div class="post-details">
-                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Campo Municipal, Calle Principal #123</p>
-                            <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> 15/05/2025</p>
-                            <p><i class="fas fa-tag"></i> <strong>Categoría:</strong> Deportes</p>
-                            <p><i class="fas fa-users"></i> <strong>Cupos disponibles:</strong> 8 equipos</p>
-                        </div>
-                    </div>
-                    
-                    <div class="post-stats">
-                        <div class="post-likes">
-                            <i class="fas fa-thumbs-up"></i> 42 Me gusta
-                        </div>
-                        <div class="post-comments-count">15 comentarios</div>
+                    <div class="post-image-container">
+                        <img src="https://via.placeholder.com/800x600/1877f2/ffffff?text=Torneo+de+Fútbol" alt="Imagen del evento" class="post-image">
                     </div>
                     
                     <div class="post-actions">
                         <div class="post-action like-action" data-id="1">
-                            <i class="far fa-thumbs-up"></i>
-                            <span>Me gusta</span>
+                            <i class="far fa-heart"></i>
                         </div>
                         <div class="post-action comment-action" data-id="1">
-                            <i class="far fa-comment-alt"></i>
-                            <span>Comentar</span>
+                            <i class="far fa-comment"></i>
                         </div>
                         <div class="post-action attend-action" data-id="1">
                             <i class="far fa-calendar-check"></i>
-                            <span>Asistir</span>
+                        </div>
+                        <div class="post-action share-action">
+                            <i class="far fa-paper-plane"></i>
+                        </div>
+                        <div class="post-action save-action">
+                            <i class="far fa-bookmark"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="post-likes">
+                        <span>42 Me gusta</span>
+                    </div>
+                    
+                    <div class="post-content">
+                        <div class="post-caption">
+                            <span class="post-author-name">Club Deportivo Local</span>
+                            <span class="post-description">Torneo de fútbol amateur - Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores! Inscribe a tu equipo antes del 10 de mayo.</span>
+                        </div>
+                        
+                        <div class="post-event-details">
+                            <p><i class="fas fa-map-marker-alt"></i> Campo Municipal, Calle Principal #123</p>
+                            <p><i class="far fa-calendar-alt"></i> 15/05/2025</p>
+                            <p><i class="fas fa-tag"></i> Deportes • <i class="fas fa-users"></i> 8 equipos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="post-comments-preview">
+                        <a href="#" class="view-comments">Ver los 15 comentarios</a>
+                        <div class="comment">
+                            <span class="comment-author">Juan_Pérez</span>
+                            <span class="comment-text">¡Genial! ¿Hay límite de edad para participar?</span>
                         </div>
                     </div>
                     
                     <div class="post-comment-area">
-                        <div class="avatar">
-                            <img src="https://via.placeholder.com/32" alt="Avatar">
-                        </div>
                         <div class="comment-input-wrapper">
-                            <input type="text" class="comment-input" placeholder="Escribe un comentario...">
-                            <button class="comment-send">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+                            <input type="text" class="comment-input" placeholder="Añade un comentario...">
+                            <button class="comment-send">Publicar</button>
                         </div>
                     </div>
                 </article>
@@ -270,58 +214,65 @@
                             </div>
                             <div class="post-info">
                                 <div class="post-author-name">Asociación Cultural Música Viva</div>
-                                <div class="post-time">Hace 5 horas</div>
+                                <div class="post-time">5h</div>
                             </div>
                         </div>
                         <div class="post-more">
-                            <i class="fas fa-ellipsis-h"></i>
+                            <i class="fas fa-ellipsis"></i>
                         </div>
                     </div>
                     
-                    <img src="https://via.placeholder.com/800x400/e91e63/ffffff?text=Concierto+de+Música+Clásica" alt="Imagen del evento" class="post-image">
-                    
-                    <div class="post-content">
-                        <h3 class="post-title">Concierto de música clásica</h3>
-                        <p class="post-description">Disfruta de una velada con las mejores piezas de Mozart y Beethoven interpretadas por la Orquesta Filarmónica de la ciudad. Una experiencia única para los amantes de la música clásica.</p>
-                        <div class="post-details">
-                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Auditorio Municipal, Avenida Central #456</p>
-                            <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> 20/05/2025</p>
-                            <p><i class="fas fa-tag"></i> <strong>Categoría:</strong> Música</p>
-                            <p><i class="fas fa-ticket-alt"></i> <strong>Entradas:</strong> $150 - $300</p>
-                        </div>
-                    </div>
-                    
-                    <div class="post-stats">
-                        <div class="post-likes">
-                            <i class="fas fa-thumbs-up"></i> 18 Me gusta
-                        </div>
-                        <div class="post-comments-count">3 comentarios</div>
+                    <div class="post-image-container">
+                        <img src="https://via.placeholder.com/800x600/e91e63/ffffff?text=Concierto+de+Música+Clásica" alt="Imagen del evento" class="post-image">
                     </div>
                     
                     <div class="post-actions">
                         <div class="post-action like-action" data-id="2">
-                            <i class="far fa-thumbs-up"></i>
-                            <span>Me gusta</span>
+                            <i class="far fa-heart"></i>
                         </div>
                         <div class="post-action comment-action" data-id="2">
-                            <i class="far fa-comment-alt"></i>
-                            <span>Comentar</span>
+                            <i class="far fa-comment"></i>
                         </div>
                         <div class="post-action attend-action" data-id="2">
                             <i class="far fa-calendar-check"></i>
-                            <span>Asistir</span>
+                        </div>
+                        <div class="post-action share-action">
+                            <i class="far fa-paper-plane"></i>
+                        </div>
+                        <div class="post-action save-action">
+                            <i class="far fa-bookmark"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="post-likes">
+                        <span>18 Me gusta</span>
+                    </div>
+                    
+                    <div class="post-content">
+                        <div class="post-caption">
+                            <span class="post-author-name">Asociación Cultural Música Viva</span>
+                            <span class="post-description">Concierto de música clásica - Disfruta de una velada con las mejores piezas de Mozart y Beethoven interpretadas por la Orquesta Filarmónica de la ciudad. Una experiencia única para los amantes de la música clásica.</span>
+                        </div>
+                        
+                        <div class="post-event-details">
+                            <p><i class="fas fa-map-marker-alt"></i> Auditorio Municipal, Avenida Central #456</p>
+                            <p><i class="far fa-calendar-alt"></i> 20/05/2025</p>
+                            <p><i class="fas fa-tag"></i> Música • <i class="fas fa-ticket-alt"></i> $150 - $300</p>
+                        </div>
+                    </div>
+                    
+                    <div class="post-comments-preview">
+                        <a href="#" class="view-comments">Ver los 3 comentarios</a>
+                        <div class="comment">
+                            <span class="comment-author">María_García</span>
+                            <span class="comment-text">¿Hay descuentos para estudiantes?</span>
                         </div>
                     </div>
                     
                     <div class="post-comment-area">
-                        <div class="avatar">
-                            <img src="https://via.placeholder.com/32" alt="Avatar">
-                        </div>
                         <div class="comment-input-wrapper">
-                            <input type="text" class="comment-input" placeholder="Escribe un comentario...">
-                            <button class="comment-send">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+                            <input type="text" class="comment-input" placeholder="Añade un comentario...">
+                            <button class="comment-send">Publicar</button>
                         </div>
                     </div>
                 </article>
@@ -335,213 +286,191 @@
                             </div>
                             <div class="post-info">
                                 <div class="post-author-name">TechMeetup</div>
-                                <div class="post-time">Hace 1 día</div>
+                                <div class="post-time">1d</div>
                             </div>
                         </div>
                         <div class="post-more">
-                            <i class="fas fa-ellipsis-h"></i>
+                            <i class="fas fa-ellipsis"></i>
                         </div>
                     </div>
                     
-                    <img src="https://via.placeholder.com/800x400/4caf50/ffffff?text=Hackathon+2025" alt="Imagen del evento" class="post-image">
-                    
-                    <div class="post-content">
-                        <h3 class="post-title">Hackathon 2025: Innovación y Tecnología</h3>
-                        <p class="post-description">Participa en nuestro Hackathon anual donde desarrolladores, diseñadores y emprendedores se reúnen para crear soluciones innovadoras. Este año el tema es "Tecnología para el bienestar".</p>
-                        <div class="post-details">
-                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Centro de Innovación Digital, Plaza Tecnológica #789</p>
-                            <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> 10/06/2025 - 12/06/2025</p>
-                            <p><i class="fas fa-tag"></i> <strong>Categoría:</strong> Tecnología</p>
-                            <p><i class="fas fa-users"></i> <strong>Participantes:</strong> Equipos de 3-5 personas</p>
-                        </div>
-                    </div>
-                    
-                    <div class="post-stats">
-                        <div class="post-likes">
-                            <i class="fas fa-thumbs-up"></i> 64 Me gusta
-                        </div>
-                        <div class="post-comments-count">27 comentarios</div>
+                    <div class="post-image-container">
+                        <img src="https://via.placeholder.com/800x600/4caf50/ffffff?text=Hackathon+2025" alt="Imagen del evento" class="post-image">
                     </div>
                     
                     <div class="post-actions">
                         <div class="post-action like-action" data-id="3">
-                            <i class="far fa-thumbs-up"></i>
-                            <span>Me gusta</span>
+                            <i class="far fa-heart"></i>
                         </div>
                         <div class="post-action comment-action" data-id="3">
-                            <i class="far fa-comment-alt"></i>
-                            <span>Comentar</span>
+                            <i class="far fa-comment"></i>
                         </div>
                         <div class="post-action attend-action" data-id="3">
                             <i class="far fa-calendar-check"></i>
-                            <span>Asistir</span>
+                        </div>
+                        <div class="post-action share-action">
+                            <i class="far fa-paper-plane"></i>
+                        </div>
+                        <div class="post-action save-action">
+                            <i class="far fa-bookmark"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="post-likes">
+                        <span>64 Me gusta</span>
+                    </div>
+                    
+                    <div class="post-content">
+                        <div class="post-caption">
+                            <span class="post-author-name">TechMeetup</span>
+                            <span class="post-description">Hackathon 2025: Innovación y Tecnología - Participa en nuestro Hackathon anual donde desarrolladores, diseñadores y emprendedores se reúnen para crear soluciones innovadoras. Este año el tema es "Tecnología para el bienestar".</span>
+                        </div>
+                        
+                        <div class="post-event-details">
+                            <p><i class="fas fa-map-marker-alt"></i> Centro de Innovación Digital, Plaza Tecnológica #789</p>
+                            <p><i class="far fa-calendar-alt"></i> 10/06/2025 - 12/06/2025</p>
+                            <p><i class="fas fa-tag"></i> Tecnología • <i class="fas fa-users"></i> Equipos de 3-5 personas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="post-comments-preview">
+                        <a href="#" class="view-comments">Ver los 27 comentarios</a>
+                        <div class="comment">
+                            <span class="comment-author">Carlos_Dev</span>
+                            <span class="comment-text">¿Cuál es el premio para los ganadores?</span>
                         </div>
                     </div>
                     
                     <div class="post-comment-area">
-                        <div class="avatar">
-                            <img src="https://via.placeholder.com/32" alt="Avatar">
-                        </div>
                         <div class="comment-input-wrapper">
-                            <input type="text" class="comment-input" placeholder="Escribe un comentario...">
-                            <button class="comment-send">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+                            <input type="text" class="comment-input" placeholder="Añade un comentario...">
+                            <button class="comment-send">Publicar</button>
                         </div>
                     </div>
                 </article>
-            </section>
+            </div>
         </main>
         
         <!-- Sidebar derecha -->
-        <aside class="sidebar-right">
-            <!-- Perfil -->
-            <section class="sidebar-section profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <img src="https://via.placeholder.com/60" alt="Avatar de perfil">
-                    </div>
-                    <div class="profile-info">
-                        <div class="profile-name"><?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?></div>
-                        <div class="profile-email"><?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'email@ejemplo.com'; ?></div>
-                    </div>
-                </div>
-                
-                <ul class="profile-details">
-                    <li class="profile-item">
-                        <div class="profile-item-label">Eventos:</div>
-                        <div class="profile-item-value">12 creados</div>
-                    </li>
-                    <li class="profile-item">
-                        <div class="profile-item-label">Asistiendo:</div>
-                        <div class="profile-item-value">8 eventos</div>
-                    </li>
-                    <li class="profile-item">
-                        <div class="profile-item-label">Tipo:</div>
-                        <div class="profile-item-value"><?php echo isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario'; ?></div>
-                    </li>
-                </ul>
-                
-                <div style="text-align: center; margin-top: 10px;">
-                    <a href="<?php echo APP_URL; ?>perfil" class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-user-edit"></i> Editar perfil
-                    </a>
-                </div>
-            </section>
-            
-            <!-- Eventos populares -->
-            <section class="sidebar-section popular-events">
-                <h3 class="sidebar-heading">Eventos populares</h3>
-                
-                <div class="event-card">
-                    <h4 class="event-title">Festival de Cine</h4>
-                    <p class="event-description">Proyección de películas independientes y premiadas internacionalmente</p>
-                    <p class="event-date"><i class="far fa-calendar-alt"></i> 10/06/2025</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Centro Cultural Metropolitano</p>
-                </div>
-                
-                <div class="event-card">
-                    <h4 class="event-title">Feria del Libro</h4>
-                    <p class="event-description">Presentaciones de autores y venta de libros con descuentos especiales</p>
-                    <p class="event-date"><i class="far fa-calendar-alt"></i> 15/07/2025</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Parque Central</p>
-                </div>
-                
-                <div class="event-card">
-                    <h4 class="event-title">Maratón Urbana</h4>
-                    <p class="event-description">Recorrido de 42km por las principales avenidas de la ciudad</p>
-                    <p class="event-date"><i class="far fa-calendar-alt"></i> 22/08/2025</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Plaza Principal</p>
-                </div>
-            </section>
-            
+        <aside class="sidebar-right">            
             <!-- Sugerencias de personas -->
-            <section class="sidebar-section">
-                <h3 class="sidebar-heading">Personas que quizás conozcas</h3>
-                
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <div class="avatar" style="margin-right: 10px;">
-                        <img src="https://via.placeholder.com/40/9c27b0" alt="Avatar">
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 14px;">Laura Sánchez</div>
-                        <div style="font-size: 12px; color: #65676b;">5 eventos en común</div>
-                    </div>
-                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
+            <div class="suggestions-container">
+                <div class="suggestions-header">
+                    <span>Sugerencias para ti</span>
+                    <a href="#">Ver todo</a>
                 </div>
                 
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <div class="avatar" style="margin-right: 10px;">
-                        <img src="https://via.placeholder.com/40/3f51b5" alt="Avatar">
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40/9c27b0" alt="Avatar">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">Laura Sánchez</div>
+                            <div class="user-stats">5 eventos en común</div>
+                        </div>
                     </div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 14px;">Carlos Méndez</div>
-                        <div style="font-size: 12px; color: #65676b;">3 eventos en común</div>
-                    </div>
-                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
+                    <button class="follow-btn">Seguir</button>
                 </div>
                 
-                <div style="display: flex; align-items: center;">
-                    <div class="avatar" style="margin-right: 10px;">
-                        <img src="https://via.placeholder.com/40/ff9800" alt="Avatar">
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40/3f51b5" alt="Avatar">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">Carlos Méndez</div>
+                            <div class="user-stats">3 eventos en común</div>
+                        </div>
                     </div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 14px;">Ana Torres</div>
-                        <div style="font-size: 12px; color: #65676b;">7 eventos en común</div>
-                    </div>
-                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
+                    <button class="follow-btn">Seguir</button>
                 </div>
-            </section>
+                
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40/ff9800" alt="Avatar">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">Ana Torres</div>
+                            <div class="user-stats">7 eventos en común</div>
+                        </div>
+                    </div>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+                
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40/4caf50" alt="Avatar">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">Pedro Ramírez</div>
+                            <div class="user-stats">2 eventos en común</div>
+                        </div>
+                    </div>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+                
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40/f44336" alt="Avatar">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">Sofía Hernández</div>
+                            <div class="user-stats">4 eventos en común</div>
+                        </div>
+                    </div>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+            </div>
+            
+            <!-- Enlaces de interés -->
+            <div class="footer-links">
+                <div class="links-row">
+                    <a href="#">Información</a> • 
+                    <a href="#">Ayuda</a> • 
+                    <a href="#">Privacidad</a> • 
+                    <a href="#">Términos</a>
+                </div>
+                <div class="copyright">
+                    © 2025 NexEvent
+                </div>
+            </div>
         </aside>
     </div>
     
-    <!-- Modal de detalles de evento -->
-    <div class="modal-backdrop" id="event-details-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000;">
-        <div class="modal" style="background: white; border-radius: 10px; width: 90%; max-width: 700px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;">
-            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e4e6eb;">
-                <div class="modal-title" id="evento-detalle-titulo" style="font-weight: 600; font-size: 20px;">Detalles del evento</div>
-                <button class="modal-close" id="modal-close" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #65676b;">&times;</button>
+    <!-- Modal de historias -->
+    <div class="stories-modal" id="stories-modal">
+        <div class="stories-modal-container">
+            <div class="stories-modal-close">
+                <i class="fas fa-times"></i>
             </div>
             
-            <div class="modal-body" style="padding: 20px; overflow-y: auto; flex: 1;">
-                <div class="modal-section" style="margin-bottom: 20px;">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Descripción</h4>
-                    <p id="evento-detalle-descripcion">Descripción del evento</p>
-                </div>
-                
-                <div class="modal-section" style="margin-bottom: 20px;">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Organizador</h4>
-                    <div class="modal-section-content" style="background-color: #f0f2f5; padding: 15px; border-radius: 8px;">
-                        <p>Nombre: <span id="nombreOrganizador">Nombre del organizador</span></p>
+            <div class="stories-content">
+                <div class="stories-view">
+                    <img src="" alt="Historia" id="story-image">
+                    <div class="story-progress">
+                        <div class="story-progress-bar"></div>
                     </div>
-                </div>
-                
-                <div class="modal-section" style="margin-bottom: 20px;">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Detalles</h4>
-                    <div class="modal-section-content" style="background-color: #f0f2f5; padding: 15px; border-radius: 8px;">
-                        <p>Fecha: <span id="evento-detalle-fecha">Fecha del evento</span></p>
-                        <p>Categoría: <span id="evento-detalle-categoria">Categoría del evento</span></p>
-                        <p>Ubicación: <span id="evento-detalle-ubicacion">Ubicación del evento</span></p>
-                        <p>Me gusta: <span id="evento-detalle-likes">0</span></p>
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Comentarios</h4>
-                    <div id="comentarios" class="modal-comments" style="max-height: 200px; overflow-y: auto; margin-top: 15px;">
-                        <div class="comment" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;">
-                            <span class="comment-author" style="font-weight: 600; margin-right: 5px;">Juan Pérez:</span>
-                            <span>¡Este evento está increíble!</span>
-                        </div>
-                        <div class="comment" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;">
-                            <span class="comment-author" style="font-weight: 600; margin-right: 5px;">Ana López:</span>
-                            <span>Me parece una gran oportunidad para conocer gente nueva.</span>
+                    <div class="story-header">
+                        <div class="story-user">
+                            <div class="user-avatar">
+                                <img src="" alt="" id="story-user-avatar">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name" id="story-user-name"></div>
+                                <div class="story-time" id="story-time"></div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="modal-comment-form" style="display: flex; margin-top: 15px; gap: 10px;">
-                        <input type="text" id="nuevoComentario" class="modal-comment-input" placeholder="Escribe un comentario..." style="flex: 1; border: 1px solid #e4e6eb; border-radius: 20px; padding: 8px 15px; outline: none; font-size: 14px;">
-                        <button id="enviarComentario" class="modal-comment-btn" data-evento-id="" style="background-color: #1877f2; color: #fff; border: none; border-radius: 6px; padding: 0 15px; font-weight: 500; cursor: pointer;">Comentar</button>
+                </div>
+                
+                <div class="story-actions">
+                    <div class="story-reply">
+                        <input type="text" placeholder="Responder a la historia...">
+                        <button><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
@@ -552,239 +481,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Variables globales
             const createPostTrigger = document.getElementById('create-post-trigger');
-            const createPostForm = document.getElementById('create-post-form');
-            const cancelPostButton = document.getElementById('cancel-post');
-            const eventDetailsModal = document.getElementById('event-details-modal');
-            const modalClose = document.getElementById('modal-close');
+            const storiesModal = document.getElementById('stories-modal');
+            const storiesModalClose = document.querySelector('.stories-modal-close');
+            const storyImage = document.getElementById('story-image');
+            const storyUserAvatar = document.getElementById('story-user-avatar');
+            const storyUserName = document.getElementById('story-user-name');
+            const storyTime = document.getElementById('story-time');
+            const storyProgressBar = document.querySelector('.story-progress-bar');
             
-            // Abrir formulario de creación de eventos
+            // Abrir formulario de creación - Ahora redirecciona a crear evento
             createPostTrigger.addEventListener('click', function() {
-                createPostForm.classList.add('active');
-                this.blur();
-            });
-            
-            // Cerrar formulario de creación de eventos
-            cancelPostButton.addEventListener('click', function() {
-                createPostForm.classList.remove('active');
-                document.getElementById('evento-form').reset();
-            });
-            
-            // Abrir modal de detalles de evento
-            const detallesButtons = document.querySelectorAll('.ver-detalles, .comment-action');
-            detallesButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const eventoId = this.getAttribute('data-id');
-                    document.getElementById('enviarComentario').setAttribute('data-evento-id', eventoId);
-                    
-                    // Cargar datos de ejemplo
-                    if (eventoId === '1') {
-                        document.getElementById('evento-detalle-titulo').textContent = 'Torneo de fútbol amateur';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores! Inscribe a tu equipo antes del 10 de mayo.';
-                        document.getElementById('nombreOrganizador').textContent = 'Club Deportivo Local';
-                        document.getElementById('evento-detalle-fecha').textContent = '15/05/2025';
-                        document.getElementById('evento-detalle-categoria').textContent = 'Deportes';
-                        document.getElementById('evento-detalle-likes').textContent = '42';
-                        document.getElementById('evento-detalle-ubicacion').textContent = 'Campo Municipal, Calle Principal #123';
-                    } else if (eventoId === '2') {
-                        document.getElementById('evento-detalle-titulo').textContent = 'Concierto de música clásica';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Disfruta de una velada con las mejores piezas de Mozart y Beethoven interpretadas por la Orquesta Filarmónica de la ciudad. Una experiencia única para los amantes de la música clásica.';
-                        document.getElementById('nombreOrganizador').textContent = 'Asociación Cultural Música Viva';
-                        document.getElementById('evento-detalle-fecha').textContent = '20/05/2025';
-                        document.getElementById('evento-detalle-categoria').textContent = 'Música';
-                        document.getElementById('evento-detalle-likes').textContent = '18';
-                        document.getElementById('evento-detalle-ubicacion').textContent = 'Auditorio Municipal, Avenida Central #456';
-                    } else if (eventoId === '3') {
-                        document.getElementById('evento-detalle-titulo').textContent = 'Hackathon 2025: Innovación y Tecnología';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Participa en nuestro Hackathon anual donde desarrolladores, diseñadores y emprendedores se reúnen para crear soluciones innovadoras. Este año el tema es "Tecnología para el bienestar".';
-                        document.getElementById('nombreOrganizador').textContent = 'TechMeetup';
-                        document.getElementById('evento-detalle-fecha').textContent = '10/06/2025 - 12/06/2025';
-                        document.getElementById('evento-detalle-categoria').textContent = 'Tecnología';
-                        document.getElementById('evento-detalle-likes').textContent = '64';
-                        document.getElementById('evento-detalle-ubicacion').textContent = 'Centro de Innovación Digital, Plaza Tecnológica #789';
-                    }
-                    
-                    eventDetailsModal.style.display = 'flex';
-                });
-            });
-            
-            // Cerrar modal
-            modalClose.addEventListener('click', function() {
-                eventDetailsModal.style.display = 'none';
-            });
-            
-            // Cerrar modal al hacer clic fuera de su contenido
-            eventDetailsModal.addEventListener('click', function(e) {
-                if (e.target === eventDetailsModal) {
-                    eventDetailsModal.style.display = 'none';
-                }
-            });
-            
-            // Enviar comentario en modal
-            const enviarComentario = document.getElementById('enviarComentario');
-            const nuevoComentario = document.getElementById('nuevoComentario');
-            const comentariosContainer = document.getElementById('comentarios');
-            
-            enviarComentario.addEventListener('click', function() {
-                if (nuevoComentario.value.trim() !== '') {
-                    const eventoId = this.getAttribute('data-evento-id');
-                    
-                    // Crear y añadir el comentario al DOM
-                    const comentarioDiv = document.createElement('div');
-                    comentarioDiv.className = 'comment';
-                    comentarioDiv.style = 'margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;';
-                    comentarioDiv.innerHTML = `
-                        <span class="comment-author" style="font-weight: 600; margin-right: 5px;"><?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?>:</span>
-                        <span>${nuevoComentario.value}</span>
-                    `;
-                    comentariosContainer.appendChild(comentarioDiv);
-                    
-                    // Limpiar campo
-                    nuevoComentario.value = '';
-                }
-            });
-            
-            // Comentarios en posts
-            const commentInputs = document.querySelectorAll('.comment-input');
-            const commentSendButtons = document.querySelectorAll('.comment-send');
-            
-            commentSendButtons.forEach((button, index) => {
-                button.addEventListener('click', function() {
-                    const input = commentInputs[index];
-                    if (input.value.trim() !== '') {
-                        const post = button.closest('.post');
-                        const commentsCountEl = post.querySelector('.post-comments-count');
-                        const currentCount = parseInt(commentsCountEl.textContent);
-                        
-                        // Actualizar contador de comentarios
-                        commentsCountEl.textContent = `${currentCount + 1} comentarios`;
-                        
-                        // Agregar el comentario visualmente (en un sistema real, enviarías esto al servidor)
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Comentario publicado',
-                            text: 'Tu comentario ha sido añadido correctamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        
-                        input.value = '';
-                    }
-                });
-            });
-            
-            // Me gusta en posts
-            const likeButtons = document.querySelectorAll('.like-action');
-            
-            likeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const postId = this.getAttribute('data-id');
-                    const icon = this.querySelector('i');
-                    const likesContainer = document.querySelector(`.post[data-id="${postId}"] .post-likes`);
-                    
-                    if (icon.classList.contains('far')) {
-                        // Dar me gusta
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                        this.classList.add('active');
-                        
-                        // Actualizar contador
-                        const currentLikes = parseInt(likesContainer.textContent.match(/\d+/)[0]);
-                        likesContainer.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes + 1} Me gusta`;
-                    } else {
-                        // Quitar me gusta
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                        this.classList.remove('active');
-                        
-                        // Actualizar contador
-                        const currentLikes = parseInt(likesContainer.textContent.match(/\d+/)[0]);
-                        likesContainer.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes - 1} Me gusta`;
-                    }
-                });
-            });
-            
-            // Asistencia a eventos
-            const attendButtons = document.querySelectorAll('.attend-action');
-            
-            attendButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const postId = this.getAttribute('data-id');
-                    const icon = this.querySelector('i');
-                    
-                    if (icon.classList.contains('far')) {
-                        // Confirmar asistencia
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                        this.classList.add('active');
-                        
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Asistencia confirmada!',
-                            text: 'Has confirmado tu asistencia al evento',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    } else {
-                        // Cancelar asistencia
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                        this.classList.remove('active');
-                        
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Asistencia cancelada',
-                            text: 'Has cancelado tu asistencia al evento',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
-                });
-            });
-            
-            // Filtros de categoría
-            const categoryButtons = document.querySelectorAll('.filter-button');
-            const eventPosts = document.querySelectorAll('.post');
-            
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    
-                    // Resetear estado de todos los botones
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Activar este botón
-                    this.classList.add('active');
-                    
-                    // Filtrar eventos
-                    eventPosts.forEach(post => {
-                        if (category === 'all' || post.getAttribute('data-category') === category) {
-                            post.style.display = 'block';
-                        } else {
-                            post.style.display = 'none';
-                        }
-                    });
-                });
-            });
-            
-            // Envío del formulario de evento
-            const eventoForm = document.getElementById('evento-form');
-            
-            eventoForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Evento creado!',
-                    text: 'Tu evento ha sido publicado correctamente',
-                    confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Resetear y cerrar formulario
-                        createPostForm.classList.remove('active');
-                        this.reset();
-                        window.location.reload();
-                    }
-                });
+                window.location.href = '<?php echo APP_URL; ?>crearevento';
             });
             
             // Manejo de historias
@@ -793,7 +500,6 @@
             storyItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const storyId = this.getAttribute('data-id');
-                    const storyOwner = this.getAttribute('data-owner');
                     
                     if (storyId === 'new') {
                         // Modal para crear nueva historia
@@ -830,22 +536,254 @@
                                     timer: 2000,
                                     showConfirmButton: false
                                 });
-                                
                             }
                         });
                     } else {
-                        // Ver historia existente
+                        // Ver historia existente en modal personalizado
+                        const storyUser = this.querySelector('.story-username').textContent;
+                        const storyAvatar = this.querySelector('.story-avatar img').src;
+                        
+                        // Configurar modal de historia
+                        storyImage.src = `https://via.placeholder.com/600x800?text=Historia+de+${storyUser}`;
+                        storyUserAvatar.src = storyAvatar;
+                        storyUserName.textContent = storyUser;
+                        storyTime.textContent = 'hace 2h';
+                        
+                        // Mostrar modal
+                        storiesModal.style.display = 'flex';
+                        
+                        // Animar barra de progreso
+                        storyProgressBar.style.width = '0%';
+                        setTimeout(() => {
+                            storyProgressBar.style.transition = 'width 5s linear';
+                            storyProgressBar.style.width = '100%';
+                        }, 100);
+                        
+                        // Auto cerrar después de 5 segundos
+                        setTimeout(() => {
+                            storiesModal.style.display = 'none';
+                        }, 5100);
+                    }
+                });
+            });
+            
+            // Cerrar modal de historias
+            storiesModalClose.addEventListener('click', function() {
+                storiesModal.style.display = 'none';
+            });
+            
+            // Me gusta en posts
+            const likeButtons = document.querySelectorAll('.like-action');
+            
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = this.getAttribute('data-id');
+                    const icon = this.querySelector('i');
+                    const likesContainer = this.closest('.post').querySelector('.post-likes span');
+                    const currentLikes = parseInt(likesContainer.textContent);
+                    
+                    if (icon.classList.contains('far')) {
+                        // Dar me gusta
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        icon.classList.add('liked');
+                        
+                        // Actualizar contador
+                        likesContainer.textContent = (currentLikes + 1) + ' Me gusta';
+                    } else {
+                        // Quitar me gusta
+                        icon.classList.remove('fas');
+                        icon.classList.remove('liked');
+                        icon.classList.add('far');
+                        
+                        // Actualizar contador
+                        likesContainer.textContent = (currentLikes - 1) + ' Me gusta';
+                    }
+                });
+            });
+            
+            // Asistencia a eventos
+            const attendButtons = document.querySelectorAll('.attend-action');
+            
+            attendButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = this.getAttribute('data-id');
+                    const icon = this.querySelector('i');
+                    
+                    if (icon.classList.contains('far')) {
+                        // Confirmar asistencia
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        icon.classList.add('attending');
+                        
                         Swal.fire({
-                            title: storyOwner,
-                            imageUrl: `https://via.placeholder.com/500x800?text=Historia+de+${storyOwner}`,
-                            imageWidth: 400,
-                            imageHeight: 600,
+                            icon: 'success',
+                            title: '¡Asistencia confirmada!',
+                            text: 'Te has registrado para este evento',
                             showConfirmButton: false,
-                            timer: 5000,
-                            timerProgressBar: true,
-                            footer: '<div style="text-align: center; width: 100%;"><input type="text" placeholder="Enviar mensaje..." style="width: 80%; padding: 8px; border-radius: 20px; border: 1px solid #ccc;"></div>'
+                            timer: 1500
+                        });
+                    } else {
+                        // Cancelar asistencia
+                        icon.classList.remove('fas');
+                        icon.classList.remove('attending');
+                        icon.classList.add('far');
+                        
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Asistencia cancelada',
+                            text: 'Has cancelado tu asistencia al evento',
+                            showConfirmButton: false,
+                            timer: 1500
                         });
                     }
+                });
+            });
+            
+            // Comentarios en posts
+            const commentInputs = document.querySelectorAll('.comment-input');
+            const commentSendButtons = document.querySelectorAll('.comment-send');
+            
+            commentSendButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const input = commentInputs[index];
+                    if (input.value.trim() !== '') {
+                        const post = button.closest('.post');
+                        const commentsPreview = post.querySelector('.post-comments-preview');
+                        const viewCommentsLink = commentsPreview.querySelector('.view-comments');
+                        
+                        // Crear nuevo comentario
+                        const newComment = document.createElement('div');
+                        newComment.className = 'comment';
+                        newComment.innerHTML = `
+                            <span class="comment-author"><?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?></span>
+                            <span class="comment-text">${input.value}</span>
+                        `;
+                        
+                        // Insertar el nuevo comentario
+                        commentsPreview.appendChild(newComment);
+                        
+                        // Actualizar contador en el enlace
+                        const currentCount = parseInt(viewCommentsLink.textContent.match(/\d+/)[0]);
+                        viewCommentsLink.textContent = `Ver los ${currentCount + 1} comentarios`;
+                        
+                        // Limpiar input
+                        input.value = '';
+                        
+                        // Notificación sutil
+                        const notification = document.createElement('div');
+                        notification.className = 'toast-notification';
+                        notification.textContent = 'Comentario publicado';
+                        document.body.appendChild(notification);
+                        
+                        setTimeout(() => {
+                            notification.classList.add('show');
+                        }, 10);
+                        
+                        setTimeout(() => {
+                            notification.classList.remove('show');
+                            setTimeout(() => {
+                                notification.remove();
+                            }, 300);
+                        }, 2000);
+                    }
+                });
+                
+                // Enviar comentario al presionar Enter
+                commentInputs[index].addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        commentSendButtons[index].click();
+                    }
+                });
+            });
+            
+            // Seguir/dejar de seguir a usuarios sugeridos
+            const followButtons = document.querySelectorAll('.follow-btn');
+            
+            followButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent === 'Seguir') {
+                        this.textContent = 'Siguiendo';
+                        this.classList.add('following');
+                    } else {
+                        this.textContent = 'Seguir';
+                        this.classList.remove('following');
+                    }
+                });
+            });
+            
+            // Abrir el modal de comentarios completos al hacer clic en "Ver todos los comentarios"
+            const viewCommentsLinks = document.querySelectorAll('.view-comments');
+            
+            viewCommentsLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const post = this.closest('.post');
+                    const postId = post.getAttribute('data-id');
+                    const postAuthor = post.querySelector('.post-author-name').textContent;
+                    
+                    Swal.fire({
+                        title: 'Comentarios',
+                        html: `
+                            <div class="comments-modal">
+                                <div class="comment-item">
+                                    <div class="comment-avatar">
+                                        <img src="https://via.placeholder.com/32" alt="Avatar">
+                                    </div>
+                                    <div class="comment-content">
+                                        <span class="comment-author">Juan_Pérez</span>
+                                        <span class="comment-text">¡Genial! ¿Hay límite de edad para participar?</span>
+                                        <div class="comment-actions">
+                                            <span class="comment-time">2h</span>
+                                            <span class="comment-like">Me gusta</span>
+                                            <span class="comment-reply">Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="comment-item">
+                                    <div class="comment-avatar">
+                                        <img src="https://via.placeholder.com/32/1877f2" alt="Avatar">
+                                    </div>
+                                    <div class="comment-content">
+                                        <span class="comment-author">${postAuthor}</span>
+                                        <span class="comment-text">No hay límite de edad, pero es recomendable ser mayor de 16 años.</span>
+                                        <div class="comment-actions">
+                                            <span class="comment-time">1h</span>
+                                            <span class="comment-like">Me gusta</span>
+                                            <span class="comment-reply">Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="comment-item">
+                                    <div class="comment-avatar">
+                                        <img src="https://via.placeholder.com/32/e91e63" alt="Avatar">
+                                    </div>
+                                    <div class="comment-content">
+                                        <span class="comment-author">Ana_López</span>
+                                        <span class="comment-text">¿Cuánto cuesta la inscripción por equipo?</span>
+                                        <div class="comment-actions">
+                                            <span class="comment-time">45m</span>
+                                            <span class="comment-like">Me gusta</span>
+                                            <span class="comment-reply">Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="new-comment-box">
+                                <textarea placeholder="Escribe un comentario..."></textarea>
+                                <button class="swal2-confirm swal2-styled">Publicar</button>
+                            </div>
+                        `,
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                        customClass: {
+                            container: 'comments-modal-container',
+                            popup: 'comments-modal-popup',
+                            closeButton: 'comments-modal-close'
+                        }
+                    });
                 });
             });
         });

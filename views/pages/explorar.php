@@ -44,6 +44,88 @@
                 </div>
             </div>
         </div>
+
+        <!-- Eventos destacados - carrusel horizontal -->
+<div class="featured-events-container">
+    <div class="featured-header">
+        <h2>Eventos destacados</h2>
+        <div class="view-all-link">
+            <a href="#">Ver todos <i class="fas fa-angle-right"></i></a>
+        </div>
+    </div>
+    
+    <div class="featured-carousel-container">
+        <button class="carousel-arrow prev-arrow" aria-label="Ver eventos anteriores">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="featured-carousel">
+            <div class="featured-event">
+                <div class="featured-image">
+                    <img src="https://via.placeholder.com/300x180/ff5a5f/ffffff?text=Festival+de+Música" alt="Festival de Música">
+                    <div class="featured-badge">Popular</div>
+                </div>
+                <div class="featured-info">
+                    <span class="featured-date">15 MAY</span>
+                    <h3 class="featured-title">Festival de Música Independiente</h3>
+                    <p class="featured-location"><i class="fas fa-map-marker-alt"></i> Parque Central</p>
+                </div>
+            </div>
+            
+            <div class="featured-event">
+                <div class="featured-image">
+                    <img src="https://via.placeholder.com/300x180/00a699/ffffff?text=Exposición+de+Arte" alt="Exposición de Arte">
+                    <div class="featured-badge">Destacado</div>
+                </div>
+                <div class="featured-info">
+                    <span class="featured-date">22 JUN</span>
+                    <h3 class="featured-title">Exposición de Arte Moderno</h3>
+                    <p class="featured-location"><i class="fas fa-map-marker-alt"></i> Galería Urbana</p>
+                </div>
+            </div>
+            
+            <div class="featured-event">
+                <div class="featured-image">
+                    <img src="https://via.placeholder.com/300x180/484848/ffffff?text=Conferencia+Tech" alt="Conferencia Tech">
+                    <div class="featured-badge">Nuevo</div>
+                </div>
+                <div class="featured-info">
+                    <span class="featured-date">18 JUL</span>
+                    <h3 class="featured-title">Conferencia Anual de Tecnología</h3>
+                    <p class="featured-location"><i class="fas fa-map-marker-alt"></i> Centro de Convenciones</p>
+                </div>
+            </div>
+            
+            <div class="featured-event">
+                <div class="featured-image">
+                    <img src="https://via.placeholder.com/300x180/ff9800/ffffff?text=Taller+de+Cocina" alt="Taller de Cocina">
+                    <div class="featured-badge">Tendencia</div>
+                </div>
+                <div class="featured-info">
+                    <span class="featured-date">3 AGO</span>
+                    <h3 class="featured-title">Taller de Cocina Gourmet</h3>
+                    <p class="featured-location"><i class="fas fa-map-marker-alt"></i> Centro Gastronómico</p>
+                </div>
+            </div>
+            
+            <div class="featured-event">
+                <div class="featured-image">
+                    <img src="https://via.placeholder.com/300x180/9c27b0/ffffff?text=Maratón" alt="Maratón">
+                    <div class="featured-badge">Popular</div>
+                </div>
+                <div class="featured-info">
+                    <span class="featured-date">15 SEP</span>
+                    <h3 class="featured-title">Maratón Urbana 2025</h3>
+                    <p class="featured-location"><i class="fas fa-map-marker-alt"></i> Plaza Principal</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="carousel-arrow next-arrow" aria-label="Ver más eventos">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
         
         <!-- Grid de eventos encontrados -->
         <div class="events-grid">
@@ -182,167 +264,202 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            categoryButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    categoryButtons.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoryButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
             });
-            
-            // Manejadores para botones de fecha
-            const dateButtons = document.querySelectorAll('.date-btn');
-            dateButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    dateButtons.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    if (this.textContent === 'Elegir fecha') {
-                    }
-                });
-            });
-            
-            // Manejador para botón de ubicación
-            document.querySelector('.location-btn').addEventListener('click', function() {
-                const location = document.querySelector('.location-input').value.trim();
-            });
-            
-            // Manejador para botones de asistencia
-            const attendButtons = document.querySelectorAll('.attend-btn');
-            attendButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const eventCard = this.closest('.event-card');
-                    const eventTitle = eventCard.querySelector('.event-title').textContent;
-                    
-                    // Cambiar estilo del botón sin alerta
-                    this.textContent = 'Asistiré';
-                    this.classList.add('attending');
-                    
-                    showNotification('¡Asistencia confirmada!', `Has confirmado tu asistencia a "${eventTitle}"`, 'success');
-                });
-            });
-            
-            // Manejador para paginación mejorada
-            const paginationItems = document.querySelectorAll('.pagination-number');
-            const paginationPrev = document.querySelector('.pagination-arrow.prev');
-            const paginationNext = document.querySelector('.pagination-arrow.next');
-            const pageIndicator = document.querySelector('.page-indicator');
-            
-            function updatePage(pageNumber) {
-                // Actualizar clases activas
-                paginationItems.forEach(item => {
-                    item.classList.remove('active');
-                });
+        });
+        
+        // Manejadores para botones de fecha
+        const dateButtons = document.querySelectorAll('.date-btn');
+        dateButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                dateButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
                 
-                // Encontrar y activar el nuevo número de página
-                const newActivePage = document.querySelector(`.pagination-number[data-page="${pageNumber}"]`);
-                if (newActivePage) {
-                    newActivePage.classList.add('active');
+                if (this.textContent === 'Elegir fecha') {
                 }
+            });
+        });
+        
+        // Manejador para botón de ubicación
+        document.querySelector('.location-btn').addEventListener('click', function() {
+            const location = document.querySelector('.location-input').value.trim();
+        });
+        
+        // Manejador para botones de asistencia
+        const attendButtons = document.querySelectorAll('.attend-btn');
+        attendButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const eventCard = this.closest('.event-card');
+                const eventTitle = eventCard.querySelector('.event-title').textContent;
                 
-                // Actualizar indicador de página
-                pageIndicator.textContent = `Página ${pageNumber} de 5`;
+                // Cambiar estilo del botón sin alerta
+                this.textContent = 'Asistiré';
+                this.classList.add('attending');
                 
-                // Deshabilitar/habilitar botones de navegación
-                if (pageNumber === 1) {
-                    paginationPrev.classList.add('disabled');
-                } else {
-                    paginationPrev.classList.remove('disabled');
-                }
-                
-                if (pageNumber === 5) { 
-                    paginationNext.classList.add('disabled');
-                } else {
-                    paginationNext.classList.remove('disabled');
-                }
-                
-                // Desplazarse hacia arriba suavemente
-                window.scrollTo({
-                    top: document.querySelector('.filters-container').offsetTop - 80,
-                    behavior: 'smooth'
-                });
+                showNotification('¡Asistencia confirmada!', `Has confirmado tu asistencia a "${eventTitle}"`, 'success');
+            });
+        });
+        
+        // Manejador para paginación mejorada
+        const paginationItems = document.querySelectorAll('.pagination-number');
+        const paginationPrev = document.querySelector('.pagination-arrow.prev');
+        const paginationNext = document.querySelector('.pagination-arrow.next');
+        const pageIndicator = document.querySelector('.page-indicator');
+        
+        function updatePage(pageNumber) {
+            // Actualizar clases activas
+            paginationItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Encontrar y activar el nuevo número de página
+            const newActivePage = document.querySelector(`.pagination-number[data-page="${pageNumber}"]`);
+            if (newActivePage) {
+                newActivePage.classList.add('active');
             }
             
-            // Inicializar estado de paginación
-            updatePage(1);
+            // Actualizar indicador de página
+            pageIndicator.textContent = `Página ${pageNumber} de 5`;
             
-            // Añadir eventos a los números de página
-            paginationItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const pageNumber = parseInt(this.getAttribute('data-page'));
-                    updatePage(pageNumber);
-                });
+            // Deshabilitar/habilitar botones de navegación
+            if (pageNumber === 1) {
+                paginationPrev.classList.add('disabled');
+            } else {
+                paginationPrev.classList.remove('disabled');
+            }
+            
+            if (pageNumber === 5) { 
+                paginationNext.classList.add('disabled');
+            } else {
+                paginationNext.classList.remove('disabled');
+            }
+            
+            // Desplazarse hacia arriba suavemente
+            window.scrollTo({
+                top: document.querySelector('.filters-container').offsetTop - 80,
+                behavior: 'smooth'
             });
-            
-            // Añadir eventos a los botones de navegación
-            paginationPrev.addEventListener('click', function(e) {
+        }
+        
+        // Inicializar estado de paginación
+        updatePage(1);
+        
+        // Añadir eventos a los números de página
+        paginationItems.forEach(item => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                const activePage = document.querySelector('.pagination-number.active');
-                const currentPage = parseInt(activePage.getAttribute('data-page'));
-                
-                if (currentPage > 1) {
-                    updatePage(currentPage - 1);
-                }
+                const pageNumber = parseInt(this.getAttribute('data-page'));
+                updatePage(pageNumber);
             });
+        });
+        
+        // Añadir eventos a los botones de navegación
+        paginationPrev.addEventListener('click', function(e) {
+            e.preventDefault();
+            const activePage = document.querySelector('.pagination-number.active');
+            const currentPage = parseInt(activePage.getAttribute('data-page'));
             
-            paginationNext.addEventListener('click', function(e) {
-                e.preventDefault();
-                const activePage = document.querySelector('.pagination-number.active');
-                const currentPage = parseInt(activePage.getAttribute('data-page'));
-                
-                if (currentPage < 5) { 
-                    updatePage(currentPage + 1);
-                }
-            });
+            if (currentPage > 1) {
+                updatePage(currentPage - 1);
+            }
+        });
+        
+        paginationNext.addEventListener('click', function(e) {
+            e.preventDefault();
+            const activePage = document.querySelector('.pagination-number.active');
+            const currentPage = parseInt(activePage.getAttribute('data-page'));
             
-            // Función para mostrar notificaciones en lugar de alertas
-            function showNotification(title, message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `notification ${type}`;
-                
-                notification.innerHTML = `
-                    <div class="notification-content">
-                        <div class="notification-icon">
-                            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
-                        </div>
-                        <div class="notification-text">
-                            <h4>${title}</h4>
-                            <p>${message}</p>
-                        </div>
-                        <button class="notification-close">
-                            <i class="fas fa-times"></i>
-                        </button>
+            if (currentPage < 5) { 
+                updatePage(currentPage + 1);
+            }
+        });
+        
+        // Función para mostrar notificaciones en lugar de alertas
+        function showNotification(title, message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
                     </div>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                // Mostrar con animación
+                    <div class="notification-text">
+                        <h4>${title}</h4>
+                        <p>${message}</p>
+                    </div>
+                    <button class="notification-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Mostrar con animación
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            // Cerrar al hacer clic
+            notification.querySelector('.notification-close').addEventListener('click', function() {
+                notification.classList.remove('show');
                 setTimeout(() => {
-                    notification.classList.add('show');
-                }, 10);
-                
-                // Cerrar al hacer clic
-                notification.querySelector('.notification-close').addEventListener('click', function() {
+                    notification.remove();
+                }, 300);
+            });
+            
+            // Auto cerrar después de 3 segundos
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
                     notification.classList.remove('show');
                     setTimeout(() => {
                         notification.remove();
                     }, 300);
-                });
-                
-                // Auto cerrar después de 3 segundos
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        notification.classList.remove('show');
-                        setTimeout(() => {
-                            notification.remove();
-                        }, 300);
-                    }
-                }, 3000);
-            }
+                }
+            }, 3000);
+        }
+        
+        // Funcionalidad del carrusel de eventos destacados
+        const carousel = document.querySelector('.featured-carousel');
+        const prevArrow = document.querySelector('.prev-arrow');
+        const nextArrow = document.querySelector('.next-arrow');
+        const scrollAmount = 300; // Cantidad de píxeles a desplazar
+
+        // Botón para desplazarse a la izquierda
+        prevArrow.addEventListener('click', function() {
+            carousel.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
         });
-    </script>
+
+        // Botón para desplazarse a la derecha
+        nextArrow.addEventListener('click', function() {
+            carousel.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        // Hacer que los eventos destacados sean clicables
+        const featuredEvents = document.querySelectorAll('.featured-event');
+        featuredEvents.forEach(event => {
+            event.addEventListener('click', function() {
+                const eventTitle = this.querySelector('.featured-title').textContent;
+                
+                // Puedes redirigir a la página de detalles del evento o mostrar un modal
+                showNotification('Evento seleccionado', `Has seleccionado el evento: ${eventTitle}`, 'info');
+                
+                // Alternativa: window.location.href = `detalles-evento.php?id=${eventId}`;
+            });
+        });
+    });
+</script>
 </body>
 </html>
