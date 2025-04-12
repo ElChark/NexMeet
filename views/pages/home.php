@@ -1,7 +1,6 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/session-start.php' ?>
 
-<!-- Font Awesome para iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <body>
@@ -530,7 +529,6 @@
                 <div class="modal-section">
                     <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Comentarios</h4>
                     <div id="comentarios" class="modal-comments" style="max-height: 200px; overflow-y: auto; margin-top: 15px;">
-                        <!-- Los comentarios se cargarán dinámicamente aquí -->
                         <div class="comment" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;">
                             <span class="comment-author" style="font-weight: 600; margin-right: 5px;">Juan Pérez:</span>
                             <span>¡Este evento está increíble!</span>
@@ -774,8 +772,6 @@
             eventoForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Aquí enviarías los datos al servidor usando AJAX
-                // Por ahora, solo mostramos un mensaje de éxito
                 Swal.fire({
                     icon: 'success',
                     title: '¡Evento creado!',
@@ -786,8 +782,6 @@
                         // Resetear y cerrar formulario
                         createPostForm.classList.remove('active');
                         this.reset();
-                        
-                        // Simular la adición del nuevo evento al feed (en un sistema real, recargarías o añadirías con AJAX)
                         window.location.reload();
                     }
                 });
@@ -837,7 +831,6 @@
                                     showConfirmButton: false
                                 });
                                 
-                                // Aquí se enviaría al servidor en un sistema real
                             }
                         });
                     } else {

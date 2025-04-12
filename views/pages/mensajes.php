@@ -199,7 +199,6 @@
                 </div>
             </div>
             
-            <!-- Panel de información del evento (opcional) -->
             <div class="event-info-panel">
                 <div class="panel-header">
                     <h3>Detalles del evento</h3>
@@ -313,7 +312,6 @@
                     <h4 class="section-title">Seleccionados</h4>
                     
                     <div class="user-chips" id="user-chips">
-                        <!-- Los usuarios seleccionados aparecerán aquí como chips -->
                     </div>
                 </div>
                 

@@ -215,7 +215,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Manejadores para tipo de ubicación
             const locationButtons = document.querySelectorAll('.location-btn');
             const presencialFields = document.getElementById('presencial-fields');
             const onlineFields = document.getElementById('online-fields');
@@ -235,7 +234,7 @@
                     } else if (locationType === 'online') {
                         presencialFields.style.display = 'none';
                         onlineFields.style.display = 'block';
-                    } else { // híbrido
+                    } else { 
                         presencialFields.style.display = 'block';
                         onlineFields.style.display = 'block';
                     }
@@ -338,11 +337,9 @@
                 });
             });
             
-            // Envío del formulario
             document.getElementById('event-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Aquí iría la validación completa del formulario
                 
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -355,15 +352,12 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Aquí iría el código para enviar el formulario
                         Swal.fire({
                             icon: 'success',
                             title: '¡Evento publicado!',
                             text: 'Tu evento ha sido publicado correctamente',
                             confirmButtonColor: '#ff5a5f'
                         }).then(() => {
-                            // Redireccionar a la página de evento creado
-                            // window.location.href = 'mi-evento';
                         });
                     }
                 });

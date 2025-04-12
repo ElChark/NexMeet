@@ -44,7 +44,7 @@
             </div>
         </div>
         
-        <!-- Menú de navegación del perfil en el nuevo orden -->
+        <!-- Menú de navegación del perfil -->
         <div class="profile-nav">
             <div class="profile-nav-item" data-tab="photos">
                 <i class="fas fa-image"></i>

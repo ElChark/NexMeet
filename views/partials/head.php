@@ -33,6 +33,9 @@
         case 'crearevento':
             echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/crearevento.css">';
             break;
+        case 'publicacion':
+            echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/publicacion.css">';
+            break;
     }
     ?>
     

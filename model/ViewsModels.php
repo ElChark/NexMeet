@@ -6,7 +6,7 @@ class ViewsModels
 {
     protected function obtenerVistasModel($vista)
     {
-        $urlPermitido = ['home', 'perfil', 'mensajes', 'explorar', 'crearevento', 'admin'];
+        $urlPermitido = ['home', 'perfil', 'mensajes', 'explorar', 'crearevento', 'publicacion', 'admin'];
 
         if(in_array($vista, $urlPermitido))
         {

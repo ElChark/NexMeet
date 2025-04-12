@@ -262,7 +262,6 @@ html, body {
     background-color: var(--secondary-color);
 }
 
-/* Estilos mejorados de paginación */
 .pagination-container {
     margin-top: 40px;
     display: flex;
@@ -335,7 +334,6 @@ html, body {
     color: var(--dark-gray);
 }
 
-/* Estilos para las notificaciones */
 .notification {
     position: fixed;
     top: 20px;

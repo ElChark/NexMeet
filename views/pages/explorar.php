@@ -47,7 +47,6 @@
         
         <!-- Grid de eventos encontrados -->
         <div class="events-grid">
-            <!-- Esta sección se llenaría dinámicamente, pero por ahora incluiremos ejemplos estáticos -->
             <div class="event-card">
                 <div class="event-image">
                     <img src="https://via.placeholder.com/300x200/ff5a5f/ffffff?text=Festival+de+Cine" alt="Evento">
@@ -163,7 +162,7 @@
             </div>
         </div>
         
-        <!-- Paginación mejorada -->
+        <!-- Paginación  -->
         <div class="pagination-container">
             <div class="pagination">
                 <a href="#" class="pagination-arrow prev" aria-label="Página anterior">
@@ -184,14 +183,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Manejadores para botones de categoría
             const categoryButtons = document.querySelectorAll('.category-btn');
             categoryButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
                     categoryButtons.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    
-                    // Aquí iría la lógica para filtrar eventos por categoría
                 });
             });
             
@@ -203,7 +199,6 @@
                     this.classList.add('active');
                     
                     if (this.textContent === 'Elegir fecha') {
-                        // Aquí podrías mostrar un selector de fecha (implementación adicional requerida)
                     }
                 });
             });
@@ -211,7 +206,6 @@
             // Manejador para botón de ubicación
             document.querySelector('.location-btn').addEventListener('click', function() {
                 const location = document.querySelector('.location-input').value.trim();
-                // Aquí iría la lógica para filtrar eventos por ubicación
             });
             
             // Manejador para botones de asistencia
@@ -225,7 +219,6 @@
                     this.textContent = 'Asistiré';
                     this.classList.add('attending');
                     
-                    // También podrías mostrar una notificación en lugar de una alerta
                     showNotification('¡Asistencia confirmada!', `Has confirmado tu asistencia a "${eventTitle}"`, 'success');
                 });
             });
@@ -258,7 +251,7 @@
                     paginationPrev.classList.remove('disabled');
                 }
                 
-                if (pageNumber === 5) { // Asumiendo que hay 5 páginas
+                if (pageNumber === 5) { 
                     paginationNext.classList.add('disabled');
                 } else {
                     paginationNext.classList.remove('disabled');
@@ -269,9 +262,6 @@
                     top: document.querySelector('.filters-container').offsetTop - 80,
                     behavior: 'smooth'
                 });
-                
-                // Aquí iría la lógica para cargar contenido de la nueva página
-                // Por ejemplo: loadPageContent(pageNumber);
             }
             
             // Inicializar estado de paginación
@@ -302,7 +292,7 @@
                 const activePage = document.querySelector('.pagination-number.active');
                 const currentPage = parseInt(activePage.getAttribute('data-page'));
                 
-                if (currentPage < 5) { // Asumiendo que hay 5 páginas
+                if (currentPage < 5) { 
                     updatePage(currentPage + 1);
                 }
             });
