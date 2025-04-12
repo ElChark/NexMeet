@@ -497,7 +497,6 @@
             const profilePhotoUpload = document.getElementById('profile-photo-upload');
             
             changePhotoBtn.addEventListener('click', function() {
-                // Abrir selector de archivos al hacer clic en el botón de la foto
                 profilePhotoUpload.click();
             });
             
@@ -518,7 +517,6 @@
             const newEventCard = document.querySelector('.new-event-card');
             
             newEventCard.addEventListener('click', function() {
-                // Redireccionar a la página de creación de eventos
                 window.location.href = '<?php echo APP_URL; ?>crearevento';
             });
         });

@@ -486,11 +486,7 @@
             if (e.key === 'Enter') {
                 const searchTerm = this.value.trim();
                 if (searchTerm) {
-                    // Simular búsqueda (en producción, redirigirías a una página de resultados)
                     alert(`Buscando: ${searchTerm}`);
-                    
-                    // Ejemplo de redirección a página de resultados
-                    // window.location.href = `${APP_URL}buscar?q=${encodeURIComponent(searchTerm)}`;
                 }
             }
         });
@@ -517,8 +513,6 @@
                     notificationCount.textContent = unreadCount;
                 }
                 
-                // Aquí iría la redirección a la página relacionada con la notificación
-                // window.location.href = 'url-destino';
             });
         });
     });

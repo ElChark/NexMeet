@@ -252,7 +252,6 @@
             
             // Guardar borrador
             document.getElementById('save-draft').addEventListener('click', function() {
-                // Aquí iría la lógica para guardar el borrador
                 Swal.fire({
                     icon: 'success',
                     title: 'Borrador guardado',
@@ -279,7 +278,6 @@
                     return;
                 }
                 
-                // Aquí iría el envío al servidor en una aplicación real
                 Swal.fire({
                     icon: 'success',
                     title: '¡Publicación creada!',
@@ -287,7 +285,6 @@
                     confirmButtonColor: '#ff5a5f'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Redireccionar a la página principal
                         window.location.href = '<?php echo APP_URL; ?>home';
                     }
                 });

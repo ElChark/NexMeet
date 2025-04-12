@@ -429,7 +429,7 @@
         const carousel = document.querySelector('.featured-carousel');
         const prevArrow = document.querySelector('.prev-arrow');
         const nextArrow = document.querySelector('.next-arrow');
-        const scrollAmount = 300; // Cantidad de píxeles a desplazar
+        const scrollAmount = 300; 
 
         // Botón para desplazarse a la izquierda
         prevArrow.addEventListener('click', function() {
@@ -455,8 +455,6 @@
                 
                 // Puedes redirigir a la página de detalles del evento o mostrar un modal
                 showNotification('Evento seleccionado', `Has seleccionado el evento: ${eventTitle}`, 'info');
-                
-                // Alternativa: window.location.href = `detalles-evento.php?id=${eventId}`;
             });
         });
     });

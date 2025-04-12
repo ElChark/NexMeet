@@ -489,7 +489,7 @@
             const storyTime = document.getElementById('story-time');
             const storyProgressBar = document.querySelector('.story-progress-bar');
             
-            // Abrir formulario de creación - Ahora redirecciona a crear evento
+            // Abrir formulario de creación 
             createPostTrigger.addEventListener('click', function() {
                 window.location.href = '<?php echo APP_URL; ?>crearevento';
             });

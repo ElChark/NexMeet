@@ -66,7 +66,6 @@
             
             // Manejar errores de registro
             registerForm.addEventListener('submit', function(e) {
-                // Validación básica (en un sistema real, esto se haría más completo)
                 if (passwordInput.value !== confirmPasswordInput.value) {
                     e.preventDefault();
                     errorMessage.textContent = 'Las contraseñas no coinciden';
