@@ -45,6 +45,10 @@ html, body {
 }
 
 .filters-container {
+<<<<<<< Updated upstream
+=======
+    width: 100%;
+>>>>>>> Stashed changes
     background-color: var(--white);
     border-radius: 12px;
     box-shadow: var(--shadow);
@@ -137,9 +141,16 @@ html, body {
 
 .events-grid {
     display: grid;
+<<<<<<< Updated upstream
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
     margin-bottom: 30px;
+=======
+    grid-template-columns: repeat(2, 280px);
+    gap: 50px;
+    margin-bottom: 30px;
+
+>>>>>>> Stashed changes
 }
 
 .event-card {
@@ -148,6 +159,10 @@ html, body {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
+<<<<<<< Updated upstream
+=======
+    height: 350px;
+>>>>>>> Stashed changes
 }
 
 .event-card:hover {
@@ -417,6 +432,7 @@ html, body {
     margin-left: 15px;
 }
 
+<<<<<<< Updated upstream
 /* Estilos para eventos destacados - carrusel */
 .featured-events-container {
     background-color: var(--white);
@@ -620,6 +636,8 @@ html, body {
     }
 }
 
+=======
+>>>>>>> Stashed changes
 /* Responsive */
 @media (max-width: 768px) {
     .explorer-container {
@@ -668,4 +686,45 @@ html, body {
         right: 20px;
         max-width: none;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+
+.map {
+    height: 65vh;
+    width: 50%;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-top: 30px;
+}
+
+.marker {
+    background-color:  #3b82f6;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+.mapboxgl-popup {
+    max-width: 300px;
+}
+
+.popup-content {
+    padding: 1rem;
+}
+
+.popup-title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.popup-description {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+>>>>>>> Stashed changes

@@ -1,5 +1,9 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/session-start.php' ?>
+<<<<<<< Updated upstream
+=======
+<?php require_once './views/partials/users-load.php' ?>
+>>>>>>> Stashed changes
 
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
@@ -13,6 +17,7 @@
                     <h2>Mensajes</h2>
                     <button class="new-message-btn"><i class="fas fa-edit"></i></button>
                 </div>
+<<<<<<< Updated upstream
                 
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
@@ -103,6 +108,34 @@
                 </div>
             </div>
             
+=======
+
+                <form class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Buscar mensajes" id="buscar-input">
+                </form>
+
+                <!-- Lista de conversaciones -->
+                <div class="conversations-list">
+
+                    <?php foreach ($usuarios as $usuario) { ?>
+                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $usuario['id_usuario'] ?>">
+                            <div class="conversation-avatar">
+                                <img src="../ajax/<?php echo isset($usuario['foto_perfil']) ? $usuario['foto_perfil']  : 'images/perfilPrueba.jpg'; ?>" alt="Avatar">
+                                <span class="status-indicator online"></span>
+                            </div>
+                            <div class="conversation-info">
+                                <div class="conversation-header">
+                                    <h3 class="conversation-name"><?php echo $usuario['nombre'] ?></h3>
+                                    <span class="conversation-time">12:45</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+
+>>>>>>> Stashed changes
             <!-- Área de chat activa -->
             <div class="chat-area">
                 <!-- Cabecera del chat -->
@@ -123,6 +156,7 @@
                         <button class="chat-action-btn"><i class="fas fa-info-circle"></i></button>
                     </div>
                 </div>
+<<<<<<< Updated upstream
                 
                 <!-- Mensajes -->
                 <div class="chat-messages" id="chat-messages">
@@ -188,6 +222,19 @@
                 <!-- Área de entrada de mensaje -->
                 <div class="chat-input-area">
                     <button class="input-action-btn"><i class="fas fa-paperclip"></i></button>
+=======
+
+                <!-- Mensajes -->
+                <div class="chat-messages" id="chat-messages">
+                    <!-- <div class="message-date-divider">
+                        <span>HOY</span>
+                    </div> -->
+                </div>
+
+                <!-- Área de entrada de mensaje -->
+                <form class="chat-input-area" id="mensaje-form">
+                    <button class="input-action-btn" type="button"><i class="fas fa-paperclip"></i></button>
+>>>>>>> Stashed changes
                     <div class="chat-input-container">
                         <input type="text" class="chat-input" placeholder="Escribe un mensaje..." id="chat-input">
                         <div class="input-actions">
@@ -195,30 +242,53 @@
                             <button class="input-action-btn"><i class="fas fa-camera"></i></button>
                         </div>
                     </div>
+<<<<<<< Updated upstream
                     <button class="send-message-btn" id="send-message-btn"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
             
+=======
+                    <button class="send-message-btn" id="send-message-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+
+>>>>>>> Stashed changes
             <div class="event-info-panel">
                 <div class="panel-header">
                     <h3>Detalles del evento</h3>
                     <button class="close-panel-btn"><i class="fas fa-times"></i></button>
                 </div>
+<<<<<<< Updated upstream
                 
+=======
+
+>>>>>>> Stashed changes
                 <div class="event-details">
                     <div class="event-image">
                         <img src="https://via.placeholder.com/300x150/ff5a5f/ffffff?text=Evento+de+Música" alt="Imagen del evento">
                     </div>
+<<<<<<< Updated upstream
                     
+=======
+
+>>>>>>> Stashed changes
                     <h2 class="event-title">Festival de Música Independiente</h2>
                     <p class="event-date"><i class="far fa-calendar-alt"></i> 15 Mayo, 2025</p>
                     <p class="event-time"><i class="far fa-clock"></i> 19:00 - 23:00</p>
                     <p class="event-location"><i class="fas fa-map-marker-alt"></i> Auditorio Central, Avenida Principal #123</p>
+<<<<<<< Updated upstream
                     
                     <p class="event-description">
                         Un festival dedicado a músicos independientes locales. Disfruta de diferentes géneros musicales en un ambiente único y familiar. Habrá comida y bebidas disponibles.
                     </p>
                     
+=======
+
+                    <p class="event-description">
+                        Un festival dedicado a músicos independientes locales. Disfruta de diferentes géneros musicales en un ambiente único y familiar. Habrá comida y bebidas disponibles.
+                    </p>
+
+>>>>>>> Stashed changes
                     <div class="event-stats">
                         <div class="event-stat">
                             <i class="fas fa-user-friends"></i>
@@ -229,13 +299,21 @@
                             <span>45 me gusta</span>
                         </div>
                     </div>
+<<<<<<< Updated upstream
                     
+=======
+
+>>>>>>> Stashed changes
                     <button class="attend-event-btn">
                         <i class="fas fa-calendar-check"></i>
                         Asistiré
                     </button>
                 </div>
+<<<<<<< Updated upstream
                 
+=======
+
+>>>>>>> Stashed changes
                 <div class="shared-media">
                     <h4>Archivos y enlaces compartidos</h4>
                     <div class="media-grid">
@@ -256,6 +334,7 @@
             </div>
         </div>
     </div>
+<<<<<<< Updated upstream
     
     <!-- Modal para nuevo mensaje -->
     <div class="modal-backdrop" id="new-message-modal" style="display: none;">
@@ -588,4 +667,199 @@
         });
     </script>
 </body>
+=======
+
+    <script>
+        const emisor = <?php echo $_SESSION['id_usuario'] ?>;
+        const conversationItems = document.querySelectorAll('.conversation-item');
+        let conversationsCache = {};
+        let currentConvoId = null;
+        let convoId = null;
+
+
+        // Cambiar de conversación
+        conversationItems.forEach((item) => {
+            item.addEventListener('click', async function() {
+                console.log(conversationsCache);
+
+                conversationItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                const receptor = this.dataset.id;
+                const usersIds = [emisor, receptor].sort();
+                convoId = usersIds[0] + '_convo_' + usersIds[1];
+
+                if (currentConvoId === convoId) return;
+
+                currentConvoId = convoId;
+                console.log('Cargando conversación:', convoId);
+
+
+                if (conversationsCache[convoId]) {
+                    displayMessages(conversationsCache[convoId]);
+                } else {
+                    let objetoTmp = {
+                        convoId: convoId,
+                        limit: 10,
+                        offset: 0,
+                        tipo: 'Obtener'
+                    };
+
+                    try {
+                        const response = await fetch("<?php echo  APP_URL; ?>ajax/messages-ajax.php", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(objetoTmp)
+                        });
+
+                        const data = await response.json();
+                        console.log('Recibiendo Data...' + data)
+
+                        conversationsCache[convoId] = data;
+                        displayMessages(data);
+                    } catch (error) {
+                        console.error('Error cargando mensajes:', error);
+                    }
+                }
+
+                const unreadCount = this.querySelector('.unread-count');
+                if (unreadCount) {
+                    unreadCount.remove();
+                }
+            });
+        });
+
+        function displayMessages(msgs) {
+            const chatContainer = document.getElementById('chat-messages');
+            chatContainer.innerHTML= ``;
+
+            if (msgs.length === 0) {
+
+                chatContainer.innerHTML = `
+                                <span class="media-name">Se el primero en iniciar un conve</span>
+                                        `;
+                return;
+            }
+
+
+            msgs.forEach(msg => {
+                const message = document.createElement('div');
+                message.classList.add('message-received');
+                message.innerHTML = `
+                        <div class="message-avatar">
+                            <p>${msg.nombre}</p>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p>${msg.contenido}.</p>
+                            </div>
+                            <span class="message-time">${msg.fecha}</span>
+                        </div>`;
+                chatContainer.appendChild(message);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            });
+        }
+
+        function displayMessage(msg) {
+            const chatContainer = document.getElementById('chat-messages');
+            const message = document.createElement('div');
+
+            message.innerHTML = `
+                <div class="message-avatar">
+                    <p>${msg.nombre}</p>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <p>${msg.contenido}</p>
+                    </div>
+                    <span class="message-time">${msg.fecha ?? 'Ahora'}</span>
+                </div>`;
+
+            chatContainer.appendChild(message);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+
+
+        const enviarMensaje = document.getElementById('mensaje-form');
+        enviarMensaje.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const contenido = document.getElementById('chat-input').value;
+            if (!contenido) return;
+
+
+            const objetoTmp = {
+                contenido: contenido,
+                convoId: convoId,
+                idEmisor: emisor,
+                tipo: 'Insertar'
+            }
+
+            try {
+                console.log('Enviando Formulario')
+                const response = await fetch("<?php echo  APP_URL; ?>ajax/messages-ajax.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(objetoTmp)
+                });
+
+                const data = await response.json();
+
+                if (data.tipo == 'error') {
+                    Swal.fire({
+                        icon: data.icono,
+                        title: data.titulo,
+                        text: data.texto,
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+
+
+                console.log('El mensaje se ha focking insertado' + data);
+
+
+                const mensajeTmp = {
+                    contenido: contenido,
+                    convoId: convoId,
+                    nombre: emisor,
+                    fecha: new Date().toLocaleTimeString()
+                }
+
+
+                displayMessage(mensajeTmp); // en un futuro lo ideal es que inserte la data traida de la db, la que viene con el nombre y la fecha
+                contenido.value = '';
+            } catch (error) {
+                console.error('Error cargando mensajes:', error);
+            }
+
+        });
+
+
+
+
+        ///////////////////////////
+        const infoButton = document.querySelector('.chat-actions .chat-action-btn:nth-child(3)');
+        const closePanel = document.querySelector('.close-panel-btn');
+        //////infoooo
+        infoButton.addEventListener('click', function() {
+            if (eventInfoPanel.classList.contains('active')) {
+                eventInfoPanel.classList.remove('active');
+            } else {
+                eventInfoPanel.classList.add('active');
+            }
+        });
+
+        // Cerrar panel de información
+        closePanel.addEventListener('click', function() {
+            eventInfoPanel.classList.remove('active');
+        });
+    </script>
+</body>
+
+>>>>>>> Stashed changes
 </html>
