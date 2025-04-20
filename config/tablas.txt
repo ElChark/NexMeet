@@ -1,0 +1,31 @@
+USE nexmeet_db;
+
+
+create table Usuario
+(
+id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL UNIQUE,
+contra VARCHAR(255) NOT NULL,
+foto_perfil BLOB,
+fecha_reigstro DATE DEFAULT (CURRENT_DATE()),
+fecha_nacimiento DATE,
+tipo ENUM('Administrador', 'Usuario') DEFAULT 'Usuario', 
+estado BIT DEFAULT 1,
+descripcion TEXT,
+num_telefono VARCHAR(11)
+);
+
+
+create table Publicaciones
+(
+id_publicacion INT AUTO_INCREMENT PRIMARY KEY,
+id_usuario INT,
+titulo VARCHAR(100) NOT NULL,
+foto_portada BLOB,
+multimedia BLOB,
+fecha_publicacion DATE DEFAULT (CURRENT_DATE()),
+contenido TEXT,
+FOREIGN KEY(id_usuario)REFERENCES Usuario(id_usuario)
+);
+

@@ -1,74 +1,76 @@
 <?php require_once './views/partials/head.php' ?>
-<style>
-    body {
-        background: linear-gradient(135deg, #4b7bc3, #2a5298);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        color: white;
-    }
-    .login-container {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        text-align: center;
-        width: 20%;
-        backdrop-filter: blur(10px);
-    }
-    .login-container h1 {
-        margin-bottom: 10px;
-    }
-    .login-container p {
-        margin-bottom: 20px;
-    }
-    input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-    button {
-        width: 100%;
-        padding: 10px;
-        background: #00c6ff;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        color: white;
-        cursor: pointer;
-        transition: background 0.3s ease;
-    }
-    button:hover {
-        background: #0072ff;
-    }
-    .register-link {
-        margin-top: 10px;
-    }
-    .register-link a {
-        color: #00c6ff;
-        text-decoration: none;
-    }
-    .register-link a:hover {
-        text-decoration: underline;
-    }
-</style>
 <body>
     <div class="login-container">
-        <h1>Bienvenido a NexMeet</h1>
-        <p>Inicia sesión para continuar</p>
-        <form id="login-form" method="post" action="#" enctype="multipart/form-data">
-            <input type="text" id="username" placeholder="Usuario o correo" value="" required>
-            <input type="password" id="password" placeholder="Contraseña" value="" required>
+        <div class="login-logo">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h1>Bienvenido a NexEvent</h1>
+        <p>Conecta y descubre eventos emocionantes</p>
+
+        <form id="login-form" method="POST" enctype="multipart/form-data" action="/ajax/publicaciones-ajax.php">
+            <input type="text" id="username" placeholder="Usuario" name="nombre" required>
+            <input type="password" id="password" placeholder="Contraseña" name="contra" required>
             <button type="submit" id="button">Iniciar Sesión</button>
         </form>
+
+        <div class="divider">
+            <span>O inicia sesión con</span>
+        </div>
+
+        <div class="social-login">
+            <div class="social-btn">
+                <i class="fab fa-google"></i>
+            </div>
+            <div class="social-btn">
+                <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="social-btn">
+                <i class="fab fa-apple"></i>
+            </div>
+        </div>
         <p class="register-link">¿No tienes cuenta? <a href="<?php echo APP_URL; ?>register">Regístrate</a></p>
     </div>
 
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            console.log('Formulario enviado');
+
+            const formData = new FormData(this);
+
+            console.log(formData);
+
+            try {
+                const response = await fetch("<?php echo  APP_URL; ?>ajax/login-ajax.php", {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log('Respuesta recibida:', data);
+
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+
+                if (data.estado == "ok") {
+                    window.location.href = data.redirect;
+                } else if (data.tipo == "error") {
+                    Swal.fire({
+                        icon: data.icono,
+                        title: data.titulo,
+                        text: data.texto,
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error-message').style.display = 'block';
+                document.getElementById('error-message').textContent = 'Error de conexión con el servidor';
+            }
+        });
+    </script>
 </body>
+
 </html>
