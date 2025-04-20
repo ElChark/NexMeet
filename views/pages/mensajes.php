@@ -87,10 +87,12 @@
                     <h3>Detalles del evento</h3>
                     <button class="close-panel-btn"><i class="fas fa-times"></i></button>
                 </div>
+
                 <div class="event-details">
                     <div class="event-image">
                         <img src="https://via.placeholder.com/300x150/ff5a5f/ffffff?text=Evento+de+Música" alt="Imagen del evento">
                     </div>
+
                     <h2 class="event-title">Festival de Música Independiente</h2>
                     <p class="event-date"><i class="far fa-calendar-alt"></i> 15 Mayo, 2025</p>
                     <p class="event-time"><i class="far fa-clock"></i> 19:00 - 23:00</p>
@@ -110,11 +112,13 @@
                             <span>45 me gusta</span>
                         </div>
                     </div>
+
                     <button class="attend-event-btn">
                         <i class="fas fa-calendar-check"></i>
                         Asistiré
                     </button>
                 </div>
+
                 <div class="shared-media">
                     <h4>Archivos y enlaces compartidos</h4>
                     <div class="media-grid">

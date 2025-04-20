@@ -7,7 +7,7 @@ use controllers\MensajesController;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mensajes = new MensajesController();
-
+   
     $jsonData = file_get_contents('php://input');
     $data = json_decode($jsonData, true);
     

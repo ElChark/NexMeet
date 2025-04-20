@@ -1,7 +1,7 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/publicaciones-load.php' ?>
 <?php require_once './views/partials/eventos-load.php' ?>
-
+<?php require_once './views/partials/asistiendo.php' ?>
 
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
@@ -26,6 +26,7 @@
                     <button class="edit-profile-button">Editar perfil</button>
                     <button class="settings-button"><i class="fas fa-cog"></i></button>
                 </div>
+
                 <div class="profile-stats">
                     <div class="stat-item">
                         <span class="stat-number">24</span>
@@ -57,7 +58,7 @@
             </div>
             <div class="profile-nav-item" data-tab="saved">
                 <i class="fas fa-bookmark"></i>
-                <span>GUARDADOS</span>
+                <span>GUSTADOS</span>
             </div>
             <div class="profile-nav-item" data-tab="attending">
                 <i class="fas fa-star"></i>
@@ -74,23 +75,23 @@
             <!-- Pestaña de eventos -->
             <div class="profile-tab active" id="events-tab">
                 <div class="profile-grid">
-                    
-                    <?php foreach($eventos as $evento)  {?>
 
-                    <article class="profile-card">
-                        <div class="card-image">
-                            <img src="<?= $evento['foto_portada'] ?>" alt="Evento">
-                            <div class="card-overlay">
+                    <?php foreach ($eventos as $evento) { ?>
+
+                        <article class="profile-card">
+                            <div class="card-image">
+                                <img src="<?= $evento['foto_portada'] ?>" alt="Evento">
+                                <div class="card-overlay">
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title"><?= $evento['titulo'] ?></h3>
-                            <p class="card-date"><i class="far fa-calendar-alt"></i><?= $evento['fecha_publicacion'] ?></p>
-                            <p class="card-location"><i class="fas fa-map-marker-alt"></i><?= $evento['nombreLugar'] ?></p>
-                        </div>
-                    </article>
+                            <div class="card-info">
+                                <h3 class="card-title"><?= $evento['titulo'] ?></h3>
+                                <p class="card-date"><i class="far fa-calendar-alt"></i><?= $evento['fecha_publicacion'] ?></p>
+                                <p class="card-location"><i class="fas fa-map-marker-alt"></i><?= $evento['nombreLugar'] ?></p>
+                            </div>
+                        </article>
 
-                    <?php }?>
+                    <?php } ?>
 
                 </div>
             </div>
@@ -120,6 +121,7 @@
                             <p class="card-location"><i class="fas fa-map-marker-alt"></i> Teatro Municipal</p>
                         </div>
                     </div>
+
                     <div class="profile-card">
                         <div class="card-image">
                             <img src="https://via.placeholder.com/300x200/ff5a5f/ffffff?text=Maratón" alt="Evento guardado">
@@ -143,6 +145,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="empty-message" style="display: none;">
                     <div class="empty-icon">
                         <i class="fas fa-bookmark"></i>
@@ -152,31 +155,26 @@
                     <button class="explore-button">Explorar eventos</button>
                 </div>
             </div>
+
             <!-- Pestaña de asistiendo -->
             <div class="profile-tab" id="attending-tab">
                 <div class="profile-grid">
-                    <div class="profile-card">
-                        <div class="card-image">
-                            <img src="https://via.placeholder.com/300x200/484848/ffffff?text=Concierto" alt="Evento asistiendo">
-                            <div class="card-overlay">
-                                <div class="card-stats">
-                                    <div class="card-stat">
-                                        <i class="fas fa-heart"></i>
-                                        <span>89</span>
-                                    </div>
-                                    <div class="card-stat">
-                                        <i class="fas fa-comment"></i>
-                                        <span>36</span>
-                                    </div>
+
+
+                    <?php foreach ($asistiendos as $asistiendo) { ?>
+                        <article class="profile-card">
+                            <div class="card-image">
+                                <img src="https://via.placeholder.com/300x200/484848/ffffff?text=Concierto" alt="Evento asistiendo">
+                                <div class="card-overlay">
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title">Concierto en vivo: Bandas Locales</h3>
-                            <p class="card-date"><i class="far fa-calendar-alt"></i> 5 Mayo, 2025</p>
-                            <p class="card-location"><i class="fas fa-map-marker-alt"></i> Auditorio Central</p>
-                        </div>
-                    </div>
+                            <div class="card-info">
+                                <h3 class="card-title"><?= $asistiendo['nombre_evento'] ?></h3>
+                                <p class="card-date"><i class="far fa-calendar-alt"></i><?= isset($asistiendo['nombre_evento']) ? $asistiendo['nombre_evento'] : 'Today' ?></p>
+                                <p class="card-location"><i class="fas fa-map-marker-alt"></i> Auditorio Central</p>
+                            </div>
+                        </article>
+                    <?php } ?>
                 </div>
             </div>
 

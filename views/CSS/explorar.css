@@ -141,7 +141,8 @@ html, body {
     grid-template-columns: repeat(2, 280px);
     gap: 50px;
     margin-bottom: 30px;
-
+    overflow-y: auto;
+    height: 700px;
 }
 
 .event-card {
@@ -505,4 +506,8 @@ html, body {
     font-size: 0.875rem;
     color: #4b5563;
     margin-bottom: 0.5rem;
+}
+
+.notShow{
+    display: none !important;
 }

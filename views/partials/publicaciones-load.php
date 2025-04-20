@@ -1,8 +1,8 @@
 <?php
-use model\MainModel;
+ use model\MainModel;
 
 
-$publicacionesModel = new MainModel();
-$resultado = $publicacionesModel -> seleccionDatos('Unico', 'Publicaciones', 'id_usuario', $_SESSION['id_usuario']);
+ $publicacionesModel = new MainModel();
+ $resultado = $publicacionesModel -> seleccionDatos('Unico', 'Publicaciones', 'id_usuario', $_SESSION['id_usuario']);
 
-$publicaciones = $resultado->fetchAll();
+ $publicaciones = $resultado->fetchAll();

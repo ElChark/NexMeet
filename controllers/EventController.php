@@ -9,7 +9,7 @@ use PDO;
 
 class EventController extends MainModel
 {
-    function addEvento($titulo, $descripcion, $file, $coordenadas, $nombreLugar)
+    function addEvento($titulo, $descripcion, $file, $coordenadas, $nombreLugar, $categoria, $fechaEvento)
     {
         $coor = json_decode($coordenadas, true);
         $longitud = $coor[0];
@@ -53,6 +53,16 @@ class EventController extends MainModel
                     'nombre' => 'latitud',
                     'nombre_marcador' => ':latitud',
                     'valor' => $latitud
+                ],
+                [
+                    'nombre' => 'fechaEvento',
+                    'nombre_marcador' => ':fechaEvento',
+                    'valor' => $fechaEvento
+                ],
+                [
+                    'nombre' => 'categoria',
+                    'nombre_marcador' => ':categoria',
+                    'valor' => $categoria
                 ]
             ];
 
@@ -60,7 +70,7 @@ class EventController extends MainModel
             $subirEvento = $this->subirEvento('Evento', $eventoDatos);
 
             if ($subirEvento->rowCount() == 1) {
-                $consultaEvento = $this->seleccionDatos('Unico', 'Evento', 'id_usuario', $_SESSION['id_usuario']);
+                $consultaEvento = $this->seleccionDatos('crearEvento', 'Evento', 'id_usuario', $_SESSION['id_usuario']);
                 $eventoSubido = $consultaEvento->fetch();
 
                 $alerta = [

@@ -311,10 +311,12 @@
 
 <header class="header">
     <a href="<?php echo APP_URL; ?>home" class="header-logo">NexEvent</a>
+
     <div class="search-container">
         <i class="fas fa-search search-icon"></i>
         <input type="text" class="search-input" placeholder="Buscar eventos, personas...">
     </div>
+
     <nav class="header-nav">
         <a href="<?php echo APP_URL; ?>home" class="header-nav-item <?php echo isset($url[0]) && $url[0] == 'home' ? 'active' : ''; ?>">
             <i class="fas fa-home"></i> <span>Inicio</span>
@@ -445,10 +447,12 @@
         // Funcionalidad para el toggle de notificaciones
         const notificationsToggle = document.getElementById('notifications-toggle');
         const notificationsMenu = document.getElementById('notifications-menu');
+
         notificationsToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             notificationsMenu.style.display = notificationsMenu.style.display === 'block' ? 'none' : 'block';
         });
+
         // Cerrar el menú al hacer clic fuera
         document.addEventListener('click', function(e) {
             if (!notificationsMenu.contains(e.target) && e.target !== notificationsToggle) {

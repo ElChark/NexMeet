@@ -282,6 +282,26 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="event-category" class="form-label">Categoría</label>
+                        <select id="event-category" class="form-control" name="selectedCategory" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="musica">Música</option>
+                            <option value="arte">Arte</option>
+                            <option value="deportes">Deportes</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="gastronomia">Gastronomía</option>
+                            <option value="educacion">Educación</option>
+                            <option value="networking">Networking</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDate" class="form-label">Fecha del evento</label>
+                        <input type="date" id="eventDate" class="input-field" name="date" required></input>
+                    </div>
+
+
+                    <div class="form-group">
                         <label for="geocoder" class="form-label">Dirección del Evento</label>
                         <div id="geocoder"></div>
                     </div>
@@ -404,7 +424,6 @@
                 });
         }
 
-
         //////////////crear evento
         document.getElementById('eventForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -444,14 +463,15 @@
                 const data = await response.json();
                 console.log('Respuesta recibida');
 
-                if (data.tituloTipo == "error") {
+                if (data.tipo == "error") {
+                    selectedLocation = null;
                     addMarkerToMap(data);
                     addEventToList(data);
 
 
                     Swal.fire({
                         icon: data.icono,
-                        title: data.titulo,
+                        title: data.tituloTipo,
                         text: data.texto,
                         confirmButtonText: 'Aceptar'
                     });
@@ -459,8 +479,12 @@
 
                 document.getElementById('eventName').value = '';
                 document.getElementById('eventDescription').value = '';
+                document.getElementById('eventDate').value = '';
+                document.getElementById('event-category').value = '';
+                document.getElementById('event-gallery').value = '';
+
                 geocoder.clear();
-                selectedLocation = null;
+                
             } catch (error) {
                 Swal.fire({
                     icon: 'error',
@@ -582,7 +606,7 @@
             // Form submission via Enter key
             document.getElementById('eventDescription').addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
-                    addEvent();
+                   console.log(selectedCategory);
                 }
             });
         });

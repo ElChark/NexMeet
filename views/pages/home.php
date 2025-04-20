@@ -141,10 +141,11 @@
                     <input type="text" class="create-post-input" placeholder="¿Qué evento quieres compartir?" id="create-post-trigger" readonly>
                 </div>
                 
-                <div class="story-item" data-id="1">
-                    <div class="story-avatar-container has-story">
-                        <div class="story-avatar">
-                            <img src="https://via.placeholder.com/60/ff5e00" alt="Avatar de Ana">
+                <div class="create-post-form" id="create-post-form">
+                    <form id="evento-form">
+                        <div class="form-group">
+                            <label class="form-label" for="shareText">Título del evento</label>
+                            <input type="text" class="form-control" id="shareText" name="titulo" placeholder="¿De qué trata tu evento?" required>
                         </div>
                         
                         <div class="form-group">
@@ -192,7 +193,7 @@
                     </form>
                 </div>
             </section>
-            -->
+             -->
             <!-- Eventos sugeridos -->
             <section id="eventos-sugeridos">
                 <!-- Post 1 -->
@@ -432,7 +433,8 @@
 
             // Abrir formulario de creación de eventos
             createPostTrigger.addEventListener('click', function() {
-                window.location.href = '<?php echo APP_URL; ?>crearevento';
+                createPostForm.classList.add('active');
+                this.blur();
             });
 
             // Cerrar formulario de creación de eventos
@@ -560,16 +562,17 @@
                         this.classList.add('active');
 
                         // Actualizar contador
-                        likesContainer.textContent = (currentLikes + 1) + ' Me gusta';
+                        const currentLikes = parseInt(likesContainer.textContent.match(/\d+/)[0]);
+                        likesContainer.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes + 1} Me gusta`;
                     } else {
                         // Quitar me gusta
                         icon.classList.remove('fas');
-                        icon.classList.remove('liked');
                         icon.classList.add('far');
                         this.classList.remove('active');
 
                         // Actualizar contador
-                        likesContainer.textContent = (currentLikes - 1) + ' Me gusta';
+                        const currentLikes = parseInt(likesContainer.textContent.match(/\d+/)[0]);
+                        likesContainer.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes - 1} Me gusta`;
                     }
                 });
             });
@@ -598,7 +601,6 @@
                     } else {
                         // Cancelar asistencia
                         icon.classList.remove('fas');
-                        icon.classList.remove('attending');
                         icon.classList.add('far');
                         this.classList.remove('active');
 

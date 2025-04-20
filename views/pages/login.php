@@ -28,6 +28,7 @@
                 <i class="fab fa-apple"></i>
             </div>
         </div>
+
         <p class="register-link">¿No tienes cuenta? <a href="<?php echo APP_URL; ?>register">Regístrate</a></p>
     </div>
 

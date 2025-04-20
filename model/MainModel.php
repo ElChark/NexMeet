@@ -87,7 +87,7 @@ class MainModel
 
     protected function subirEvento($tabla, $params)
     {
-        $query = "INSERT INTO $tabla (titulo, id_usuario, descripcion, foto_portada, nombreLugar, longitud, latitud) VALUES (";
+        $query = "INSERT INTO $tabla (titulo, id_usuario, descripcion, foto_portada, nombreLugar, longitud, latitud, fecha_evento, categoria) VALUES (";
 
         $i = 0;
         foreach ($params as $clave) {
@@ -151,7 +151,10 @@ class MainModel
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id ORDER BY fecha DESC");
             $sql->bindParam(':id', $id);
         } elseif($tipo == 'Eventos'){
-            $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id ORDER BY fecha_publicacion DESC");
+            $sql = $this->connect()->prepare("SELECT * FROM $tabla ORDER BY fecha_publicacion DESC");
+            //$sql->bindParam(':id', $id);
+        }elseif($tipo=='crearEvento'){
+            $sql = $this->connect()->prepare("SELECT * FROM Evento WHERE id_usuario = :id ORDER BY id_evento DESC LIMIT 1");
             $sql->bindParam(':id', $id);
         }
 
@@ -195,5 +198,25 @@ class MainModel
         } else {
             return true;
         }
+    }
+
+    public function addReaction($id_evento, $id_usuario)
+    {
+        $sql = $this->connect()->prepare("CALL Aumentar_Reaccion(:id_evento, :id_usuario)");
+        $sql->bindParam(':id_evento', $id_evento);
+        $sql->bindParam(':id_usuario', $id_usuario);
+        $sql->execute();
+
+        return $sql;
+    }
+
+    public function removeReaction($id_evento, $id_usuario)
+    {
+        $sql = $this->connect()->prepare("CALL Disminuir_Reaccion(:id_evento, :id_usuario)");
+        $sql->bindParam(':id_evento', $id_evento);
+        $sql->bindParam(':id_usuario', $id_usuario);
+        $sql->execute();
+
+        return $sql;
     }
 }
