@@ -61,41 +61,95 @@
     }
 
     /* Dropdown para Crear */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: white;
-        min-width: 160px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        z-index: 101;
-        margin-top: 5px;
-    }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    z-index: 101;
+    margin-top: 10px;
+    transition: transform 0.2s, opacity 0.2s;
+    transform: translateY(-10px);
+    opacity: 0;
+}
 
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
 
-    .dropdown-item {
-        color: #65676b;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: background-color 0.2s;
-    }
+.dropdown-item:first-child {
+    border-radius: 8px 8px 0 0;
+}
 
-    .dropdown-item:hover {
-        background-color: #f0f2f5;
+.dropdown-item:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.dropdown-item:hover {
+    background-color: var(--light-gray);
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* Flecha indicadora para dropdown */
+.dropdown .header-nav-item:after {
+    content: "\f0d7";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: 5px;
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.dropdown .header-nav-item.active:after {
+    transform: rotate(180deg);
+}
+
+.dropdown:hover .header-nav-item:after {
+    transform: none;
+}
+
+.dropdown-content.show {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+    animation: fadeInUp 0.2s ease-out;
+}
+
+/* Animación para los dropdown */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-content {
+    animation: fadeInUp 0.2s ease-out;
+}
 
     /* Estilos para notificaciones */
     .notifications-dropdown {
@@ -310,7 +364,7 @@
 </style>
 
 <header class="header">
-    <a href="<?php echo APP_URL; ?>home" class="header-logo">NexEvent</a>
+    <a href="<?php echo APP_URL; ?>home" class="header-logo">NexMeet</a>
 
     <div class="search-container">
         <i class="fas fa-search search-icon"></i>
@@ -522,4 +576,55 @@
         });
 
     });
+</script>
+
+<script>
+    // Agregar al final del archivo nav-bar.php o en un script separado
+document.addEventListener('DOMContentLoaded', function() {
+    // Para el botón de Crear
+    const createDropdownToggle = document.querySelector('.dropdown .header-nav-item[href="#"]:not(.user-menu-item)');
+    const createDropdownContent = createDropdownToggle.nextElementSibling;
+    
+    // Para el botón de Perfil
+    const profileDropdownToggle = document.querySelector('.dropdown .user-menu-item');
+    const profileDropdownContent = profileDropdownToggle.nextElementSibling;
+    
+    // Función para cerrar todos los menús desplegables
+    function closeAllDropdowns() {
+        document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+    }
+    
+    // Manejador para el botón de Crear
+    createDropdownToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Cerrar el menú de perfil si está abierto
+        profileDropdownContent.classList.remove('show');
+        
+        // Alternar la visibilidad del menú de crear
+        createDropdownContent.classList.toggle('show');
+    });
+    
+    // Manejador para el botón de Perfil
+    profileDropdownToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Cerrar el menú de crear si está abierto
+        createDropdownContent.classList.remove('show');
+        
+        // Alternar la visibilidad del menú de perfil
+        profileDropdownContent.classList.toggle('show');
+    });
+    
+    // Cerrar menús al hacer clic en cualquier parte del documento
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            closeAllDropdowns();
+        }
+    });
+});
 </script>
