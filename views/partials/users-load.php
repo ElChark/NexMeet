@@ -4,7 +4,7 @@ use Core\Functions;
 use model\MainModel;
 
 
- $usuariosModel = new MainModel();
- $resultado = $usuariosModel -> seleccionDatos('Normal', 'Usuario', '', '');
+$usuariosModel = new MainModel();
+$resultado = $usuariosModel -> seleccionDatos('Normal', 'Usuario', '', '');
 
- $usuarios = $resultado->fetchAll();
+$usuarios = $resultado->fetchAll();

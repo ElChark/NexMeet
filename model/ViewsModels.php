@@ -2,19 +2,11 @@
 
 // namespace model;
 
-<<<<<<< Updated upstream
-class ViewsModels 
-{
-    protected function obtenerVistasModel($vista)
-    {
-        $urlPermitido = ['home', 'perfil', 'mensajes', 'explorar', 'crearevento', 'publicacion', 'admin'];
-=======
 // class ViewsModels 
 // {
 //     protected function obtenerVistasModel($vista)
 //     {
 //         $urlPermitido = ['home'];
->>>>>>> Stashed changes
 
 //         if(in_array($vista, $urlPermitido))
 //         {
@@ -32,12 +24,6 @@ class ViewsModels
 //             $contenido = '404';
 //         }
 
-<<<<<<< Updated upstream
-        return $contenido;
-    }
-}
-=======
 //         return $contenido;
 //     }
 // }
->>>>>>> Stashed changes

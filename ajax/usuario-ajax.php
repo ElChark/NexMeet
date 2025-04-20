@@ -4,7 +4,7 @@
     require_once '../views/partials/session-start.php';
 
     use controllers\UserController;
-   
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = new UserController();
 
