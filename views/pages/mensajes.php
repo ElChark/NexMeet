@@ -24,15 +24,15 @@
                 <div class="conversations-list">
 
                     <?php foreach ($usuarios as $usuario) { ?>
-                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $usuario['id_usuario'] ?>">
+                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $usuario['id_seguido'] ?>" onclick="changeNamePhoto.call(this)">
                             <div class="conversation-avatar">
-                                <img src="../ajax/<?php echo isset($usuario['foto_perfil']) ? $usuario['foto_perfil']  : 'images/perfilPrueba.jpg'; ?>" alt="Avatar">
+                                <img class="conversatio-photo" src="../ajax/<?php echo isset($usuario['foto_seguidor']) ? $usuario['foto_seguidor']  : 'images/perfilPrueba.jpg' ?>" alt="Avatar">
                                 <span class="status-indicator online"></span>
                             </div>
                             <div class="conversation-info">
                                 <div class="conversation-header">
-                                    <h3 class="conversation-name"><?php echo $usuario['nombre'] ?></h3>
-                                    <span class="conversation-time">12:45</span>
+                                    <h3 class="conversation-name"><?php echo $usuario['nombre_seguido'] ?></h3>
+                                    <span class="conversation-time">...</span>
                                 </div>
                             </div>
                         </div>
@@ -46,12 +46,12 @@
                 <div class="chat-header">
                     <div class="chat-user-info">
                         <div class="chat-avatar">
-                            <img src="https://via.placeholder.com/40/ff5a5f/ffffff?text=AL" alt="Avatar">
+                            <img id="foto-perfil-chat" src="https://via.placeholder.com/40/ff5a5f/ffffff?text=AL" alt="Avatar">
                             <span class="status-indicator online"></span>
                         </div>
                         <div class="chat-user-details">
-                            <h3 class="chat-username">Ana López</h3>
-                            <p class="chat-status">En línea</p>
+                            <h3 class="chat-username" id="name-chat">Selecciona a un contacto para empezar a charlar</h3>
+                            <!-- <p class="chat-status">En línea</p> -->
                         </div>
                     </div>
                     <div class="chat-actions">
@@ -151,7 +151,6 @@
         // Cambiar de conversación
         conversationItems.forEach((item) => {
             item.addEventListener('click', async function() {
-                console.log(conversationsCache);
 
                 conversationItems.forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
@@ -164,6 +163,7 @@
 
                 currentConvoId = convoId;
                 console.log('Cargando conversación:', convoId);
+                console.log(conversationsCache[convoId]);
 
 
                 if (conversationsCache[convoId]) {
@@ -204,7 +204,7 @@
 
         function displayMessages(msgs) {
             const chatContainer = document.getElementById('chat-messages');
-            chatContainer.innerHTML= ``;
+            chatContainer.innerHTML = ``;
 
             if (msgs.length === 0) {
 
@@ -214,10 +214,11 @@
                 return;
             }
 
-
             msgs.forEach(msg => {
                 const message = document.createElement('div');
-                message.classList.add('message-received');
+  
+
+                message.classList.add((msg.id == emisor) ? 'message-received' : 'message-sent');
                 message.innerHTML = `
                         <div class="message-avatar">
                             <p>${msg.nombre}</p>
@@ -258,12 +259,12 @@
         enviarMensaje.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const contenido = document.getElementById('chat-input').value;
+            const contenido = document.getElementById('chat-input');
             if (!contenido) return;
 
 
             const objetoTmp = {
-                contenido: contenido,
+                contenido: contenido.value,
                 convoId: convoId,
                 idEmisor: emisor,
                 tipo: 'Insertar'
@@ -271,6 +272,7 @@
 
             try {
                 console.log('Enviando Formulario')
+                contenido.value = '';
                 const response = await fetch("<?php echo  APP_URL; ?>ajax/messages-ajax.php", {
                     method: 'POST',
                     headers: {
@@ -280,6 +282,7 @@
                 });
 
                 const data = await response.json();
+                console.log('El mensaje se ha focking insertado' + data);
 
                 if (data.tipo == 'error') {
                     Swal.fire({
@@ -291,9 +294,6 @@
                 }
 
 
-                console.log('El mensaje se ha focking insertado' + data);
-
-
                 const mensajeTmp = {
                     contenido: contenido,
                     convoId: convoId,
@@ -303,7 +303,6 @@
 
 
                 displayMessage(mensajeTmp); // en un futuro lo ideal es que inserte la data traida de la db, la que viene con el nombre y la fecha
-                contenido.value = '';
             } catch (error) {
                 console.error('Error cargando mensajes:', error);
             }
@@ -329,6 +328,15 @@
         closePanel.addEventListener('click', function() {
             eventInfoPanel.classList.remove('active');
         });
+
+
+
+        /////////////
+        function changeNamePhoto()
+        {
+            document.querySelector('#name-chat').textContent=this.querySelector('.conversation-name').textContent;
+            document.querySelector('#foto-perfil-chat').src=this.querySelector('.conversatio-photo').src;
+        }
     </script>
 </body>
 

@@ -148,13 +148,16 @@ class MainModel
         } elseif ($tipo == 'Normal') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla");
         } elseif ($tipo == 'Mensajes') {
-            $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id ORDER BY fecha DESC");
+            $sql = $this->connect()->prepare("SELECT * FROM Vista_Mensajes_Usuario WHERE $campo = :id ORDER BY fecha ASC");
             $sql->bindParam(':id', $id);
         } elseif($tipo == 'Eventos'){
             $sql = $this->connect()->prepare("SELECT * FROM $tabla ORDER BY fecha_publicacion DESC");
             //$sql->bindParam(':id', $id);
         }elseif($tipo=='crearEvento'){
             $sql = $this->connect()->prepare("SELECT * FROM Evento WHERE id_usuario = :id ORDER BY id_evento DESC LIMIT 1");
+            $sql->bindParam(':id', $id);
+        }elseif($tipo=='seguidores'){
+            $sql = $this->connect()->prepare("SELECT * FROM Vista_Seguidores WHERE $campo = :id");
             $sql->bindParam(':id', $id);
         }
 

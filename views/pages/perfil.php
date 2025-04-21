@@ -52,6 +52,10 @@
 
         <!-- Menú de navegación del perfil -->
         <div class="profile-nav">
+            <div class="profile-nav-item" data-tab="photos">
+                <i class="fas fa-image"></i>
+                <span>FOTOS</span>
+            </div>
             <div class="profile-nav-item active" data-tab="events">
                 <i class="fas fa-calendar-alt"></i>
                 <span>EVENTOS</span>
@@ -64,10 +68,7 @@
                 <i class="fas fa-star"></i>
                 <span>ASISTIENDO</span>
             </div>
-            <div class="profile-nav-item" data-tab="photos">
-                <i class="fas fa-image"></i>
-                <span>FOTOS</span>
-            </div>
+
         </div>
 
         <!-- Contenido del perfil -->
@@ -99,51 +100,27 @@
             <!-- Pestaña de guardados -->
             <div class="profile-tab" id="saved-tab">
                 <div class="profile-grid">
-                    <div class="profile-card">
-                        <div class="card-image">
-                            <img src="https://via.placeholder.com/300x200/00a699/ffffff?text=Festival+Cine" alt="Evento guardado">
-                            <div class="card-overlay">
-                                <div class="card-stats">
-                                    <div class="card-stat">
-                                        <i class="fas fa-heart"></i>
-                                        <span>78</span>
-                                    </div>
-                                    <div class="card-stat">
-                                        <i class="fas fa-comment"></i>
-                                        <span>32</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title">Festival Internacional de Cine</h3>
-                            <p class="card-date"><i class="far fa-calendar-alt"></i> 10 Junio, 2025</p>
-                            <p class="card-location"><i class="fas fa-map-marker-alt"></i> Teatro Municipal</p>
-                        </div>
-                    </div>
 
-                    <div class="profile-card">
-                        <div class="card-image">
-                            <img src="https://via.placeholder.com/300x200/ff5a5f/ffffff?text=Maratón" alt="Evento guardado">
-                            <div class="card-overlay">
-                                <div class="card-stats">
-                                    <div class="card-stat">
-                                        <i class="fas fa-heart"></i>
-                                        <span>125</span>
-                                    </div>
-                                    <div class="card-stat">
-                                        <i class="fas fa-comment"></i>
-                                        <span>45</span>
-                                    </div>
+
+
+                    <?php foreach ($eventosGustados as $eventoGustado) { ?>
+
+                        <article class="profile-card">
+                            <div class="card-image">
+                                <img src="<?= $eventoGustado['foto_portada'] ?>" alt="Evento">
+                                <div class="card-overlay">
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title">Maratón Urbana 2025</h3>
-                            <p class="card-date"><i class="far fa-calendar-alt"></i> 22 Agosto, 2025</p>
-                            <p class="card-location"><i class="fas fa-map-marker-alt"></i> Plaza Principal</p>
-                        </div>
-                    </div>
+                            <div class="card-info">
+                                <h3 class="card-title"><?= $eventoGustado['titulo'] ?></h3>
+                                <p class="card-date"><i class="far fa-calendar-alt"></i><?= $eventoGustado['fecha_evento'] ?></p>
+                                <p class="card-location"><i class="fas fa-map-marker-alt"></i><?= $eventoGustado['nombreLugar'] ?></p>
+                            </div>
+                        </article>
+
+                    <?php } ?>
+
+
                 </div>
 
                 <div class="empty-message" style="display: none;">

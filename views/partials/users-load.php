@@ -5,6 +5,6 @@ use model\MainModel;
 
 
  $usuariosModel = new MainModel();
- $resultado = $usuariosModel -> seleccionDatos('Normal', 'Usuario', '', '');
+ $resultado = $usuariosModel -> seleccionDatos('seguidores', 'Usuario', 'id_usuario', $_SESSION['id_usuario']);
 
  $usuarios = $resultado->fetchAll();
