@@ -12,244 +12,7 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --success: #10b981;
-            --sidebar-bg: #1f2937;
-            --input-bg: #374151;
-            --input-border: #4b5563;
-            --text-light: #f9fafb;
-            --text-muted: #9ca3af;
-            --card-hover: #4b5563;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            line-height: 1.5;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        /* Layout */
-        .app-container {
-            display: flex;
-            height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 25%;
-            background-color: var(--sidebar-bg);
-            height: 100vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Logo container */
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            padding: 2rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo-container img {
-            height: 3.5rem;
-        }
-
-        /* Heading */
-        .heading {
-            color: white;
-            font-weight: 700;
-            text-align: center;
-            font-size: 1.875rem;
-            margin-top: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
-        /* Form */
-        .form-container {
-            padding: 0 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            width: 100%;
-            margin-top: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-light);
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 0.625rem;
-            border-radius: 0.375rem;
-            border: 1px solid var(--input-border);
-            background-color: var(--input-bg);
-            color: white;
-            font-family: inherit;
-        }
-
-        .input-field::placeholder {
-            color: var(--text-muted);
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn {
-            font-weight: 600;
-            padding: 0.625rem 1.25rem;
-            border-radius: 0.375rem;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-success {
-            background-color: var(--success);
-            color: white;
-        }
-
-        /* Map */
-        .map {
-            height: 100vh;
-            width: 75%;
-        }
-
-        /* Popup styles */
-        .mapboxgl-popup {
-            max-width: 300px;
-        }
-
-        .popup-content {
-            padding: 1rem;
-        }
-
-        .popup-title {
-            font-weight: 700;
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .popup-description {
-            font-size: 0.875rem;
-            color: #4b5563;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Custom geocoder styles */
-        .mapboxgl-ctrl-geocoder {
-            width: 100% !important;
-            max-width: 100% !important;
-            font-family: inherit;
-        }
-
-        /* Event list */
-        .events-container {
-            margin-top: 1rem;
-            padding: 0 1rem;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .events-title {
-            color: white;
-            font-weight: 600;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .event-list {
-            list-style-type: none;
-        }
-
-        .event-item {
-            background-color: var(--input-bg);
-            border-radius: 0.375rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .event-item:hover {
-            background-color: var(--card-hover);
-        }
-
-        .event-name {
-            font-weight: 600;
-            color: white;
-            font-size: 0.875rem;
-        }
-
-        .event-address {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* File upload */
-        .file-upload-container {
-            margin-top: 0.5rem;
-        }
-
-        .gallery-preview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Marker style */
-        .marker {
-            background-color: var(--primary);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid white;
-        }
-    </style>
+    <link rel="stylesheet" href="<?php echo APP_URL; ?>views/CSS/crear.css">
 </head>
 
 <body>
@@ -259,30 +22,30 @@
         <!-- SIDEBAR -->
         <div class="sidebar">
             <!-- HEADING -->
-            <h3 class="heading">Agregar Evento</h3>
+            <h3 class="heading"><i class="fas fa-calendar-plus"></i> Crear Evento</h3>
 
             <div class="form-container">
                 <form id="eventForm" enctype="multipart/form-data" method="post">
                     <div class="form-group">
-                        <label for="eventName" class="form-label">Nombre del Evento</label>
-                        <input type="text" id="eventName" class="input-field" placeholder="Evento en Monterrey" name="titulo" required>
+                        <label for="eventName" class="form-label">Nombre del Evento <span class="required">*</span></label>
+                        <input type="text" id="eventName" class="input-field" placeholder="Nombre de tu evento" name="titulo" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="eventDescription" class="form-label">Descripción del Evento</label>
-                        <textarea id="eventDescription" class="input-field" placeholder="Habrá refrigerios muy buenos" rows="3" name="descripcion" required></textarea>
+                        <label for="eventDescription" class="form-label">Descripción del Evento <span class="required">*</span></label>
+                        <textarea id="eventDescription" class="input-field" placeholder="Describe los detalles de tu evento..." rows="3" name="descripcion" required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="event-gallery" class="form-label">Galería (opcional)</label>
+                        <label for="event-gallery" class="form-label">Imagen del Evento <span class="required">*</span></label>
                         <div class="file-upload-container">
-                            <input type="file" id="event-gallery" class="input-field" accept="image/*" name="foto">
+                            <input type="file" id="event-gallery" class="input-field" accept="image/*" name="foto" required>
                         </div>
                         <div class="gallery-preview" id="gallery-preview"></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="event-category" class="form-label">Categoría</label>
+                        <label for="event-category" class="form-label">Categoría <span class="required">*</span></label>
                         <select id="event-category" class="form-control" name="selectedCategory" required>
                             <option value="">Selecciona una categoría</option>
                             <option value="musica">Música</option>
@@ -296,27 +59,32 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="eventDate" class="form-label">Fecha del evento</label>
-                        <input type="date" id="eventDate" class="input-field" name="date" required></input>
+                        <label for="eventDate" class="form-label">Fecha del evento <span class="required">*</span></label>
+                        <input type="date" id="eventDate" class="input-field" name="date" required>
                     </div>
 
-
                     <div class="form-group">
-                        <label for="geocoder" class="form-label">Dirección del Evento</label>
+                        <label for="geocoder" class="form-label">Ubicación del Evento <span class="required">*</span></label>
                         <div id="geocoder"></div>
                     </div>
 
                     <div class="button-container">
-                        <button type="button" id="manualModeBtn" class="btn btn-success">Seleccionar en mapa</button>
-                        <button type="submit" id="addEventBtn" class="btn btn-primary">Agregar Evento</button>
+                        <button type="button" id="manualModeBtn" class="btn btn-success"><i class="fas fa-map-marker-alt"></i> Seleccionar en mapa</button>
+                        <button type="submit" id="addEventBtn" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Crear Evento</button>
                     </div>
                 </form>
             </div>
 
             <div class="events-container">
-                <h4 class="events-title">Tus Eventos</h4>
+                <h4 class="events-title"><i class="fas fa-calendar-alt"></i> Tus Eventos</h4>
                 <ul id="eventsList" class="event-list">
                     <!-- Event items will be added here dynamically -->
+                    <?php if (empty($eventos)): ?>
+                    <div class="no-events">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>No has creado eventos todavía</p>
+                    </div>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -324,6 +92,9 @@
         <!-- MAP -->
         <div id="map" class="map"></div>
     </div>
+
+    <!-- Status indicator -->
+    <div class="status-indicator" id="status-indicator"></div>
 
     <!-- Scripts -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
@@ -339,7 +110,7 @@
         mapboxgl.accessToken = mapboxToken;
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v11',
+            style: 'mapbox://styles/mapbox/streets-v11', // Using streets style for more color
             center: [-100.3161, 25.6866], // Monterrey, México
             zoom: 12.15
         });
@@ -348,20 +119,38 @@
         const geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             mapboxgl: mapboxgl,
-            placeholder: 'Ingrese la dirección',
+            placeholder: 'Ingresa la dirección del evento',
             marker: false
         });
 
         document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
         geocoder.on('result', function(e) {
             selectedLocation = e.result;
+            showStatusIndicator('Ubicación seleccionada: ' + selectedLocation.place_name);
             console.log("Ubicación seleccionada: " + selectedLocation.place_name);
+            
+            // If there's a marker, remove it
+            if (draggableMarker) {
+                draggableMarker.remove();
+            }
+            
+            // Add a new marker at the selected location
+            draggableMarker = new mapboxgl.Marker({
+                draggable: true,
+                color: '#ff5a5f'
+            })
+            .setLngLat(selectedLocation.geometry.coordinates)
+            .addTo(map);
+            
+            // Update location when marker is dragged
+            draggableMarker.on('dragend', () => {
+                updateLocationFromMarker(draggableMarker);
+            });
         });
-
-
 
         document.getElementById('manualModeBtn').addEventListener('click', function() {
             map.getCanvas().style.cursor = 'crosshair';
+            showStatusIndicator('Haz clic en el mapa para seleccionar la ubicación');
 
             if (draggableMarker) {
                 draggableMarker.remove();
@@ -374,7 +163,7 @@
                 // Create draggable marker
                 draggableMarker = new mapboxgl.Marker({
                         draggable: true,
-                        color: '#10b981'
+                        color: '#ff5a5f'
                     })
                     .setLngLat([e.lngLat.lng, e.lngLat.lat])
                     .addTo(map);
@@ -400,8 +189,8 @@
                             },
                             place_name: data.features[0].place_name
                         };
+                        showStatusIndicator('Ubicación seleccionada: ' + selectedLocation.place_name);
                         console.log("Ubicación seleccionada manualmente: " + selectedLocation.place_name);
-
                     } else {
                         selectedLocation = {
                             geometry: {
@@ -409,9 +198,9 @@
                             },
                             place_name: `Ubicación personalizada (${lngLat.lng.toFixed(6)}, ${lngLat.lat.toFixed(6)})`
                         };
+                        showStatusIndicator('Ubicación personalizada seleccionada');
                         console.log("Ubicación seleccionada manualmente sin dirección conocida");
                     }
-
                 })
                 .catch(error => {
                     console.error('Error al obtener la dirección:', error);
@@ -421,7 +210,20 @@
                         },
                         place_name: `Ubicación personalizada (${lngLat.lng.toFixed(6)}, ${lngLat.lat.toFixed(6)})`
                     };
+                    showStatusIndicator('Ubicación personalizada seleccionada');
                 });
+        }
+
+        // Show status indicator with message
+        function showStatusIndicator(message) {
+            const indicator = document.getElementById('status-indicator');
+            indicator.textContent = message;
+            indicator.classList.add('active');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                indicator.classList.remove('active');
+            }, 3000);
         }
 
         //////////////crear evento
@@ -434,31 +236,26 @@
             if (!selectedLocation) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error',
-                    text: 'Pon la ubicacion rei',
-                    confirmButtonText: 'Aceptar'
+                    title: 'Ubicación requerida',
+                    text: 'Por favor, selecciona la ubicación del evento',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#ff5a5f'
                 });
                 return;
             }
 
             const formData = new FormData(document.getElementById('eventForm'));
-
-            console.log(selectedLocation.geometry.coordinates);
-
-
             formData.append('coordenadas', JSON.stringify(selectedLocation.geometry.coordinates));
             formData.append('nombreLugar', selectedLocation.place_name);
 
+            showStatusIndicator('Guardando evento...');
             console.log('Enviando formulario...');
 
-
-
             try {
-                const response = await fetch("<?php echo  APP_URL; ?>ajax/evento-ajax.php", {
+                const response = await fetch("<?php echo APP_URL; ?>ajax/evento-ajax.php", {
                     method: 'POST',
                     body: formData
                 });
-
 
                 const data = await response.json();
                 console.log('Respuesta recibida');
@@ -468,42 +265,50 @@
                     addMarkerToMap(data);
                     addEventToList(data);
 
-
                     Swal.fire({
                         icon: data.icono,
                         title: data.tituloTipo,
                         text: data.texto,
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: 'Aceptar',
+                        confirmButtonColor: '#ff5a5f'
+                    });
+
+                    // Reset form after successful submission
+                    document.getElementById('eventName').value = '';
+                    document.getElementById('eventDescription').value = '';
+                    document.getElementById('eventDate').value = '';
+                    document.getElementById('event-category').value = '';
+                    document.getElementById('event-gallery').value = '';
+                    document.getElementById('gallery-preview').innerHTML = '';
+                    geocoder.clear();
+                    
+                    if (draggableMarker) {
+                        draggableMarker.remove();
+                        draggableMarker = null;
+                    }
+                    
+                    showStatusIndicator('¡Evento creado con éxito!');
+                    
+                    // Scroll to events section
+                    document.querySelector('.events-container').scrollIntoView({
+                        behavior: 'smooth'
                     });
                 }
-
-                document.getElementById('eventName').value = '';
-                document.getElementById('eventDescription').value = '';
-                document.getElementById('eventDate').value = '';
-                document.getElementById('event-category').value = '';
-                document.getElementById('event-gallery').value = '';
-
-                geocoder.clear();
-                
             } catch (error) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'errorsazo',
-                    text: 'tas bien wey',
-                    confirmButtonText: 'Aceptar'
+                    title: 'Error',
+                    text: 'Ocurrió un error al crear el evento. Por favor, intenta de nuevo.',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#ff5a5f'
                 });
                 selectedLocation = null;
             }
-
-
-
         });
-
 
         // Add a marker to the map
         function addMarkerToMap(event) {
-
-            console.log("Datos recibidos en addMarkerToList:", event);
+            console.log("Datos recibidos en addMarkerToMap:", event);
 
             // Verificar si las coordenadas existen y son numéricas
             const longitud = parseFloat(event.longitud);
@@ -526,24 +331,31 @@
                     offset: 25
                 })
                 .setHTML(`
-                        <div class="popup-content">
-                            <h3 class="popup-title">${event.titulo}</h3>
-                            <img src=${event.foto_portada} style="width: 150px; height: 150px;" />
-                            <p class="popup-description">${event.descripcion}</p>
-                            <p class="popup-description">${event.nombreLugar}</p>
-                        </div>
-                        `);
+                    <div class="popup-content">
+                        <h3 class="popup-title">${event.titulo}</h3>
+                        <img src="${event.ruta}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;" />
+                        <p class="popup-description">${event.descripcion}</p>
+                        <p class="popup-description"><i class="fas fa-map-marker-alt" style="color: #ff5a5f;"></i> ${event.nombreLugar}</p>
+                    </div>
+                `);
 
             // Add marker to map
             new mapboxgl.Marker(el)
                 .setLngLat(coordenadas)
                 .setPopup(popup)
                 .addTo(map);
+                
+            // Fly to the new marker
+            map.flyTo({
+                center: coordenadas,
+                zoom: 15,
+                essential: true
+            });
         }
 
         // Add an event to the list
         function addEventToList(event) {
-            console.log("Datos recibidos en addMarkerToMap:", event);
+            console.log("Datos recibidos en addEventToList:", event);
 
             // Verificar si las coordenadas existen y son numéricas
             const longitud = parseFloat(event.longitud);
@@ -557,15 +369,21 @@
             }
 
             const coordenadas = [longitud, latitud];
+            
+            // Remove "no events" message if it exists
+            const noEvents = document.querySelector('.no-events');
+            if (noEvents) {
+                noEvents.remove();
+            }
 
             const eventsList = document.getElementById('eventsList');
             const li = document.createElement('li');
             li.className = 'event-item';
             li.dataset.id = event.id;
             li.innerHTML = `
-                                <div class="event-name">${event.titulo}</div>
-                                <div class="event-address">${event.nombreLugar}</div>
-                            `;
+                <div class="event-name">${event.titulo}</div>
+                <div class="event-address"><i class="fas fa-map-marker-alt"></i>${event.nombreLugar}</div>
+            `;
 
             // Add click event to fly to this event
             li.addEventListener('click', () => {
@@ -574,28 +392,55 @@
                     zoom: 17,
                     essential: true
                 });
+                
+                // Add bounce effect to show which event was clicked
+                li.style.animation = 'none';
+                setTimeout(() => {
+                    li.style.animation = 'bounce 0.5s';
+                }, 10);
             });
 
-            eventsList.appendChild(li);
+            eventsList.insertBefore(li, eventsList.firstChild);
+            
+            // Add a quick animation to highlight the new event
+            li.style.animation = 'bounce 0.5s';
         }
+        
+        // Bounce animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
 
         // cargar eventos
         function loadEvents() {
             <?php foreach ($eventos as $evento) { ?>
                 events.push(<?php echo json_encode($evento); ?>);
-                console.log('Aqui entra?')
             <?php } ?>
 
             // Verificar que los datos están completos antes de procesar
-            if (events) {
+            if (events && events.length > 0) {
                 events.forEach(event => {
                     console.log("Cargando evento:", event);
                     addMarkerToMap(event);
                     addEventToList(event);
-                })
-
+                });
+                
+                // Adjust map bounds to show all markers
+                if (events.length > 1) {
+                    const bounds = new mapboxgl.LngLatBounds();
+                    events.forEach(event => {
+                        if (!isNaN(event.longitud) && !isNaN(event.latitud)) {
+                            bounds.extend([parseFloat(event.longitud), parseFloat(event.latitud)]);
+                        }
+                    });
+                    map.fitBounds(bounds, { padding: 50 });
+                }
             }
-
         }
 
         // Set up event listeners
@@ -603,10 +448,49 @@
             // Load events when map is ready
             map.on('load', loadEvents);
 
-            // Form submission via Enter key
-            document.getElementById('eventDescription').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                   console.log(selectedCategory);
+            // Preview uploaded image
+            const galleryInput = document.getElementById('event-gallery');
+            const galleryPreview = document.getElementById('gallery-preview');
+            
+            galleryInput.addEventListener('change', function() {
+                galleryPreview.innerHTML = '';
+                
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const imgContainer = document.createElement('div');
+                        imgContainer.className = 'gallery-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'remove-gallery-item';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            imgContainer.remove();
+                            galleryInput.value = '';
+                        });
+                        
+                        imgContainer.appendChild(img);
+                        imgContainer.appendChild(removeBtn);
+                        galleryPreview.appendChild(imgContainer);
+                    }
+                    
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            
+            // Add map controls
+            map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+            map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+            
+            // Add event to save marker location when the map is clicked
+            map.on('click', function(e) {
+                if (map.getCanvas().style.cursor === 'crosshair') {
+                    map.getCanvas().style.cursor = '';
                 }
             });
         });
