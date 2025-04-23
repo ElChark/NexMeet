@@ -18,7 +18,8 @@
     if (strpos($viewPath, '/') === 0) {
         $viewPath = substr($viewPath, 1);
     }
-
+    
+    $viewPath = explode('?', $viewPath)[0]; 
     $url = explode('/', $viewPath);
 
     if (empty($url[0])) {

@@ -150,14 +150,27 @@ class MainModel
         } elseif ($tipo == 'Mensajes') {
             $sql = $this->connect()->prepare("SELECT * FROM Vista_Mensajes_Usuario WHERE $campo = :id ORDER BY fecha ASC");
             $sql->bindParam(':id', $id);
-        } elseif($tipo == 'Eventos'){
+        } elseif ($tipo == 'Eventos') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla ORDER BY fecha_publicacion DESC");
             //$sql->bindParam(':id', $id);
-        }elseif($tipo=='crearEvento'){
+        } elseif ($tipo == 'crearEvento') {
             $sql = $this->connect()->prepare("SELECT * FROM Evento WHERE id_usuario = :id ORDER BY id_evento DESC LIMIT 1");
             $sql->bindParam(':id', $id);
-        }elseif($tipo=='seguidores'){
-            $sql = $this->connect()->prepare("SELECT * FROM Vista_Seguidores WHERE $campo = :id");
+        } elseif ($tipo == 'seguidores') {
+
+            $sql = $this->connect()->prepare("SELECT * FROM Vista_Solicitudes WHERE (id_emisor = :idUsuario OR id_receptor = :idUsuario) AND estado = 'Aceptada'");
+            $sql->bindParam(':idUsuario', $id);
+        } elseif ($tipo == 'Buscar') {
+            $idBusqueda = "%$id%";
+
+            $sql = $this->connect()->prepare("SELECT *
+                    FROM Usuario 
+                    WHERE $campo LIKE :id AND estado = 1 
+                    LIMIT 10");
+
+            $sql->bindParam(':id', $idBusqueda);
+        } elseif ($tipo == 'Notifiaciones') {
+            $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id AND estado='En Proceso'");
             $sql->bindParam(':id', $id);
         }
 

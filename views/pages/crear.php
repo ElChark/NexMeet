@@ -581,7 +581,7 @@
 
         // cargar eventos
         function loadEvents() {
-            <?php foreach ($eventos as $evento) { ?>
+            <?php foreach ($eventosPropios as $evento) { ?>
                 events.push(<?php echo json_encode($evento); ?>);
                 console.log('Aqui entra?')
             <?php } ?>

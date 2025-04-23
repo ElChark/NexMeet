@@ -8,7 +8,7 @@
         <p>Conecta y descubre eventos emocionantes</p>
 
         <form id="login-form" method="POST" enctype="multipart/form-data" action="/ajax/publicaciones-ajax.php">
-            <input type="text" id="username" placeholder="Usuario" name="nombre" required>
+            <input type="text" id="username" placeholder="Correo" name="nombre" required>
             <input type="password" id="password" placeholder="Contraseña" name="contra" required>
             <button type="submit" id="button">Iniciar Sesión</button>
         </form>

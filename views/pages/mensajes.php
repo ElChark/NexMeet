@@ -23,15 +23,20 @@
                 <!-- Lista de conversaciones -->
                 <div class="conversations-list">
 
-                    <?php foreach ($usuarios as $usuario) { ?>
-                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $usuario['id_seguido'] ?>" onclick="changeNamePhoto.call(this)">
+                    <?php foreach ($usuarios as $usuario) {
+                        // Si el usuario actual fue el emisor, mostramos al receptor
+                        $idAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['id_receptor'] : $usuario['id_emisor'];
+                        $nombreAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['nombre_receptor'] : $usuario['nombre_emisor'];
+                        $fotoAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['foto_receptor'] : $usuario['foto_emisor'];
+                    ?>
+                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $idAmigo ?>" onclick="changeNamePhoto.call(this)">
                             <div class="conversation-avatar">
-                                <img class="conversatio-photo" src="../ajax/<?php echo isset($usuario['foto_seguidor']) ? $usuario['foto_seguidor']  : 'images/perfilPrueba.jpg' ?>" alt="Avatar">
+                                <img class="conversatio-photo" src="../ajax/<?php echo isset($fotoAmigo) ? $fotoAmigo : 'images/perfilPrueba.jpg' ?>" alt="Avatar">
                                 <span class="status-indicator online"></span>
                             </div>
                             <div class="conversation-info">
                                 <div class="conversation-header">
-                                    <h3 class="conversation-name"><?php echo $usuario['nombre_seguido'] ?></h3>
+                                    <h3 class="conversation-name"><?php echo $nombreAmigo ?></h3>
                                     <span class="conversation-time">...</span>
                                 </div>
                             </div>
@@ -216,7 +221,7 @@
 
             msgs.forEach(msg => {
                 const message = document.createElement('div');
-  
+
 
                 message.classList.add((msg.id == emisor) ? 'message-received' : 'message-sent');
                 message.innerHTML = `
@@ -332,10 +337,9 @@
 
 
         /////////////
-        function changeNamePhoto()
-        {
-            document.querySelector('#name-chat').textContent=this.querySelector('.conversation-name').textContent;
-            document.querySelector('#foto-perfil-chat').src=this.querySelector('.conversatio-photo').src;
+        function changeNamePhoto() {
+            document.querySelector('#name-chat').textContent = this.querySelector('.conversation-name').textContent;
+            document.querySelector('#foto-perfil-chat').src = this.querySelector('.conversatio-photo').src;
         }
     </script>
 </body>

@@ -77,7 +77,7 @@
             <div class="profile-tab active" id="events-tab">
                 <div class="profile-grid">
 
-                    <?php foreach ($eventos as $evento) { ?>
+                    <?php foreach ($eventosPropios as $evento) { ?>
 
                         <article class="profile-card">
                             <div class="card-image">
@@ -158,9 +158,9 @@
             <!-- Pestaña de fotos -->
             <div class="profile-tab" id="photos-tab">
                 <div class="photos-grid">
-                    <?php foreach ($publicaciones as $publicacion): ?>
+                    <?php foreach ($publicacionesPerfil as $foto): ?>
                         <div class="photo-item">
-                            <img src="../../ajax/<?= $publicacion['foto_portada'] ?>" alt="Foto">
+                            <img src="../../ajax/<?= $foto['foto_portada'] ?>" alt="Foto">
                         </div>
                     <?php endforeach; ?>
                 </div>

@@ -118,7 +118,7 @@
             </div>
 
             <!-- Filtros de categoría -->
-            <section class="category-filters">
+            <!-- <section class="category-filters">
                 <div class="filter-buttons">
                     <button class="filter-button active" data-category="all">Todos</button>
                     <button class="filter-button" data-category="deportes">Deportes</button>
@@ -130,7 +130,7 @@
                     <button class="filter-button" data-category="educacion">Educación</button>
                     <button class="filter-button" data-category="networking">Networking</button>
                 </div>
-            </section>
+            </section> -->
 
             <!-- Crear publicación -->
             <!-- <section class="create-post">
@@ -203,10 +203,10 @@
                         <div class="post-header">
                             <div class="post-author">
                                 <div class="post-avatar">
-                                    <img src="https://via.placeholder.com/40/1877f2" alt="Avatar">
+                                    <img src="../../ajax/<?= $publicacion['foto_perfil'] ?>" alt="Avatar" class="post-image">
                                 </div>
                                 <div class="post-info">
-                                    <div class="post-author-name">Usuario #<?= $publicacion['id_usuario'] ?></div>
+                                    <div class="post-author-name"><?= $publicacion['nombre'] ?></div>
                                     <div class="post-time"><?= date('d/m/Y', strtotime($publicacion['fecha_publicacion'])) ?></div>
                                 </div>
                             </div>
@@ -215,7 +215,7 @@
                             </div>
                         </div>
 
-                        <img src="../../ajax/<?= $publicacion['foto_portada'] ?>" alt="Imagen del evento" class="post-image">
+                        <img src="../../ajax/<?= $publicacion['foto_portada']?>" alt="Imagen del evento" class="post-image">
 
                         <div class="post-content">
                             <h3 class="post-title"><?= $publicacion['titulo'] ?></h3>
@@ -249,7 +249,7 @@
 
                         <div class="post-comment-area">
                             <div class="avatar">
-                                <img src="https://via.placeholder.com/32" alt="Avatar">
+                                <img src="../../ajax/<?= $_SESSION['fotoPerfil'] ?>" alt="Avatar">
                             </div>
                             <div class="comment-input-wrapper">
                                 <input type="text" class="comment-input" placeholder="Escribe un comentario...">
