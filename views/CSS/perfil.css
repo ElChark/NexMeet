@@ -787,6 +787,21 @@ input[type="file"] {
     background-color: #e4e6e8;
 }
 
+.delete-button-evento, .delete-button-post {
+    border-radius: 10px;
+    background: none;
+    color: #dc3741;
+    border: none;
+    height: 70px;
+    width: 30px;
+}
+
+.delete-button-evento:hover, .delete-button-post:hover {
+    cursor: pointer;
+    color: white;
+    background: #393939;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .modal-body {

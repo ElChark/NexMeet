@@ -70,7 +70,7 @@ class EventController extends MainModel
             $subirEvento = $this->subirEvento('Evento', $eventoDatos);
 
             if ($subirEvento->rowCount() == 1) {
-                $consultaEvento = $this->seleccionDatos('crearEvento', 'Evento', 'id_usuario', $_SESSION['id_usuario']);
+                $consultaEvento = $this->seleccionDatos('CrearEvento', 'Evento', 'id_usuario', $_SESSION['id_usuario']);
                 $eventoSubido = $consultaEvento->fetch();
 
                 $alerta = [

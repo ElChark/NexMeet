@@ -42,7 +42,7 @@ class Functions
         }
 
         // Ahora mueve el archivo
-        $ruta = $directory . 'publicacion__' . $_SESSION['id_usuario'] . '_' . time() . '.' . $extension;
+        $ruta = $directory . 'publicación__' . $_SESSION['id_usuario'] . '_' . time() . '.' . $extension;
 
         if(move_uploaded_file($tmpImagen, $ruta))
         {

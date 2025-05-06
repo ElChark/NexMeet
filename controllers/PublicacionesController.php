@@ -51,11 +51,10 @@ class PublicacionesController extends MainModel //////////////Arreglar subir sin
             $alerta = [
                 "tipo" => "error",
                 "titulo" => "Success",
-                "texto" => "La publicacion se ha guardado con exito",
+                "texto" => "La publicación se ha guardado con éxito",
                 "icono" => "success"
             ];
             return json_encode($alerta);
-            exit();
         } else {
             return json_encode([
                 "tipo" => "error",

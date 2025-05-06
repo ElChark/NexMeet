@@ -1,5 +1,6 @@
 <?php require_once './views/partials/session-start.php' ?>
-<?php require_once './views/partials/eventos-load.php' ?>
+<?php require_once './views/partials/load.php' ?>
+
 <!doctype html>
 <html lang="es">
 

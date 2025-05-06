@@ -1,7 +1,7 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/session-start.php' ?>
-<?php require_once './views/partials/eventos-load.php' ?>
-<?php require_once './views/partials/eventos-gustados.php' ?>
+
+<?php require_once './views/partials/load.php' ?>
 
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
@@ -21,9 +21,9 @@
                     <button class="category-btn" data-category="musica"><i class="fas fa-music"></i>Musica</button>
                     <button class="category-btn" data-category="arte"><i class="fas fa-palette"></i>Arte</button>
                     <button class="category-btn" data-category="deportes"><i class="fas fa-futbol"></i>Deportes</button>
-                    <button class="category-btn" data-category="tecnologia"><i class="fas fa-laptop-code"></i>Tecnologia</button>
-                    <button class="category-btn" data-category="gastronomia"><i class="fas fa-utensils"></i>Gastronomia</button>
-                    <button class="category-btn" data-category="educacion"><i class="fas fa-book"></i>Educacion</button>
+                    <button class="category-btn" data-category="tecnologia"><i class="fas fa-laptop-code"></i>Tecnología</button>
+                    <button class="category-btn" data-category="gastronomia"><i class="fas fa-utensils"></i>Gastronomía</button>
+                    <button class="category-btn" data-category="educacion"><i class="fas fa-book"></i>Educación</button>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
             <div class="filter-group">
                 <h3>Ubicación</h3>
                 <div class="location-search">
-                    <input type="text" placeholder="Buscar por ubicación" class="location-input">
+                    <input type="text" placeholder="Buscar por ubicación" class="location-input" />
                     <button class="location-btn"><i class="fas fa-map-marker-alt"></i></button>
                 </div>
             </div>
@@ -58,26 +58,6 @@
 
 
 
-
-
-
-        <!-- Paginación  -->
-        <div class="pagination-container">
-            <!-- <div class="pagination">
-                <a href="#" class="pagination-arrow prev" aria-label="Página anterior">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-                <a href="#" class="pagination-number active" data-page="1">1</a>
-                <a href="#" class="pagination-number" data-page="2">2</a>
-                <a href="#" class="pagination-number" data-page="3">3</a>
-                <a href="#" class="pagination-number" data-page="4">4</a>
-                <a href="#" class="pagination-number" data-page="5">5</a>
-                <a href="#" class="pagination-arrow next" aria-label="Página siguiente">
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
-            <div class="page-indicator">Página 1 de 5</div> -->
-        </div>
     </div>
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
@@ -85,7 +65,7 @@
 
     <script>
         const eventosGustados = <?php echo json_encode($eventosGustados); ?>;
-        const eventosAsistiendo = <?php echo json_encode($asistiendos); ?>;
+        const eventosAsistiendo = <?php echo json_encode($asistiendo); ?>;
 
 
 
@@ -264,20 +244,18 @@
                         reactionBtn.style.background = 'green';
                         reactionBtn.style.color = 'white';
 
-                        // Actualizar nuestros datos locales
                         eventosGustados.push({
                             id_usuario: currentUser,
                             id_evento: event.id_evento
                         });
                         yaDioMeGusta = true;
-                        
+
                     } else if (data.status == 'okNoGustado') {
                         reactionBtn.textContent = data.info;
                         reactionBtn.style.background = '#ff5a5f';
                         reactionBtn.style.color = 'white';
 
 
-                        // Actualizar nuestros datos locales
                         for (let i = 0; i < eventosGustados.length; i++) {
                             if (eventosGustados[i].id_evento == event.id_evento &&
                                 eventosGustados[i].id_usuario == currentUser) {
@@ -296,9 +274,44 @@
             commentBtn.addEventListener('click', async (e) => {
                 e.stopPropagation();
 
+                const existing = document.querySelector('.comment-modal-backdrop');
+                if (existing) existing.remove();
 
-                console.log('Aqui estaria un modulo para comentar el evento');
-            })
+                const backdrop = document.createElement('div');
+                backdrop.classList.add('comment-modal-backdrop');
+
+
+                const commentModule = document.createElement('section');
+                commentModule.classList.add('comment-modal');
+                commentModule.innerHTML = `
+                                <div class="modal-section">
+                                    <h4 class="modal-section-title">Comentarios</h4>
+                                    <div id="comentarios" class="modal-comments">
+                                        <div class="comment">
+                                            <span class="comment-author">Juan Pérez:</span>
+                                            <span>¡Este evento está increíble!</span>
+                                        </div>
+                                        <div class="comment">
+                                            <span class="comment-author">Ana López:</span>
+                                            <span>Me parece una gran oportunidad para conocer gente nueva.</span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-comment-form">
+                                        <input type="text" id="nuevoComentario" class="modal-comment-input" placeholder="Escribe un comentario...">
+                                        <button id="enviarComentario" class="modal-comment-btn">Comentar</button>
+                                    </div>
+                                </div>
+                            `;
+
+                backdrop.appendChild(commentModule);
+                document.body.appendChild(backdrop);
+
+                backdrop.addEventListener('click', (e) => {
+                    if (e.target === backdrop) {
+                        backdrop.remove();
+                    }
+                });
+            });
 
             eventsList.appendChild(li);
         }
@@ -401,6 +414,8 @@
                     if (this.textContent === 'Elegir fecha') {}
                 });
             });
+
+
 
 
             // Manejador para paginación mejorada

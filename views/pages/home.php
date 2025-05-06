@@ -1,5 +1,6 @@
 <?php require_once './views/partials/head.php' ?>
-<?php require_once './views/partials/publicaciones-load.php' ?>
+<?php require_once './views/partials/load.php' ?>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -132,68 +133,7 @@
                 </div>
             </section> -->
 
-            <!-- Crear publicación -->
-            <!-- <section class="create-post">
-                <div class="create-post-header">
-                    <div class="avatar">
-                        <img src="https://via.placeholder.com/40" alt="Avatar">
-                    </div>
-                    <input type="text" class="create-post-input" placeholder="¿Qué evento quieres compartir?" id="create-post-trigger" readonly>
-                </div>
-                
-                <div class="create-post-form" id="create-post-form">
-                    <form id="evento-form">
-                        <div class="form-group">
-                            <label class="form-label" for="shareText">Título del evento</label>
-                            <input type="text" class="form-control" id="shareText" name="titulo" placeholder="¿De qué trata tu evento?" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="shareDesc">Descripción</label>
-                            <textarea class="form-control" id="shareDesc" name="descripcion" placeholder="Describe los detalles de tu evento..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="shareLoc">Ubicación</label>
-                            <input type="text" class="form-control" id="shareLoc" name="ubicacion" placeholder="¿Dónde se realizará?" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group-half">
-                                <label class="form-label" for="shareCategory">Categoría</label>
-                                <select class="form-control" id="shareCategory" name="categoria">
-                                    <option value="deportes">Deportes</option>
-                                    <option value="musica">Música</option>
-                                    <option value="arte">Arte</option>
-                                    <option value="tecnologia">Tecnología</option>
-                                    <option value="gastronomia">Gastronomía</option>
-                                    <option value="viajes">Viajes</option>
-                                    <option value="educacion">Educación</option>
-                                    <option value="networking">Networking</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group-half">
-                                <label class="form-label" for="eventDate">Fecha</label>
-                                <input type="date" class="form-control" id="eventDate" name="fecha" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="eventImage">Imagen del evento</label>
-                            <input type="file" class="form-control" id="eventImage" name="imagen" accept="image/*">
-                        </div>
-                        
-                        <div class="form-buttons">
-                            <button type="button" class="btn btn-secondary" id="cancel-post">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i> Publicar evento
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-             -->
+
             <!-- Eventos sugeridos -->
             <section id="eventos-sugeridos">
                 <!-- Post 1 -->
@@ -215,7 +155,7 @@
                             </div>
                         </div>
 
-                        <img src="../../ajax/<?= $publicacion['foto_portada']?>" alt="Imagen del evento" class="post-image">
+                        <img src="../../ajax/<?= $publicacion['foto_portada']?>" alt="Imagen de la publicación" class="post-image">
 
                         <div class="post-content">
                             <h3 class="post-title"><?= $publicacion['titulo'] ?></h3>
@@ -249,7 +189,7 @@
 
                         <div class="post-comment-area">
                             <div class="avatar">
-                                <img src="../../ajax/<?= $_SESSION['fotoPerfil'] ?>" alt="Avatar">
+                                <img src="../ajax/<?php echo $_SESSION['fotoPerfil'] ?? 'images/perfilPrueba.jpg'; ?>" alt="Avatar">
                             </div>
                             <div class="comment-input-wrapper">
                                 <input type="text" class="comment-input" placeholder="Escribe un comentario...">

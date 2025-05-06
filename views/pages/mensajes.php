@@ -1,6 +1,7 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/session-start.php' ?>
-<?php require_once './views/partials/users-load.php' ?>
+<?php require_once './views/partials/load.php' ?>
+
 
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
@@ -23,7 +24,7 @@
                 <!-- Lista de conversaciones -->
                 <div class="conversations-list">
 
-                    <?php foreach ($usuarios as $usuario) {
+                    <?php foreach ($seguidores as $usuario) {
                         // Si el usuario actual fue el emisor, mostramos al receptor
                         $idAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['id_receptor'] : $usuario['id_emisor'];
                         $nombreAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['nombre_receptor'] : $usuario['nombre_emisor'];

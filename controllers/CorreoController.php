@@ -32,7 +32,7 @@ try {
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
-    $mail->setFrom('noreply@tusitio.com', 'Eventos NexMeet');
+    $mail->setFrom('noreply@NexMeet.com', 'Eventos NexMeet');
     $mail->addAddress($correo);
 
     $mail->isHTML(true);

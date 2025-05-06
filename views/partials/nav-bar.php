@@ -1,5 +1,5 @@
 <!-- views/partials/nav-bar.php -->
-<?php require_once './views/partials/notis-load.php' ?>
+<?php require_once './views/partials/load.php' ?>
 <style>
     /* Estilos unificados para la barra de navegación */
     .header {
@@ -156,6 +156,10 @@
     /* Estilos para notificaciones */
     .notifications-dropdown {
         position: relative;
+    }
+
+    .notifications-dropdown:hover {
+        cursor: pointer;
     }
 
     .notification-count {
@@ -495,30 +499,25 @@
             <div class="notifications-menu" id="notifications-menu">
                 <div class="notifications-header">
                     <div class="notifications-title">Notificaciones</div>
-                    <div class="mark-all-read">Marcar todas como leídas</div>
                 </div>
 
-                <?php foreach($notifiaciones as $noti) {?>
-                <div class="notification-item unread" data-id="<?php echo $noti['id_seguidor'] ?>">
-                    <div class="notification-avatar">
-                        <img src="../../ajax/<?php echo $noti['foto_emisor'] ?>" alt="Avatar">
+                <?php foreach($notificaciones as $noti) {?>
+                    <div class="notification-item unread" data-id="<?php echo $noti['id_seguidor'] ?>">
+                        <div class="notification-avatar">
+                            <img src="../../ajax/<?php echo $noti['foto_emisor'] ?>" alt="Avatar">
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong><?php echo $noti['nombre_emisor'] ?></strong><strong>  quiere ser tu amigo</strong>.</div>
+                            <div class="notification-time"><?php echo $noti['fecha_seguimiento'] ?></div>
+                        </div>
+                        <div style="display: flex; flex-direction:column; gap: 5px;">
+                            <button class="aceptar-btn" type="button">Aceptar</button>
+                            <button class="rechazar-btn" type="button">Rechazar</button>
+                        </div>
+                        <div class="notification-dot"></div>
                     </div>
-                    <div class="notification-content">
-                        <div class="notification-text"><strong><?php echo $noti['nombre_emisor'] ?></strong><strong>  quiere ser tu amigo</strong>.</div>
-                        <div class="notification-time"><?php echo $noti['fecha_seguimiento'] ?></div>
-                    </div>
-                    <div style="display: flex; flex-direction:column; gap: 5px;">
-                        <button class="aceptar-btn" type="button">Aceptar</button>
-                        <button class="rechazar-btn" type="button">Rechazar</button>
-                    </div>
-                    <div class="notification-dot"></div>
-                </div>
                 <?php }?>
 
-
-                <div class="view-all-notifications">
-                    Ver todas las notificaciones
-                </div>
             </div>
         </div>
 

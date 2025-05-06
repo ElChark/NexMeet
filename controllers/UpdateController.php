@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use Core\Functions;
 use model\MainModel;
 
 class UpdateController extends MainModel
@@ -9,12 +10,12 @@ class UpdateController extends MainModel
     public function updatePhoto($arg)
     {
         $foto = $arg['photo'];
-    
+
         $nombreImagen = $foto['name'];
         $tmpImagen = $foto['tmp_name'];
         $extension = strtolower(pathinfo($nombreImagen, PATHINFO_EXTENSION));
-    
-    
+
+
         $extensionesPermitidas = ['jpg', 'jpeg', 'png'];
         if (!in_array($extension, $extensionesPermitidas)) {
             return json_encode([
@@ -24,21 +25,21 @@ class UpdateController extends MainModel
                 "icono" => "error"
             ]);
         }
-    
+
         $directory = 'images/';
         if (!is_dir($directory)) {
-            mkdir($directory, 0777, true); 
+            mkdir($directory, 0777, true);
         }
-        
+
         // Ahora mueve el archivo
-        
+
         $ruta = $directory . 'perfil__' . $_SESSION['id_usuario'] . $nombreImagen .'.jpg';
         if($_SESSION['fotoPerfil']===$ruta)
         {
             return json_encode([
                 "tipo" => "error",
-                "titulo" => "Repeticion",
-                "texto" => "Ya teienes esa foto de perfil crack",
+                "titulo" => "Repetición",
+                "texto" => "Ya tienes esa foto de perfil crack",
                 "icono" => "error"
             ]);
         }
@@ -69,7 +70,7 @@ class UpdateController extends MainModel
                     "tipo" => "error",
                     "titulo" => "Error al actualizar",
                     "texto" => "No se pudo actualizar la base de datos. Filas afectadas: " . 
-                              ($actualizarFoto ? $actualizarFoto->rowCount() : 'ninguna'),
+                              ($actualizarFoto->rowCount()>0 ? $actualizarFoto->rowCount() : 'ninguna'),
                     "icono" => "error",
                     "debug" => [
                         "id_usuario" => $_SESSION['id_usuario'],
@@ -130,13 +131,13 @@ class UpdateController extends MainModel
                 "icono" => "success",
                 "nombre" => $nombre,
                 "correo" => $email,
-                "desc" => $desc
+                "descripción" => $desc
             ]);
         } else {
             return json_encode([
                 "tipo" => "error",
-                "titulo" => "Really Nigga?",
-                "texto" => "Porq guardarias lo mismo?",
+                "titulo" => "Error",
+                "texto" => "Estas guardando la misma información",
                 "icono" => "error"
             ]);
         }
