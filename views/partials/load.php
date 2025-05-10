@@ -27,6 +27,8 @@ $resultadoPublicacionesPerfilModel = $newModel ->seleccionDatos('Unico', 'Public
 
 $resultadoSeguidoresModel = $newModel -> seleccionDatos('Seguidores', 'Usuario', 'id_emisor', $user);
 
+$resultadoEventosPopularesModel = $newModel -> ejecutarConsulta("SELECT * FROM Vista_Eventos_Explorar WHERE id_usuario != $user ORDER BY reaccion DESC LIMIT 3");
+
 
 $usuarios = $resultadoUsuariosModel->fetchAll();
 $eventosGustados = $resultadoEventosGustadosModel->fetchAll();
@@ -38,6 +40,7 @@ $notificaciones = $resultadoNotificiacionesModel->fetchAll();
 $publicaciones = $resultadoPublicacionesModel->fetchAll();
 $publicacionesPerfil = $resultadoPublicacionesPerfilModel->fetchAll();
 $seguidores = $resultadoSeguidoresModel->fetchAll();
+$eventosPopulares = $resultadoEventosPopularesModel->fetchAll();
 
 
 

@@ -159,7 +159,7 @@
     }
 
     .notifications-dropdown:hover {
-        cursor: pointer;
+        cursor:default;
     }
 
     .notification-count {
@@ -219,7 +219,6 @@
         padding: 12px 15px;
         border-bottom: 1px solid #e4e6eb;
         transition: background-color 0.2s;
-        cursor: pointer;
     }
 
     .notification-item:hover {
@@ -412,6 +411,13 @@
         background-color: #ff5a5f;
         color: #f7f7f7;
     }
+    .aceptar-btn:hover {
+        cursor: pointer
+    }
+
+    .rechazar-btn:hover {
+        cursor: pointer
+    }
 
     .search-item-button:hover {
         background-color: rgb(250, 153, 157);
@@ -493,7 +499,6 @@
             <div class="header-nav-item" id="notifications-toggle">
                 <i class="fas fa-bell"></i>
                 <span>Notificaciones</span>
-                <div class="notification-count">3</div>
             </div>
 
             <div class="notifications-menu" id="notifications-menu">
@@ -504,7 +509,7 @@
                 <?php foreach($notificaciones as $noti) {?>
                     <div class="notification-item unread" data-id="<?php echo $noti['id_seguidor'] ?>">
                         <div class="notification-avatar">
-                            <img src="../../ajax/<?php echo $noti['foto_emisor'] ?>" alt="Avatar">
+                            <img src="../../<?php echo $noti['foto_emisor'] ?>" alt="Avatar">
                         </div>
                         <div class="notification-content">
                             <div class="notification-text"><strong><?php echo $noti['nombre_emisor'] ?></strong><strong>  quiere ser tu amigo</strong>.</div>
@@ -567,23 +572,6 @@
             }
         });
 
-        // Funcionalidad para marcar como leídas
-        const markAllRead = document.querySelector('.mark-all-read');
-
-        markAllRead.addEventListener('click', function() {
-            const unreadItems = document.querySelectorAll('.notification-item.unread');
-            const notificationCount = document.querySelector('.notification-count');
-
-            unreadItems.forEach(item => {
-                item.classList.remove('unread');
-                const dot = item.querySelector('.notification-dot');
-                if (dot) {
-                    dot.remove();
-                }
-            });
-
-            notificationCount.style.display = 'none';
-        });
 
         // Funcionalidad para la barra de búsqueda
         const searchInput = document.querySelector('.search-input');
@@ -617,7 +605,7 @@
                         html += `
                                 <div class="search-item" data-id="${usuario.id_usuario}">
                                     <div class="search-item-image">
-                                        <img src="../ajax/${usuario.foto_perfil}" alt="Usuario">
+                                        <img src="${usuario.foto_perfil}" alt="Usuario">
                                     </div>
                                     <div class="search-item-info">
                                         <div class="search-item-name">${usuario.nombre}</div>

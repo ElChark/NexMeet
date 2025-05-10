@@ -32,7 +32,7 @@
                     ?>
                         <div class="conversation-item" data-conversation="1" data-id="<?php echo $idAmigo ?>" onclick="changeNamePhoto.call(this)">
                             <div class="conversation-avatar">
-                                <img class="conversatio-photo" src="../ajax/<?php echo isset($fotoAmigo) ? $fotoAmigo : 'images/perfilPrueba.jpg' ?>" alt="Avatar">
+                                <img class="conversatio-photo" src="../api/<?php echo $fotoAmigo ?? 'images/perfilPrueba.jpg' ?>" alt="Avatar">
                                 <span class="status-indicator online"></span>
                             </div>
                             <div class="conversation-info">
@@ -52,7 +52,6 @@
                 <div class="chat-header">
                     <div class="chat-user-info">
                         <div class="chat-avatar">
-                            <img id="foto-perfil-chat" src="https://via.placeholder.com/40/ff5a5f/ffffff?text=AL" alt="Avatar">
                             <span class="status-indicator online"></span>
                         </div>
                         <div class="chat-user-details">
@@ -183,7 +182,7 @@
                     };
 
                     try {
-                        const response = await fetch("<?php echo  APP_URL; ?>ajax/messages-ajax.php", {
+                        const response = await fetch("<?php echo  APP_URL; ?>api/messages-ajax.php", {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -215,7 +214,7 @@
             if (msgs.length === 0) {
 
                 chatContainer.innerHTML = `
-                                <span class="media-name">Se el primero en iniciar un conve</span>
+                                <span class="media-name">Se el primero en iniciar un conversación</span>
                                         `;
                 return;
             }
@@ -224,7 +223,7 @@
                 const message = document.createElement('div');
 
 
-                message.classList.add((msg.id == emisor) ? 'message-received' : 'message-sent');
+                message.classList.add((msg.id === emisor) ? 'message-received' : 'message-sent');
                 message.innerHTML = `
                         <div class="message-avatar">
                             <p>${msg.nombre}</p>
@@ -279,7 +278,7 @@
             try {
                 console.log('Enviando Formulario')
                 contenido.value = '';
-                const response = await fetch("<?php echo  APP_URL; ?>ajax/messages-ajax.php", {
+                const response = await fetch("<?php echo  APP_URL; ?>api/messages-ajax.php", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -288,9 +287,9 @@
                 });
 
                 const data = await response.json();
-                console.log('El mensaje se ha focking insertado' + data);
+                console.log('El mensaje se ha guardado en la db);
 
-                if (data.tipo == 'error') {
+                if (data.tipo === 'error') {
                     Swal.fire({
                         icon: data.icono,
                         title: data.titulo,
@@ -308,7 +307,7 @@
                 }
 
 
-                displayMessage(mensajeTmp); // en un futuro lo ideal es que inserte la data traida de la db, la que viene con el nombre y la fecha
+                displayMessage(mensajeTmp); // en un futuro lo ideal es que inserte la data traída de la db, la que viene con el nombre y la fecha
             } catch (error) {
                 console.error('Error cargando mensajes:', error);
             }

@@ -9,8 +9,8 @@
         </div>
 
         <div class="publicacion-form-container">
-            <form id="publicacion-form" enctype="multipart/form-data" method="post">
-                <!-- Contenido principal de la publicación -->
+
+            <form enctype="multipart/form-data" method="post" action="/post">
                 <div class="form-section">
                     <h2 class="section-title">Información principal</h2>
 
@@ -29,7 +29,7 @@
                 <div class="form-section">
                     <h2 class="section-title">Multimedia</h2>
                     <div class="form-group">
-                        <label for="publicacion-image">Imágenes (opcional)</label>
+                        <label for="publicacion-image">Imágenes</label>
                         <div class="file-upload-container">
                             <div class="file-upload-preview" id="image-preview">
                                 <div class="upload-placeholder">
@@ -64,6 +64,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
 
@@ -169,42 +170,42 @@
                 });
             });
 
-            // Crear publicacion reiiiii
-            document.getElementById('publicacion-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
 
-                const formData = new FormData(document.getElementById('publicacion-form'));
-
-                console.log('Enviando formulario...');
-
-                const response = await fetch("<?php echo  APP_URL; ?>ajax/publicaciones-ajax.php", {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (data.tipo == "error") {
-
-
-                    document.getElementById('publicacion-titulo').value = '';
-                    document.getElementById('publicacion-contenido').value = '';
-                    document.getElementById('publicacion-image').value = '';
-
-                    
-
-
-                    Swal.fire({
-                        icon: data.icono,
-                        title: data.titulo,
-                        text: data.texto,
-                        timer: 1000,
-                        confirmButtonText: 'Aceptar',
-                        showConfirmButton: false
-                    });
-                }
-
-            });
+            //document.getElementById('publicacion-form').addEventListener('submit', async (e) => {
+            //    e.preventDefault();
+            //
+            //    const formData = new FormData(document.getElementById('publicacion-form'));
+            //
+            //    console.log('Enviando formulario...');
+            //
+            //    const response = await fetch("//ajax/publicaciones-ajax.php", {
+            //        method: 'POST',
+            //        body: formData
+            //    });
+            //
+            //    const data = await response.json();
+            //
+            //    if (data.tipo == "error") {
+            //
+            //
+            //        document.getElementById('publicacion-titulo').value = '';
+            //        document.getElementById('publicacion-contenido').value = '';
+            //        document.getElementById('publicacion-image').value = '';
+            //
+            //
+            //
+            //
+            //        Swal.fire({
+            //            icon: data.icono,
+            //            title: data.titulo,
+            //            text: data.texto,
+            //            timer: 1000,
+            //            confirmButtonText: 'Aceptar',
+            //            showConfirmButton: false
+            //        });
+            //    }
+            //
+            //});
         });
     </script>
 </body>

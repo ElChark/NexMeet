@@ -505,7 +505,7 @@
                                     <td>
                                         <div style="display: flex; align-items: center; gap: 10px;">
                                             <div style="width: 36px; height: 36px; border-radius: 50%; overflow: hidden;">
-                                                <img src="../ajax/<?php echo isset($usuario['foto_perfil']) ? $usuario['foto_perfil'] : 'images/perfilPrueba.jpg' ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                                                <img src="<?php echo isset($usuario['foto_perfil']) ? $usuario['foto_perfil'] : 'images/perfilPrueba.jpg' ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
                                             <div>
                                                 <div style="font-weight: 500;"><?php echo $usuario['nombre'] ?></div>
@@ -672,7 +672,7 @@
                                     body: JSON.stringify({name: userName, accion: 'Habilitar'})
                                 }
 
-                                fetch('../../ajax/estadoUsuario-ajax.php', fetchOpt)
+                                fetch("<?php echo  APP_URL; ?>api/user/estadoUsuario-ajax.php", fetchOpt)
                                     .then(res => res.json())
                                     .then(data => {
                                         if(data.tipo === "success") {
@@ -717,7 +717,7 @@
                                     body: JSON.stringify({name: userName, accion: 'Deshabilitar'})
                                 }
 
-                                fetch('../../ajax/estadoUsuario-ajax.php', fetchOpt)
+                                fetch("<?php echo  APP_URL; ?>api/user/estadoUsuario-ajax.php", fetchOpt)
                                     .then(res => res.json())
                                     .then(data => {
                                         if(data.tipo === "success") {
@@ -770,5 +770,3 @@
         });
     </script>
 </body>
-
-</html>

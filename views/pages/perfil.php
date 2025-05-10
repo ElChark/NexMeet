@@ -7,12 +7,12 @@
     <div class="profile-container">
         <div class="profile-header">
             <div class="profile-avatar-container">
-                <img src="../ajax/<?php echo $_SESSION['fotoPerfil'] ?? 'images/perfilPrueba.jpg'; ?>" alt="Foto de perfil" class="profile-avatar" id="profile-pic">
+                <img src="<?php echo $_SESSION['fotoPerfil'] ?? '../../images/perfilPrueba.jpg'; ?>" alt="Foto de perfil" class="profile-avatar" id="profile-pic">
                 <form method="POST" id="profile-pic-container" enctype="multipart/form-data">
                     <label class="change-photo-btn" for="photoInput">
                         <i class="fas fa-camera"></i>
                     </label>
-                    <input type="file" id="photoInput" name="photo"></input>
+                    <input type="file" id="photoInput" name="foto"></input>
                 </form>
 
             </div>
@@ -87,7 +87,7 @@
                                         <h3 class="card-title"><?= $publicacion['titulo'] ?></h3>
                                         <button style="height: 20px" class="delete-button-post" data-id="<?php echo $publicacion['id_publicacion'] ?>">x</button>
                                     </div>
-                                    <p class="card-title"><?= $publicacion['contenido'] ?></p>
+                                    <p class="card-location"><?= $publicacion['contenido'] ?></p>
                                 </div>
                             </article>
                         <?php endforeach; ?>
@@ -307,7 +307,7 @@
                 console.log(formData);
 
                 try {
-                    const response = await fetch('../../ajax/update-ajax.php', {
+                    const response = await fetch("<?php echo  APP_URL; ?>api/user/update-ajax.php", {
                         method: 'POST',
                         body: formData
                     });
@@ -316,7 +316,7 @@
 
                     if (data.tipo === "success") {
                         console.log("Ruta recibida:", data.ruta);
-                        document.getElementById('profile-pic').src = "../ajax/" + data.ruta;
+                        document.getElementById('profile-pic').src = data.ruta;
 
                         Swal.fire({
                             icon: data.icono,
@@ -351,7 +351,7 @@
                 const formData = new FormData(document.getElementById('edit-profile-form'));
                 formData.append('tipo', 'ActualizarInfo')
 
-                const response = await fetch("<?php echo  APP_URL; ?>ajax/update-ajax.php", {
+                const response = await fetch("<?php echo  APP_URL; ?>api/user/update-ajax.php", {
                     method: 'POST',
                     body: formData
                 });
@@ -410,7 +410,7 @@
                                 body: JSON.stringify({id: currentPostId, tipo: 'Publicación'})
                             }
 
-                            fetch('../../ajax/delete-ajax.php', fetchOpt).then(res => res.json())
+                            fetch("<?php echo  APP_URL; ?>api/delete-ajax.php", fetchOpt).then(res => res.json())
                                 .then(data => {
 
                                     if(data.tipo === "success") {
@@ -459,21 +459,21 @@
                                 body: JSON.stringify({id: currentPostId, tipo: 'Evento'})
                             }
 
-                            fetch('../../ajax/delete-ajax.php', fetchOpt).then(res => res.json())
+                            fetch("<?php echo  APP_URL; ?>api/delete-ajax.php", fetchOpt).then(res => res.json())
                                 .then(data => {
 
                                     if(data.tipo === "success") {
                                         Swal.fire({
                                             title: data.title,
                                             text: `El evento ha sido eliminado`,
-                                            icon: data.icon
+                                            icon: data.icon // Agregar tiempo
                                         });
                                         window.location.reload();
                                     } else {
                                         Swal.fire({
                                             title: "Error",
                                             text: `Ha ocurrido un error a la hora de eliminar el evento`,
-                                            icon: "error"
+                                            icon: "error" // Agregar tiempo
                                         });
                                     }
                                 })

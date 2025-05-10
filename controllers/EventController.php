@@ -104,4 +104,18 @@ class EventController extends MainModel
             ]);
         }
     }
+
+    public function getEvento($eventId)
+    {
+        $consultaEvento = $this->seleccionDatos('Unico', 'Evento', 'id_evento', $eventId);
+        $resultado = $consultaEvento->fetch();
+        return $resultado;
+    }
+
+    public function getCommentsOfEvent($eventId)
+    {
+        $consultaEvento = $this->seleccionDatos('Comentario', 'Vista_Comentarios', 'id_evento', $eventId);
+        $resultado = $consultaEvento->fetchAll();
+        return $resultado;
+    }
 }

@@ -101,7 +101,11 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
-    <script>
+    <script type="module" >
+
+        import {addMarkerToMap} from "/views/js/add-marker-to-map.js";
+        import {addEventToList} from "/views/js/add-event-to-list.js";
+
         const mapboxToken = 'pk.eyJ1Ijoic2FudGluby0yMSIsImEiOiJjbTlrOThieXUwanE2Mmtwbm14NG91Z2Y1In0.4ZaOrPV87tCrT0HIQBj_fg';
 
         let events = [];
@@ -111,12 +115,11 @@
         mapboxgl.accessToken = mapboxToken;
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11', // Using streets style for more color
-            center: [-100.3161, 25.6866], // Monterrey, México
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-100.3161, 25.6866],
             zoom: 12.15
         });
 
-        // Initialize geocoder
         const geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             mapboxgl: mapboxgl,
@@ -128,14 +131,11 @@
         geocoder.on('result', function(e) {
             selectedLocation = e.result;
             showStatusIndicator('Ubicación seleccionada: ' + selectedLocation.place_name);
-            console.log("Ubicación seleccionada: " + selectedLocation.place_name);
-            
-            // If there's a marker, remove it
+
             if (draggableMarker) {
                 draggableMarker.remove();
             }
-            
-            // Add a new marker at the selected location
+
             draggableMarker = new mapboxgl.Marker({
                 draggable: true,
                 color: '#ff5a5f'
@@ -215,7 +215,6 @@
                 });
         }
 
-        // Show status indicator with message
         function showStatusIndicator(message) {
             const indicator = document.getElementById('status-indicator');
             indicator.textContent = message;
@@ -227,13 +226,9 @@
             }, 3000);
         }
 
-        //////////////crear evento
+        //Crear evento
         document.getElementById('eventForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            const name = document.getElementById('eventName').value;
-            const description = document.getElementById('eventDescription').value;
-
             if (!selectedLocation) {
                 Swal.fire({
                     icon: 'error',
@@ -250,20 +245,18 @@
             formData.append('nombreLugar', selectedLocation.place_name);
 
             showStatusIndicator('Guardando evento...');
-            console.log('Enviando formulario...');
 
             try {
-                const response = await fetch("<?php echo APP_URL; ?>ajax/evento-ajax.php", {
+                const response = await fetch("<?php echo APP_URL; ?>api/event/evento-ajax.php", {
                     method: 'POST',
                     body: formData
                 });
 
                 const data = await response.json();
-                console.log('Respuesta recibida');
 
-                if (data.tipo == "error") {
+                if (data.tipo === "error") {
                     selectedLocation = null;
-                    addMarkerToMap(data);
+                    addMarkerToMap(data, map);
                     addEventToList(data);
 
                     Swal.fire({
@@ -307,147 +300,34 @@
             }
         });
 
-        // Add a marker to the map
-        function addMarkerToMap(event) {
-            console.log("Datos recibidos en addMarkerToMap:", event);
-
-            // Verificar si las coordenadas existen y son numéricas
-            const longitud = parseFloat(event.longitud);
-            const latitud = parseFloat(event.latitud);
-
-            console.log("Coordenadas procesadas:", longitud, latitud);
-
-            if (isNaN(longitud) || isNaN(latitud)) {
-                console.error("Coordenadas inválidas:", event.longitud, event.latitud);
-                return; // No crear el marcador si las coordenadas no son válidas
-            }
-
-            const coordenadas = [longitud, latitud];
-
-            const el = document.createElement('div');
-            el.className = 'marker';
-
-            // Create popup
-            const popup = new mapboxgl.Popup({
-                    offset: 25
-                })
-                .setHTML(`
-                    <div class="popup-content">
-                        <h3 class="popup-title">${event.titulo}</h3>
-                        <img src="${event.ruta}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;" />
-                        <p class="popup-description">${event.descripcion}</p>
-                        <p class="popup-description"><i class="fas fa-map-marker-alt" style="color: #ff5a5f;"></i> ${event.nombreLugar}</p>
-                    </div>
-                `);
-
-            // Add marker to map
-            new mapboxgl.Marker(el)
-                .setLngLat(coordenadas)
-                .setPopup(popup)
-                .addTo(map);
-                
-            // Fly to the new marker
-            map.flyTo({
-                center: coordenadas,
-                zoom: 15,
-                essential: true
-            });
-        }
-
-        // Add an event to the list
-        function addEventToList(event) {
-            console.log("Datos recibidos en addEventToList:", event);
-
-            // Verificar si las coordenadas existen y son numéricas
-            const longitud = parseFloat(event.longitud);
-            const latitud = parseFloat(event.latitud);
-
-            console.log("Coordenadas procesadas:", longitud, latitud);
-
-            if (isNaN(longitud) || isNaN(latitud)) {
-                console.error("Coordenadas inválidas:", event.longitud, event.latitud);
-                return; // No crear el marcador si las coordenadas no son válidas
-            }
-
-            const coordenadas = [longitud, latitud];
-            
-            // Remove "no events" message if it exists
-            const noEvents = document.querySelector('.no-events');
-            if (noEvents) {
-                noEvents.remove();
-            }
-
-            const eventsList = document.getElementById('eventsList');
-            const li = document.createElement('li');
-            li.className = 'event-item';
-            li.dataset.id = event.id;
-            li.innerHTML = `
-                <div class="event-name">${event.titulo}</div>
-                <div class="event-address"><i class="fas fa-map-marker-alt"></i>${event.nombreLugar}</div>
-            `;
-
-            // Add click event to fly to this event
-            li.addEventListener('click', () => {
-                map.flyTo({
-                    center: coordenadas,
-                    zoom: 17,
-                    essential: true
-                });
-                
-                // Add bounce effect to show which event was clicked
-                li.style.animation = 'none';
-                setTimeout(() => {
-                    li.style.animation = 'bounce 0.5s';
-                }, 10);
-            });
-
-            eventsList.insertBefore(li, eventsList.firstChild);
-            
-            // Add a quick animation to highlight the new event
-            li.style.animation = 'bounce 0.5s';
-        }
-        
-        // Bounce animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes bounce {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // cargar eventos
-        function loadEvents() {
-            <?php foreach ($eventosPropios as $evento) { ?>
-                events.push(<?php echo json_encode($evento); ?>);
-            <?php } ?>
-
-            // Verificar que los datos están completos antes de procesar
-            if (events && events.length > 0) {
-                events.forEach(event => {
-                    console.log("Cargando evento:", event);
-                    addMarkerToMap(event);
-                    addEventToList(event);
-                });
-                
-                // Adjust map bounds to show all markers
-                if (events.length > 1) {
-                    const bounds = new mapboxgl.LngLatBounds();
-                    events.forEach(event => {
-                        if (!isNaN(event.longitud) && !isNaN(event.latitud)) {
-                            bounds.extend([parseFloat(event.longitud), parseFloat(event.latitud)]);
-                        }
-                    });
-                    map.fitBounds(bounds, { padding: 50 });
-                }
-            }
-        }
-
         // Set up event listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Load events when map is ready
-            map.on('load', loadEvents);
+            map.on('load', function loadEvents() {
+                <?php foreach ($eventosPropios as $evento) { ?>
+                events.push(<?php echo json_encode($evento); ?>);
+                <?php } ?>
+
+                // Verificar que los datos están completos antes de procesar
+                if (events && events.length > 0) {
+                    events.forEach(event => {
+                        console.log("Cargando evento:", event);
+                        addMarkerToMap(event,map);
+                        addEventToList(event);
+                    });
+
+                    // Adjust map bounds to show all markers
+                    if (events.length > 1) {
+                        const bounds = new mapboxgl.LngLatBounds();
+                        events.forEach(event => {
+                            if (!isNaN(event.longitud) && !isNaN(event.latitud)) {
+                                bounds.extend([parseFloat(event.longitud), parseFloat(event.latitud)]);
+                            }
+                        });
+                        map.fitBounds(bounds, { padding: 50 });
+                    }
+                }
+            });
 
             // Preview uploaded image
             const galleryInput = document.getElementById('event-gallery');

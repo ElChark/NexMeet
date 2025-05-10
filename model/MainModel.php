@@ -136,50 +136,73 @@ class MainModel
         return $sql;
     }
 
+    protected function setComment($tabla, $params)
+    {
+        $query = "INSERT INTO $tabla (id_usuario, id_evento, id_publicacion, comentario) VALUES (";
+
+        $i = 0;
+        foreach ($params as $clave) {
+            if ($i >= 1)
+                $query .= ',';
+
+            $query .= $clave['nombre_marcador'];
+            $i++;
+        }
+
+        $query .= ')';
+
+        $sql = $this->connect()->prepare($query);
+
+        foreach ($params as $clave) {
+            $sql->bindParam($clave['nombre_marcador'], $clave['valor']);
+        }
+
+        $sql->execute();
+
+        return $sql;
+    }
+
 
 
 
     public function seleccionDatos($tipo, $tabla, $campo, $id)
     {
-        if ($tipo == 'Unico') {
+        if ($tipo === 'Unico') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id ORDER BY fecha_publicacion DESC");
             $sql->bindParam(':id', $id);
-
-        } elseif ($tipo == 'Mensajes') {
+        } elseif ($tipo === 'Mensajes') {
             $sql = $this->connect()->prepare("SELECT * FROM Vista_Mensajes_Usuario WHERE $campo = :id ORDER BY fecha ASC");
             $sql->bindParam(':id', $id);
-
-        } elseif ($tipo == 'Eventos') {
+        } elseif ($tipo === 'Eventos') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla ORDER BY fecha_publicacion DESC");
             //$sql->bindParam(':id', $id);
 
-        } elseif ($tipo == 'CrearEvento') {
+        } elseif ($tipo === 'CrearEvento') {
             $sql = $this->connect()->prepare("SELECT * FROM Evento WHERE id_usuario = :id ORDER BY id_evento DESC LIMIT 1");
             $sql->bindParam(':id', $id);
-
-        } elseif ($tipo == 'Seguidores') {
+        } elseif ($tipo === 'Seguidores') {
 
             $sql = $this->connect()->prepare("SELECT * FROM Vista_Solicitudes WHERE (id_emisor = :idUsuario OR id_receptor = :idUsuario) AND estado = 'Aceptada'");
             $sql->bindParam(':idUsuario', $id);
-
-        } elseif ($tipo == 'Buscar') {
+        } elseif ($tipo === 'Buscar') {
             $idBusqueda = "%$id%";
 
-            $sql = $this->connect()->prepare("SELECT *
+            $sql = $this->connect()->prepare(
+                "SELECT *
                                                     FROM Usuario 
                                                     WHERE $campo LIKE :id AND estado = 1 
                                                     LIMIT 10"
             );
             $sql->bindParam(':id', $idBusqueda);
-
-        } elseif ($tipo == 'Notifiaciones') {
+        } elseif ($tipo === 'Notifiaciones') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id AND estado='En Proceso'");
             $sql->bindParam(':id', $id);
-
-        }elseif ($tipo == 'Administrador') {
+        } elseif ($tipo === 'Administrador') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id");
             $sql->bindParam(':id', $id);
-
+        } elseif ($tipo === 'Comentario') {
+            $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id");
+            $sql->bindParam(':id', $id);
         }
 
         $sql->execute();
@@ -213,7 +236,8 @@ class MainModel
         return $sql;
     }
 
-    public function actualizarEstado($tabla, $estado, $condicion) {
+    public function actualizarEstado($tabla, $estado, $condicion)
+    {
         $query = "UPDATE $tabla SET estado = :estado WHERE nombre = :nombre";
 
 

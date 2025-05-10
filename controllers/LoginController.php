@@ -22,6 +22,7 @@ class LoginController extends MainModel
                 $_SESSION['fechaNac'] = $checkUsuario['fecha_nacimiento'];
                 $_SESSION['tipo'] = $checkUsuario['tipo'];
                 $_SESSION['fotoPerfil'] = $checkUsuario['foto_perfil'];
+                $_SESSION['estado'] = $checkUsuario['estado'];
 
 
                 $alerta = [

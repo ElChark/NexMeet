@@ -7,7 +7,7 @@
         <h1>Bienvenido a NexEvent</h1>
         <p>Conecta y descubre eventos emocionantes</p>
 
-        <form id="login-form" method="POST" enctype="multipart/form-data" action="/ajax/publicaciones-ajax.php">
+        <form id="login-form">
             <input type="text" id="username" placeholder="Correo" name="nombre" required>
             <input type="password" id="password" placeholder="Contraseña" name="contra" required>
             <button type="submit" id="button">Iniciar Sesión</button>
@@ -43,7 +43,7 @@
             console.log(formData);
 
             try {
-                const response = await fetch("<?php echo  APP_URL; ?>ajax/login-ajax.php", {
+                const response = await fetch("<?php echo  APP_URL; ?>api/user/login-ajax.php", {
                     method: 'POST',
                     body: formData
                 });

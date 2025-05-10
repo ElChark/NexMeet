@@ -12,55 +12,7 @@
         <!-- Sidebar izquierda -->
         <aside class="sidebar-left">
             <!-- Tus eventos -->
-            <section class="sidebar-section">
-                <h3 class="sidebar-heading">Tus eventos</h3>
-                <div id="eventos-feed">
-                    <div class="event-card">
-                        <h4 class="event-title">Torneo de fútbol 5vs5</h4>
-                        <p class="event-date"><i class="far fa-calendar-alt"></i> 15/05/2025</p>
-                        <p class="event-category"><i class="fas fa-tag"></i> Deportes</p>
-                        <button class="event-button ver-detalles" data-id="1">Ver detalles</button>
-                    </div>
-
-                    <div class="event-card">
-                        <h4 class="event-title">Curso de programación</h4>
-                        <p class="event-date"><i class="far fa-calendar-alt"></i> 20/06/2025</p>
-                        <p class="event-category"><i class="fas fa-tag"></i> Tecnología</p>
-                        <button class="event-button ver-detalles" data-id="2">Ver detalles</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Explorar -->
-            <!-- <section class="sidebar-section">
-                <h3 class="sidebar-heading">Explorar</h3>
-                <ul class="navigation-menu">
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <span class="navigation-text">Eventos cercanos</span>
-                    </li>
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <span class="navigation-text">Grupos</span>
-                    </li>
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="navigation-text">Destacados</span>
-                    </li>
-                    <li class="navigation-item">
-                        <div class="navigation-icon">
-                            <i class="fas fa-bookmark"></i>
-                        </div>
-                        <span class="navigation-text">Guardados</span>
-                    </li>
-                </ul>
-            </section> -->
+  
         </aside>
 
         <!-- Contenido principal -->
@@ -118,32 +70,15 @@
                 </div>
             </div>
 
-            <!-- Filtros de categoría -->
-            <!-- <section class="category-filters">
-                <div class="filter-buttons">
-                    <button class="filter-button active" data-category="all">Todos</button>
-                    <button class="filter-button" data-category="deportes">Deportes</button>
-                    <button class="filter-button" data-category="musica">Música</button>
-                    <button class="filter-button" data-category="arte">Arte</button>
-                    <button class="filter-button" data-category="tecnologia">Tecnología</button>
-                    <button class="filter-button" data-category="viajes">Viajes</button>
-                    <button class="filter-button" data-category="gastronomia">Gastronomía</button>
-                    <button class="filter-button" data-category="educacion">Educación</button>
-                    <button class="filter-button" data-category="networking">Networking</button>
-                </div>
-            </section> -->
 
-
-            <!-- Eventos sugeridos -->
             <section id="eventos-sugeridos">
-                <!-- Post 1 -->
 
                 <?php foreach ($publicaciones as $publicacion): ?>
                     <article class="post" data-id="<?= $publicacion['id_publicacion'] ?>" data-category="deportes">
                         <div class="post-header">
                             <div class="post-author">
                                 <div class="post-avatar">
-                                    <img src="../../ajax/<?= $publicacion['foto_perfil'] ?>" alt="Avatar" class="post-image">
+                                    <img src="<?= $publicacion['foto_perfil'] ?>" alt="Avatar" class="post-image" >
                                 </div>
                                 <div class="post-info">
                                     <div class="post-author-name"><?= $publicacion['nombre'] ?></div>
@@ -155,14 +90,12 @@
                             </div>
                         </div>
 
-                        <img src="../../ajax/<?= $publicacion['foto_portada']?>" alt="Imagen de la publicación" class="post-image">
-
+                        <?php if($publicacion['foto_portada'] !== 'No Foto'): ?>
+                            <img src="<?= $publicacion['foto_portada']?>" alt="Imagen de la publicación" class="post-image">
+                        <?php endif;?>
                         <div class="post-content">
                             <h3 class="post-title"><?= $publicacion['titulo'] ?></h3>
                             <p class="post-description"><?= $publicacion['contenido'] ?></p>
-                            <div class="post-details">
-                                <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> <?= date('d/m/Y', strtotime($publicacion['fecha_publicacion'])) ?></p>
-                            </div>
                         </div>
 
                         <div class="post-stats">
@@ -177,19 +110,15 @@
                                 <i class="far fa-thumbs-up"></i>
                                 <span>Me gusta</span>
                             </div>
-                            <div class="post-action comment-action" data-id="<?= $publicacion['id_publicacion'] ?>">
+                            <!-- <div class="post-action comment-action" data-id="<?= $publicacion['id_publicacion'] ?>">
                                 <i class="far fa-comment-alt"></i>
                                 <span>Comentar</span>
-                            </div>
-                            <div class="post-action attend-action" data-id="<?= $publicacion['id_publicacion'] ?>">
-                                <i class="far fa-calendar-check"></i>
-                                <span>Asistir</span>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="post-comment-area">
                             <div class="avatar">
-                                <img src="../ajax/<?php echo $_SESSION['fotoPerfil'] ?? 'images/perfilPrueba.jpg'; ?>" alt="Avatar">
+                                <img src="<?php echo $_SESSION['fotoPerfil'] ?? '../../images/perfilPrueba.jpg'; ?>" alt="Avatar">
                             </div>
                             <div class="comment-input-wrapper">
                                 <input type="text" class="comment-input" placeholder="Escribe un comentario...">
@@ -201,166 +130,25 @@
                     </article>
                 <?php endforeach; ?>
 
-
-
-
-
             </section>
         </main>
         <!-- Sidebar derecha -->
         <aside class="sidebar-right">
-            <!-- Perfil -->
-            <!-- <section class="sidebar-section profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <img src="https://via.placeholder.com/60" alt="Avatar de perfil">
-                    </div>
-                    <div class="profile-info">
-                        <div class="profile-name"><?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?></div>
-                        <div class="profile-email"><?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'email@ejemplo.com'; ?></div>
-                    </div>
-                </div>
-
-                <ul class="profile-details">
-                    <li class="profile-item">
-                        <div class="profile-item-label">Eventos:</div>
-                        <div class="profile-item-value">12 creados</div>
-                    </li>
-                    <li class="profile-item">
-                        <div class="profile-item-label">Asistiendo:</div>
-                        <div class="profile-item-value">8 eventos</div>
-                    </li>
-                    <li class="profile-item">
-                        <div class="profile-item-label">Tipo:</div>
-                        <div class="profile-item-value"><?php echo isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario'; ?></div>
-                    </li>
-                </ul>
-
-                <div style="text-align: center; margin-top: 10px;">
-                    <a href="<?php echo APP_URL; ?>perfil" class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-user-edit"></i> Editar perfil
-                    </a>
-                </div>
-            </section> -->
-
-            <!-- Eventos populares -->
             <section class="sidebar-section popular-events">
                 <h3 class="sidebar-heading">Eventos populares</h3>
+                <?php foreach ($eventosPopulares as $evento): ?>       
+                    <article class="event-card">
+                        <h4 class="event-title"><?= $evento['titulo']?></h4>
+                        <p class="event-description"><?= $evento['descripcion_evento']?></p>
+                        <p class="event-date"><i class="far fa-calendar-alt"></i> <?= $evento['fecha_publicacion']?></p>
+                        <a href="/eventos/?id=<?=$evento['id_evento']?>" style="text-decoration: underline; color: blue; font-size: 14px;">Mas Info</a>
+                    </article>
+                <?php endforeach; ?>
 
-                <div class="event-card">
-                    <h4 class="event-title">Festival de Cine</h4>
-                    <p class="event-description">Proyección de películas independientes y premiadas internacionalmente</p>
-                    <p class="event-date"><i class="far fa-calendar-alt"></i> 10/06/2025</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Centro Cultural Metropolitano</p>
-                </div>
-
-                <div class="event-card">
-                    <h4 class="event-title">Feria del Libro</h4>
-                    <p class="event-description">Presentaciones de autores y venta de libros con descuentos especiales</p>
-                    <p class="event-date"><i class="far fa-calendar-alt"></i> 15/07/2025</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Parque Central</p>
-                </div>
-
-                <div class="event-card">
-                    <h4 class="event-title">Maratón Urbana</h4>
-                    <p class="event-description">Recorrido de 42km por las principales avenidas de la ciudad</p>
-                    <p class="event-date"><i class="far fa-calendar-alt"></i> 22/08/2025</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Plaza Principal</p>
-                </div>
             </section>
-
-            <!-- Sugerencias de personas -->
-            <!-- <section class="sidebar-section">
-                <h3 class="sidebar-heading">Personas que quizás conozcas</h3>
-
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <div class="avatar" style="margin-right: 10px;">
-                        <img src="https://via.placeholder.com/40/9c27b0" alt="Avatar">
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 14px;">Laura Sánchez</div>
-                        <div style="font-size: 12px; color: #65676b;">5 eventos en común</div>
-                    </div>
-                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
-                </div>
-
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <div class="avatar" style="margin-right: 10px;">
-                        <img src="https://via.placeholder.com/40/3f51b5" alt="Avatar">
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 14px;">Carlos Méndez</div>
-                        <div style="font-size: 12px; color: #65676b;">3 eventos en común</div>
-                    </div>
-                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
-                </div>
-
-                <div style="display: flex; align-items: center;">
-                    <div class="avatar" style="margin-right: 10px;">
-                        <img src="https://via.placeholder.com/40/ff9800" alt="Avatar">
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 14px;">Ana Torres</div>
-                        <div style="font-size: 12px; color: #65676b;">7 eventos en común</div>
-                    </div>
-                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Seguir</button>
-                </div>
-            </section> -->
         </aside>
     </div>
 
-    <!-- Modal de detalles de evento -->
-    <div class="modal-backdrop" id="event-details-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000;">
-        <div class="modal" style="background: white; border-radius: 10px; width: 90%; max-width: 700px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;">
-            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e4e6eb;">
-                <div class="modal-title" id="evento-detalle-titulo" style="font-weight: 600; font-size: 20px;">Detalles del evento</div>
-                <button class="modal-close" id="modal-close" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #65676b;">&times;</button>
-            </div>
-
-            <div class="modal-body" style="padding: 20px; overflow-y: auto; flex: 1;">
-                <div class="modal-section" style="margin-bottom: 20px;">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Descripción</h4>
-                    <p id="evento-detalle-descripcion">Descripción del evento</p>
-                </div>
-
-                <div class="modal-section" style="margin-bottom: 20px;">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Organizador</h4>
-                    <div class="modal-section-content" style="background-color: #f0f2f5; padding: 15px; border-radius: 8px;">
-                        <p>Nombre: <span id="nombreOrganizador">Nombre del organizador</span></p>
-                    </div>
-                </div>
-
-                <div class="modal-section" style="margin-bottom: 20px;">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Detalles</h4>
-                    <div class="modal-section-content" style="background-color: #f0f2f5; padding: 15px; border-radius: 8px;">
-                        <p>Fecha: <span id="evento-detalle-fecha">Fecha del evento</span></p>
-                        <p>Categoría: <span id="evento-detalle-categoria">Categoría del evento</span></p>
-                        <p>Ubicación: <span id="evento-detalle-ubicacion">Ubicación del evento</span></p>
-                        <p>Me gusta: <span id="evento-detalle-likes">0</span></p>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <h4 class="modal-section-title" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Comentarios</h4>
-                    <div id="comentarios" class="modal-comments" style="max-height: 200px; overflow-y: auto; margin-top: 15px;">
-                        <div class="comment" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;">
-                            <span class="comment-author" style="font-weight: 600; margin-right: 5px;">Juan Pérez:</span>
-                            <span>¡Este evento está increíble!</span>
-                        </div>
-                        <div class="comment" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e4e6eb;">
-                            <span class="comment-author" style="font-weight: 600; margin-right: 5px;">Ana López:</span>
-                            <span>Me parece una gran oportunidad para conocer gente nueva.</span>
-                        </div>
-                    </div>
-
-                    <div class="modal-comment-form" style="display: flex; margin-top: 15px; gap: 10px;">
-                        <input type="text" id="nuevoComentario" class="modal-comment-input" placeholder="Escribe un comentario..." style="flex: 1; border: 1px solid #e4e6eb; border-radius: 20px; padding: 8px 15px; outline: none; font-size: 14px;">
-                        <button id="enviarComentario" class="modal-comment-btn" data-evento-id="" style="background-color: #1877f2; color: #fff; border: none; border-radius: 6px; padding: 0 15px; font-weight: 500; cursor: pointer;">Comentar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -385,41 +173,8 @@
 
             // Abrir modal de detalles de evento
             const detallesButtons = document.querySelectorAll('.ver-detalles, .comment-action');
-            detallesButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const eventoId = this.getAttribute('data-id');
-                    document.getElementById('enviarComentario').setAttribute('data-evento-id', eventoId);
+            detallesButtons.forEach(button => {});
 
-                    // Cargar datos de ejemplo
-                    if (eventoId === '1') {
-                        document.getElementById('evento-detalle-titulo').textContent = 'Torneo de fútbol amateur';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Ven y participa en nuestro torneo mensual de fútbol 5vs5. ¡Habrá premios para los ganadores! Inscribe a tu equipo antes del 10 de mayo.';
-                        document.getElementById('nombreOrganizador').textContent = 'Club Deportivo Local';
-                        document.getElementById('evento-detalle-fecha').textContent = '15/05/2025';
-                        document.getElementById('evento-detalle-categoria').textContent = 'Deportes';
-                        document.getElementById('evento-detalle-likes').textContent = '42';
-                        document.getElementById('evento-detalle-ubicacion').textContent = 'Campo Municipal, Calle Principal #123';
-                    } else if (eventoId === '2') {
-                        document.getElementById('evento-detalle-titulo').textContent = 'Concierto de música clásica';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Disfruta de una velada con las mejores piezas de Mozart y Beethoven interpretadas por la Orquesta Filarmónica de la ciudad. Una experiencia única para los amantes de la música clásica.';
-                        document.getElementById('nombreOrganizador').textContent = 'Asociación Cultural Música Viva';
-                        document.getElementById('evento-detalle-fecha').textContent = '20/05/2025';
-                        document.getElementById('evento-detalle-categoria').textContent = 'Música';
-                        document.getElementById('evento-detalle-likes').textContent = '18';
-                        document.getElementById('evento-detalle-ubicacion').textContent = 'Auditorio Municipal, Avenida Central #456';
-                    } else if (eventoId === '3') {
-                        document.getElementById('evento-detalle-titulo').textContent = 'Hackathon 2025: Innovación y Tecnología';
-                        document.getElementById('evento-detalle-descripcion').textContent = 'Participa en nuestro Hackathon anual donde desarrolladores, diseñadores y emprendedores se reúnen para crear soluciones innovadoras. Este año el tema es "Tecnología para el bienestar".';
-                        document.getElementById('nombreOrganizador').textContent = 'TechMeetup';
-                        document.getElementById('evento-detalle-fecha').textContent = '10/06/2025 - 12/06/2025';
-                        document.getElementById('evento-detalle-categoria').textContent = 'Tecnología';
-                        document.getElementById('evento-detalle-likes').textContent = '64';
-                        document.getElementById('evento-detalle-ubicacion').textContent = 'Centro de Innovación Digital, Plaza Tecnológica #789';
-                    }
-
-                    eventDetailsModal.style.display = 'flex';
-                });
-            });
 
             // Cerrar modal
             modalClose.addEventListener('click', function() {
@@ -457,36 +212,8 @@
                 }
             });
 
-            // Comentarios en posts
-            const commentInputs = document.querySelectorAll('.comment-input');
-            const commentSendButtons = document.querySelectorAll('.comment-send');
-
-            commentSendButtons.forEach((button, index) => {
-                button.addEventListener('click', function() {
-                    const input = commentInputs[index];
-                    if (input.value.trim() !== '') {
-                        const post = button.closest('.post');
-                        const commentsCountEl = post.querySelector('.post-comments-count');
-                        const currentCount = parseInt(commentsCountEl.textContent);
-
-                        // Actualizar contador de comentarios
-                        commentsCountEl.textContent = `${currentCount + 1} comentarios`;
-
-                        // Agregar el comentario visualmente (en un sistema real, enviarías esto al servidor)
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Comentario publicado',
-                            text: 'Tu comentario ha sido añadido correctamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-
-                        input.value = '';
-                    }
-                });
-            });
-
-            // Me gusta en posts
+   
+            // Me gusta
             const likeButtons = document.querySelectorAll('.like-action');
 
             likeButtons.forEach(button => {
@@ -517,89 +244,6 @@
                 });
             });
 
-            // Asistencia a eventos
-            const attendButtons = document.querySelectorAll('.attend-action');
-
-            attendButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const postId = this.getAttribute('data-id');
-                    const icon = this.querySelector('i');
-
-                    if (icon.classList.contains('far')) {
-                        // Confirmar asistencia
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                        this.classList.add('active');
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Asistencia confirmada!',
-                            text: 'Has confirmado tu asistencia al evento',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    } else {
-                        // Cancelar asistencia
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                        this.classList.remove('active');
-
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Asistencia cancelada',
-                            text: 'Has cancelado tu asistencia al evento',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
-                });
-            });
-
-            // Filtros de categoría
-            const categoryButtons = document.querySelectorAll('.filter-button');
-            const eventPosts = document.querySelectorAll('.post');
-
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-
-                    // Resetear estado de todos los botones
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-
-                    // Activar este botón
-                    this.classList.add('active');
-
-                    // Filtrar eventos
-                    eventPosts.forEach(post => {
-                        if (category === 'all' || post.getAttribute('data-category') === category) {
-                            post.style.display = 'block';
-                        } else {
-                            post.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // Envío del formulario de evento
-            const eventoForm = document.getElementById('evento-form');
-
-            eventoForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Evento creado!',
-                    text: 'Tu evento ha sido publicado correctamente',
-                    confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Resetear y cerrar formulario
-                        createPostForm.classList.remove('active');
-                        this.reset();
-                        window.location.reload();
-                    }
-                });
-            });
 
             // Manejo de historias
             const storyItems = document.querySelectorAll('.story-item');
