@@ -11,6 +11,8 @@ $router->get('explorar', 'views\\pages\\explorar.php')->only('auth');
 $router->get('crear', 'views\\pages\\crear.php')->only('auth');
 $router->get('publicacion', 'views\\pages\\publicacion.php')->only('auth');
 $router->get('mensajes', 'views\\pages\\mensajes.php');
+$router->get('admin', 'views\\pages\\administrador.php');
+
 
 
 

@@ -73,6 +73,7 @@
             const imageInput = document.getElementById('publicacion-image');
             const galleryPreview = document.getElementById('gallery-preview');
             const imagePreview = document.getElementById('image-preview');
+
             imageInput.addEventListener('change', function() {
                 if (this.files.length > 0) {
                     document.querySelector('.upload-placeholder').style.display = 'none';
@@ -97,15 +98,18 @@
                             removeBtn.addEventListener('click', function(e) {
                                 e.preventDefault();
                                 imgContainer.remove();
+
                                 // Mostrar placeholder si se eliminan todas las imágenes
                                 if (galleryPreview.children.length === 0) {
                                     document.querySelector('.upload-placeholder').style.display = 'flex';
                                 }
                             });
+
                             imgContainer.appendChild(img);
                             imgContainer.appendChild(removeBtn);
                             galleryPreview.appendChild(imgContainer);
                         }
+
                         reader.readAsDataURL(file);
                     });
                 }
@@ -139,10 +143,12 @@
                         videoPreview.innerHTML = '';
                         videoInput.value = '';
                     });
+
                     videoPreview.appendChild(videoElement);
                     videoPreview.appendChild(removeBtn);
                 }
             });
+
             // Hacer clic en el área de previsualización para subir imágenes
             imagePreview.addEventListener('click', function() {
                 imageInput.click();
@@ -202,4 +208,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 
     <?php
-    // Detectar la página actual para cargar su CSS específico
     $requestUri = $_SERVER['REQUEST_URI'];
     $baseUrl = dirname($_SERVER['SCRIPT_NAME']);
 
@@ -19,7 +18,8 @@
     if (strpos($viewPath, '/') === 0) {
         $viewPath = substr($viewPath, 1);
     }
-
+    
+    $viewPath = explode('?', $viewPath)[0]; 
     $url = explode('/', $viewPath);
 
     if (empty($url[0])) {

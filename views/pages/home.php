@@ -1,5 +1,6 @@
 <?php require_once './views/partials/head.php' ?>
-<?php require_once './views/partials/publicaciones-load.php' ?>
+<?php require_once './views/partials/load.php' ?>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -118,7 +119,7 @@
             </div>
 
             <!-- Filtros de categoría -->
-            <section class="category-filters">
+            <!-- <section class="category-filters">
                 <div class="filter-buttons">
                     <button class="filter-button active" data-category="all">Todos</button>
                     <button class="filter-button" data-category="deportes">Deportes</button>
@@ -130,69 +131,9 @@
                     <button class="filter-button" data-category="educacion">Educación</button>
                     <button class="filter-button" data-category="networking">Networking</button>
                 </div>
-            </section>
+            </section> -->
 
-            <!-- Crear publicación -->
-            <!-- <section class="create-post">
-                <div class="create-post-header">
-                    <div class="avatar">
-                        <img src="https://via.placeholder.com/40" alt="Avatar">
-                    </div>
-                    <input type="text" class="create-post-input" placeholder="¿Qué evento quieres compartir?" id="create-post-trigger" readonly>
-                </div>
-                
-                <div class="story-item" data-id="1">
-                    <div class="story-avatar-container has-story">
-                        <div class="story-avatar">
-                            <img src="https://via.placeholder.com/60/ff5e00" alt="Avatar de Ana">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="shareDesc">Descripción</label>
-                            <textarea class="form-control" id="shareDesc" name="descripcion" placeholder="Describe los detalles de tu evento..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="shareLoc">Ubicación</label>
-                            <input type="text" class="form-control" id="shareLoc" name="ubicacion" placeholder="¿Dónde se realizará?" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group-half">
-                                <label class="form-label" for="shareCategory">Categoría</label>
-                                <select class="form-control" id="shareCategory" name="categoria">
-                                    <option value="deportes">Deportes</option>
-                                    <option value="musica">Música</option>
-                                    <option value="arte">Arte</option>
-                                    <option value="tecnologia">Tecnología</option>
-                                    <option value="gastronomia">Gastronomía</option>
-                                    <option value="viajes">Viajes</option>
-                                    <option value="educacion">Educación</option>
-                                    <option value="networking">Networking</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group-half">
-                                <label class="form-label" for="eventDate">Fecha</label>
-                                <input type="date" class="form-control" id="eventDate" name="fecha" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="eventImage">Imagen del evento</label>
-                            <input type="file" class="form-control" id="eventImage" name="imagen" accept="image/*">
-                        </div>
-                        
-                        <div class="form-buttons">
-                            <button type="button" class="btn btn-secondary" id="cancel-post">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i> Publicar evento
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-            -->
+
             <!-- Eventos sugeridos -->
             <section id="eventos-sugeridos">
                 <!-- Post 1 -->
@@ -202,10 +143,10 @@
                         <div class="post-header">
                             <div class="post-author">
                                 <div class="post-avatar">
-                                    <img src="https://via.placeholder.com/40/1877f2" alt="Avatar">
+                                    <img src="../../ajax/<?= $publicacion['foto_perfil'] ?>" alt="Avatar" class="post-image">
                                 </div>
                                 <div class="post-info">
-                                    <div class="post-author-name">Usuario #<?= $publicacion['id_usuario'] ?></div>
+                                    <div class="post-author-name"><?= $publicacion['nombre'] ?></div>
                                     <div class="post-time"><?= date('d/m/Y', strtotime($publicacion['fecha_publicacion'])) ?></div>
                                 </div>
                             </div>
@@ -214,7 +155,7 @@
                             </div>
                         </div>
 
-                        <img src="../../ajax/<?= $publicacion['foto_portada'] ?>" alt="Imagen del evento" class="post-image">
+                        <img src="../../ajax/<?= $publicacion['foto_portada']?>" alt="Imagen de la publicación" class="post-image">
 
                         <div class="post-content">
                             <h3 class="post-title"><?= $publicacion['titulo'] ?></h3>
@@ -248,7 +189,7 @@
 
                         <div class="post-comment-area">
                             <div class="avatar">
-                                <img src="https://via.placeholder.com/32" alt="Avatar">
+                                <img src="../ajax/<?php echo $_SESSION['fotoPerfil'] ?? 'images/perfilPrueba.jpg'; ?>" alt="Avatar">
                             </div>
                             <div class="comment-input-wrapper">
                                 <input type="text" class="comment-input" placeholder="Escribe un comentario...">
@@ -432,7 +373,8 @@
 
             // Abrir formulario de creación de eventos
             createPostTrigger.addEventListener('click', function() {
-                window.location.href = '<?php echo APP_URL; ?>crearevento';
+                createPostForm.classList.add('active');
+                this.blur();
             });
 
             // Cerrar formulario de creación de eventos
@@ -560,16 +502,17 @@
                         this.classList.add('active');
 
                         // Actualizar contador
-                        likesContainer.textContent = (currentLikes + 1) + ' Me gusta';
+                        const currentLikes = parseInt(likesContainer.textContent.match(/\d+/)[0]);
+                        likesContainer.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes + 1} Me gusta`;
                     } else {
                         // Quitar me gusta
                         icon.classList.remove('fas');
-                        icon.classList.remove('liked');
                         icon.classList.add('far');
                         this.classList.remove('active');
 
                         // Actualizar contador
-                        likesContainer.textContent = (currentLikes - 1) + ' Me gusta';
+                        const currentLikes = parseInt(likesContainer.textContent.match(/\d+/)[0]);
+                        likesContainer.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes - 1} Me gusta`;
                     }
                 });
             });
@@ -598,7 +541,6 @@
                     } else {
                         // Cancelar asistencia
                         icon.classList.remove('fas');
-                        icon.classList.remove('attending');
                         icon.classList.add('far');
                         this.classList.remove('active');
 

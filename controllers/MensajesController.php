@@ -12,11 +12,13 @@ class MensajesController extends MainModel
         $mensajes = $this->seleccionDatos('Mensajes', 'Mensajes', 'conversacion', $convoId);
         $resultados = [];
 
-        while ($fila = $mensajes->fetch(PDO::FETCH_ASSOC)) {
+        while ($fila = $mensajes->fetch()) {
             $resultados[] = [
-                "nombre" => $fila['id_emisor'],
+                "id" => $fila['id_usuario'],
+                "nombre" => $fila['nombre'],
                 "contenido" => $fila['contenido'],
-                "fecha" => $fila['fecha']
+                "fecha" => $fila['fecha'],
+                "fotoPerfil"=>$fila['foto_perfil']
             ];
         }
 
