@@ -1,6 +1,7 @@
 <?php
 
 namespace controllers;
+
 use Core\Functions;
 use model\MainModel;
 
@@ -8,7 +9,9 @@ class PublicacionesController extends MainModel //////////////Arreglar subir sin
 {
     public function createPublication($titulo, $contenido, $file)
     {
+
         $ruta = Functions::getPhoto($file);
+
 
         if ($ruta) {
             $publicacionDatos = [
@@ -34,14 +37,14 @@ class PublicacionesController extends MainModel //////////////Arreglar subir sin
                 ]
             ];
         } else {
-            return json_encode([
-                "tipo" => "error",
-                "titulo" => "Error de subida",
-                "texto" => "No se pudo mover la imagen al servidor.",
-                "icono" => "error"
-            ]);
+//            return json_encode([
+//                "tipo" => "error",
+//                "titulo" => "Error de subida",
+//                "texto" => "No se pudo mover la imagen al servidor.",
+//                "icono" => "error"
+//            ]);}
+            return false;
         }
-
 
 
         $registrarPublicacion = $this->publicar('Publicaciones', $publicacionDatos);
@@ -51,18 +54,19 @@ class PublicacionesController extends MainModel //////////////Arreglar subir sin
             $alerta = [
                 "tipo" => "error",
                 "titulo" => "Success",
-                "texto" => "La publicacion se ha guardado con exito",
+                "texto" => "La publicación se ha guardado con éxito",
                 "icono" => "success"
             ];
-            return json_encode($alerta);
-            exit();
+            //return json_encode($alerta);
+            return true;
         } else {
-            return json_encode([
-                "tipo" => "error",
-                "titulo" => "Error",
-                "texto" => "No se pudo guardar la publicación en la base de datos.",
-                "icono" => "error"
-            ]);
+//            return json_encode([
+//                "tipo" => "error",
+//                "titulo" => "Error",
+//                "texto" => "No se pudo guardar la publicación en la base de datos.",
+//                "icono" => "error"
+//            ]);
+            return false;
         }
     }
 }

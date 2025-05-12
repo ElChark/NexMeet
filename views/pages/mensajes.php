@@ -1,6 +1,7 @@
 <?php require_once './views/partials/head.php' ?>
 <?php require_once './views/partials/session-start.php' ?>
-<?php require_once './views/partials/users-load.php' ?>
+<?php require_once './views/partials/load.php' ?>
+
 
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
@@ -23,16 +24,21 @@
                 <!-- Lista de conversaciones -->
                 <div class="conversations-list">
 
-                    <?php foreach ($usuarios as $usuario) { ?>
-                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $usuario['id_usuario'] ?>">
+                    <?php foreach ($seguidores as $usuario) {
+                        // Si el usuario actual fue el emisor, mostramos al receptor
+                        $idAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['id_receptor'] : $usuario['id_emisor'];
+                        $nombreAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['nombre_receptor'] : $usuario['nombre_emisor'];
+                        $fotoAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['foto_receptor'] : $usuario['foto_emisor'];
+                    ?>
+                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $idAmigo ?>" onclick="changeNamePhoto.call(this)">
                             <div class="conversation-avatar">
-                                <img src="../ajax/<?php echo isset($usuario['foto_perfil']) ? $usuario['foto_perfil']  : 'images/perfilPrueba.jpg'; ?>" alt="Avatar">
+                                <img class="conversatio-photo" src="../api/<?php echo $fotoAmigo ?? 'images/perfilPrueba.jpg' ?>" alt="Avatar">
                                 <span class="status-indicator online"></span>
                             </div>
                             <div class="conversation-info">
                                 <div class="conversation-header">
-                                    <h3 class="conversation-name"><?php echo $usuario['nombre'] ?></h3>
-                                    <span class="conversation-time">12:45</span>
+                                    <h3 class="conversation-name"><?php echo $nombreAmigo ?></h3>
+                                    <span class="conversation-time">...</span>
                                 </div>
                             </div>
                         </div>
@@ -46,12 +52,11 @@
                 <div class="chat-header">
                     <div class="chat-user-info">
                         <div class="chat-avatar">
-                            <img src="https://via.placeholder.com/40/ff5a5f/ffffff?text=AL" alt="Avatar">
                             <span class="status-indicator online"></span>
                         </div>
                         <div class="chat-user-details">
-                            <h3 class="chat-username">Ana López</h3>
-                            <p class="chat-status">En línea</p>
+                            <h3 class="chat-username" id="name-chat">Selecciona a un contacto para empezar a charlar</h3>
+                            <!-- <p class="chat-status">En línea</p> -->
                         </div>
                     </div>
                     <div class="chat-actions">
@@ -87,10 +92,12 @@
                     <h3>Detalles del evento</h3>
                     <button class="close-panel-btn"><i class="fas fa-times"></i></button>
                 </div>
+
                 <div class="event-details">
                     <div class="event-image">
                         <img src="https://via.placeholder.com/300x150/ff5a5f/ffffff?text=Evento+de+Música" alt="Imagen del evento">
                     </div>
+
                     <h2 class="event-title">Festival de Música Independiente</h2>
                     <p class="event-date"><i class="far fa-calendar-alt"></i> 15 Mayo, 2025</p>
                     <p class="event-time"><i class="far fa-clock"></i> 19:00 - 23:00</p>
@@ -110,11 +117,13 @@
                             <span>45 me gusta</span>
                         </div>
                     </div>
+
                     <button class="attend-event-btn">
                         <i class="fas fa-calendar-check"></i>
                         Asistiré
                     </button>
                 </div>
+
                 <div class="shared-media">
                     <h4>Archivos y enlaces compartidos</h4>
                     <div class="media-grid">
@@ -147,7 +156,6 @@
         // Cambiar de conversación
         conversationItems.forEach((item) => {
             item.addEventListener('click', async function() {
-                console.log(conversationsCache);
 
                 conversationItems.forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
@@ -160,6 +168,7 @@
 
                 currentConvoId = convoId;
                 console.log('Cargando conversación:', convoId);
+                console.log(conversationsCache[convoId]);
 
 
                 if (conversationsCache[convoId]) {
@@ -173,7 +182,7 @@
                     };
 
                     try {
-                        const response = await fetch("<?php echo  APP_URL; ?>ajax/messages-ajax.php", {
+                        const response = await fetch("<?php echo  APP_URL; ?>api/messages-ajax.php", {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -200,20 +209,21 @@
 
         function displayMessages(msgs) {
             const chatContainer = document.getElementById('chat-messages');
-            chatContainer.innerHTML= ``;
+            chatContainer.innerHTML = ``;
 
             if (msgs.length === 0) {
 
                 chatContainer.innerHTML = `
-                                <span class="media-name">Se el primero en iniciar un conve</span>
+                                <span class="media-name">Se el primero en iniciar un conversación</span>
                                         `;
                 return;
             }
 
-
             msgs.forEach(msg => {
                 const message = document.createElement('div');
-                message.classList.add('message-received');
+
+
+                message.classList.add((msg.id === emisor) ? 'message-received' : 'message-sent');
                 message.innerHTML = `
                         <div class="message-avatar">
                             <p>${msg.nombre}</p>
@@ -254,12 +264,12 @@
         enviarMensaje.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const contenido = document.getElementById('chat-input').value;
+            const contenido = document.getElementById('chat-input');
             if (!contenido) return;
 
 
             const objetoTmp = {
-                contenido: contenido,
+                contenido: contenido.value,
                 convoId: convoId,
                 idEmisor: emisor,
                 tipo: 'Insertar'
@@ -267,7 +277,8 @@
 
             try {
                 console.log('Enviando Formulario')
-                const response = await fetch("<?php echo  APP_URL; ?>ajax/messages-ajax.php", {
+                contenido.value = '';
+                const response = await fetch("<?php echo  APP_URL; ?>api/messages-ajax.php", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -276,8 +287,9 @@
                 });
 
                 const data = await response.json();
+                console.log('El mensaje se ha guardado en la db);
 
-                if (data.tipo == 'error') {
+                if (data.tipo === 'error') {
                     Swal.fire({
                         icon: data.icono,
                         title: data.titulo,
@@ -285,9 +297,6 @@
                         confirmButtonText: 'Aceptar'
                     });
                 }
-
-
-                console.log('El mensaje se ha focking insertado' + data);
 
 
                 const mensajeTmp = {
@@ -298,8 +307,7 @@
                 }
 
 
-                displayMessage(mensajeTmp); // en un futuro lo ideal es que inserte la data traida de la db, la que viene con el nombre y la fecha
-                contenido.value = '';
+                displayMessage(mensajeTmp); // en un futuro lo ideal es que inserte la data traída de la db, la que viene con el nombre y la fecha
             } catch (error) {
                 console.error('Error cargando mensajes:', error);
             }
@@ -325,6 +333,14 @@
         closePanel.addEventListener('click', function() {
             eventInfoPanel.classList.remove('active');
         });
+
+
+
+        /////////////
+        function changeNamePhoto() {
+            document.querySelector('#name-chat').textContent = this.querySelector('.conversation-name').textContent;
+            document.querySelector('#foto-perfil-chat').src = this.querySelector('.conversatio-photo').src;
+        }
     </script>
 </body>
 

@@ -1,4 +1,5 @@
 <!-- views/partials/nav-bar.php -->
+<?php require_once './views/partials/load.php' ?>
 <style>
     /* Estilos unificados para la barra de navegación */
     .header {
@@ -72,34 +73,93 @@
         top: 100%;
         right: 0;
         background-color: white;
-        min-width: 160px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         border-radius: 8px;
         z-index: 101;
-        margin-top: 5px;
-    }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
+        margin-top: 10px;
+        transition: transform 0.2s, opacity 0.2s;
+        transform: translateY(-10px);
+        opacity: 0;
     }
 
     .dropdown-item {
-        color: #65676b;
-        padding: 12px 16px;
-        text-decoration: none;
         display: flex;
         align-items: center;
         gap: 10px;
+        padding: 12px 16px;
+        color: var(--text-color);
+        text-decoration: none;
         transition: background-color 0.2s;
     }
 
+    .dropdown-item:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .dropdown-item:last-child {
+        border-radius: 0 0 8px 8px;
+    }
+
     .dropdown-item:hover {
-        background-color: #f0f2f5;
+        background-color: var(--light-gray);
+    }
+
+    .dropdown-item i {
+        width: 20px;
+        text-align: center;
+        color: var(--primary-color);
+    }
+
+    /* Flecha indicadora para dropdown */
+    .dropdown .header-nav-item:after {
+        content: "\f0d7";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-left: 5px;
+        font-size: 12px;
+        transition: transform 0.2s;
+    }
+
+    .dropdown .header-nav-item.active:after {
+        transform: rotate(180deg);
+    }
+
+    .dropdown:hover .header-nav-item:after {
+        transform: none;
+    }
+
+    .dropdown-content.show {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+        animation: fadeInUp 0.2s ease-out;
+    }
+
+    /* Animación para los dropdown */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .dropdown-content {
+        animation: fadeInUp 0.2s ease-out;
     }
 
     /* Estilos para notificaciones */
     .notifications-dropdown {
         position: relative;
+    }
+
+    .notifications-dropdown:hover {
+        cursor:default;
     }
 
     .notification-count {
@@ -159,7 +219,6 @@
         padding: 12px 15px;
         border-bottom: 1px solid #e4e6eb;
         transition: background-color 0.2s;
-        cursor: pointer;
     }
 
     .notification-item:hover {
@@ -279,6 +338,99 @@
         align-items: center;
     }
 
+    .search-container {
+        position: relative;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        font-size: 16px;
+        outline: none;
+        transition: all 0.3s;
+    }
+
+    .search-input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: none;
+        margin-top: 5px;
+    }
+
+    .search-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        transition: background 0.2s;
+    }
+
+    .search-item:hover {
+        background-color: #f5f5f5;
+    }
+
+    .search-item-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 10px;
+    }
+
+    .search-item-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .search-item-name {
+        font-weight: 500;
+    }
+
+    .search-item-button, .aceptar-btn, .rechazar-btn {
+        border: none;
+        border-radius: 8px;
+        padding: 5px;
+        background-color: #ff5a5f;
+        color: #f7f7f7;
+    }
+    .aceptar-btn:hover {
+        cursor: pointer
+    }
+
+    .rechazar-btn:hover {
+        cursor: pointer
+    }
+
+    .search-item-button:hover {
+        background-color: rgb(250, 153, 157);
+        cursor: pointer;
+    }
+
+
+    .no-results {
+        padding: 15px;
+        text-align: center;
+        color: #666;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
         .header {
@@ -310,11 +462,14 @@
 </style>
 
 <header class="header">
-    <a href="<?php echo APP_URL; ?>home" class="header-logo">NexEvent</a>
+    <a href="<?php echo APP_URL; ?>home" class="header-logo">NexMeet</a>
+
     <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" class="search-input" placeholder="Buscar eventos, personas...">
+        <!-- <i class="fas fa-search search-icon"></i> -->
+        <input id="search-input" type="text" class="search-input" placeholder="Buscar eventos, personas...">
+        <div class="search-results" id="searchResults"></div>
     </div>
+
     <nav class="header-nav">
         <a href="<?php echo APP_URL; ?>home" class="header-nav-item <?php echo isset($url[0]) && $url[0] == 'home' ? 'active' : ''; ?>">
             <i class="fas fa-home"></i> <span>Inicio</span>
@@ -344,71 +499,30 @@
             <div class="header-nav-item" id="notifications-toggle">
                 <i class="fas fa-bell"></i>
                 <span>Notificaciones</span>
-                <div class="notification-count">3</div>
             </div>
 
             <div class="notifications-menu" id="notifications-menu">
                 <div class="notifications-header">
                     <div class="notifications-title">Notificaciones</div>
-                    <div class="mark-all-read">Marcar todas como leídas</div>
                 </div>
 
-                <div class="notification-item unread">
-                    <div class="notification-avatar">
-                        <img src="https://via.placeholder.com/48/ff5a5f/ffffff?text=AL" alt="Avatar">
+                <?php foreach($notificaciones as $noti) {?>
+                    <div class="notification-item unread" data-id="<?php echo $noti['id_seguidor'] ?>">
+                        <div class="notification-avatar">
+                            <img src="../../<?php echo $noti['foto_emisor'] ?>" alt="Avatar">
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong><?php echo $noti['nombre_emisor'] ?></strong><strong>  quiere ser tu amigo</strong>.</div>
+                            <div class="notification-time"><?php echo $noti['fecha_seguimiento'] ?></div>
+                        </div>
+                        <div style="display: flex; flex-direction:column; gap: 5px;">
+                            <button class="aceptar-btn" type="button">Aceptar</button>
+                            <button class="rechazar-btn" type="button">Rechazar</button>
+                        </div>
+                        <div class="notification-dot"></div>
                     </div>
-                    <div class="notification-content">
-                        <div class="notification-text"><strong>Ana López</strong> te ha invitado al evento <strong>Festival de Música</strong>.</div>
-                        <div class="notification-time">Hace 5 minutos</div>
-                    </div>
-                    <div class="notification-dot"></div>
-                </div>
+                <?php }?>
 
-                <div class="notification-item unread">
-                    <div class="notification-avatar">
-                        <img src="https://via.placeholder.com/48/00a699/ffffff?text=CM" alt="Avatar">
-                    </div>
-                    <div class="notification-content">
-                        <div class="notification-text"><strong>Carlos Méndez</strong> ha comentado en tu evento <strong>Taller de Cocina</strong>.</div>
-                        <div class="notification-time">Hace 1 hora</div>
-                    </div>
-                    <div class="notification-dot"></div>
-                </div>
-
-                <div class="notification-item unread">
-                    <div class="notification-avatar">
-                        <img src="https://via.placeholder.com/48/484848/ffffff?text=TM" alt="Avatar">
-                    </div>
-                    <div class="notification-content">
-                        <div class="notification-text"><strong>TechMeetup</strong> ha publicado un nuevo evento <strong>Hackathon 2025</strong> que podría interesarte.</div>
-                        <div class="notification-time">Hace 3 horas</div>
-                    </div>
-                    <div class="notification-dot"></div>
-                </div>
-
-                <div class="notification-item">
-                    <div class="notification-avatar">
-                        <img src="https://via.placeholder.com/48/ff5a5f/ffffff?text=MR" alt="Avatar">
-                    </div>
-                    <div class="notification-content">
-                        <div class="notification-text"><strong>María Rodríguez</strong> asistirá a tu evento <strong>Exposición de Arte</strong>.</div>
-                        <div class="notification-time">Ayer</div>
-                    </div>
-                </div>
-
-                <div class="notification-item">
-                    <div class="notification-avatar">
-                        <img src="https://via.placeholder.com/48/00a699/ffffff?text=JS" alt="Avatar">
-                    </div>
-                    <div class="notification-content">
-                        <div class="notification-text"><strong>Juan Sánchez</strong> te ha enviado un mensaje nuevo.</div>
-                        <div class="notification-time">Hace 2 días</div>
-                    </div>
-                </div>
-
-                <div class="view-all-notifications">
-                    Ver todas las notificaciones
-                </div>
             </div>
         </div>
 
@@ -420,7 +534,7 @@
                 <span>Perfil</span>
             </a>
             <div class="dropdown-content">
-                <a href="<?php echo APP_URL; ?>perfil" class="dropdown-item">
+                <a href="<?php echo APP_URL . 'perfil?id=' . $_SESSION['id_usuario']; ?>" class="dropdown-item">
                     <i class="fas fa-user"></i> Mi perfil
                 </a>
                 <a href="<?php echo APP_URL; ?>configuracion" class="dropdown-item">
@@ -432,7 +546,7 @@
             </div>
         </div>
 
-        <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'admin'): ?>
+        <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'Administrador'): ?>
             <a href="<?php echo APP_URL; ?>admin" class="header-nav-item <?php echo isset($url[0]) && $url[0] == 'admin' ? 'active' : ''; ?>">
                 <i class="fas fa-cog"></i> <span>Admin</span>
             </a>
@@ -445,10 +559,12 @@
         // Funcionalidad para el toggle de notificaciones
         const notificationsToggle = document.getElementById('notifications-toggle');
         const notificationsMenu = document.getElementById('notifications-menu');
+
         notificationsToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             notificationsMenu.style.display = notificationsMenu.style.display === 'block' ? 'none' : 'block';
         });
+
         // Cerrar el menú al hacer clic fuera
         document.addEventListener('click', function(e) {
             if (!notificationsMenu.contains(e.target) && e.target !== notificationsToggle) {
@@ -456,66 +572,192 @@
             }
         });
 
-        // Funcionalidad para marcar como leídas
-        const markAllRead = document.querySelector('.mark-all-read');
-
-        markAllRead.addEventListener('click', function() {
-            const unreadItems = document.querySelectorAll('.notification-item.unread');
-            const notificationCount = document.querySelector('.notification-count');
-
-            unreadItems.forEach(item => {
-                item.classList.remove('unread');
-                const dot = item.querySelector('.notification-dot');
-                if (dot) {
-                    dot.remove();
-                }
-            });
-
-            notificationCount.style.display = 'none';
-        });
 
         // Funcionalidad para la barra de búsqueda
         const searchInput = document.querySelector('.search-input');
-
-        searchInput.addEventListener('keyup', function(e) {
+        searchInput.addEventListener('keyup', async (e) => {
             if (e.key === 'Enter') {
-                const searchTerm = this.value.trim();
-                if (searchTerm) {
-                    // Simular búsqueda (en producción, redirigirías a una página de resultados)
-                    alert(`Buscando: ${searchTerm}`);
+                const searchTerm = document.getElementById('search-input');
 
-                    // Ejemplo de redirección a página de resultados
-                    // window.location.href = `${APP_URL}buscar?q=${encodeURIComponent(searchTerm)}`;
+                if (searchTerm.value.trim().length < 3) {
+                    alert('Ingresa mas de 3 caracteres');
+                    return;
                 }
+
+
+                console.log('Enviando Formulario...');
+                const response = await fetch("<?php echo  APP_URL; ?>controllers/BusquedaController.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        input: searchTerm.value
+                    })
+                });
+                searchTerm.value = '';
+                const data = await response.json();
+                console.log('Data recibida...', data);
+
+                if (data.length > 0) {
+                    let html = '';
+                    data.forEach(usuario => {
+                        html += `
+                                <div class="search-item" data-id="${usuario.id_usuario}">
+                                    <div class="search-item-image">
+                                        <img src="${usuario.foto_perfil}" alt="Usuario">
+                                    </div>
+                                    <div class="search-item-info">
+                                        <div class="search-item-name">${usuario.nombre}</div>
+                                        <button class="search-item-button" type="button">Enviar Solicitud</button>  
+                                    </div>
+                                </div>`;
+                    });
+                    searchResults.innerHTML = html;
+                    searchResults.style.display = 'block';
+
+                    // 🔁 Asignamos el evento manualmente a cada botón
+                    const botones = document.querySelectorAll('.search-item-button');
+                    botones.forEach(boton => {
+                        boton.addEventListener('click', enviarSolicitud);
+                    });
+
+                } else {
+                    searchResults.innerHTML = '<div class="no-results">No se encontraron usuarios</div>';
+                    searchResults.style.display = 'block';
+                }
+
+
+
             }
         });
 
-        // Ejemplo de item de notificación al hacer clic
-        const notificationItems = document.querySelectorAll('.notification-item');
 
-        notificationItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // Marcar como leída al hacer clic
-                this.classList.remove('unread');
-                const dot = this.querySelector('.notification-dot');
-                if (dot) {
-                    dot.remove();
-                }
 
-                // Actualizar contador
-                const unreadCount = document.querySelectorAll('.notification-item.unread').length;
-                const notificationCount = document.querySelector('.notification-count');
+        document.addEventListener('click', async (event)=>{
+        if (event.target.classList.contains('aceptar-btn')) {
 
-                if (unreadCount === 0) {
-                    notificationCount.style.display = 'none';
-                } else {
-                    notificationCount.textContent = unreadCount;
-                }
+            const notificationItem = event.target.closest('.notification-item');
+            const notiId = notificationItem.getAttribute('data-id');
+            
+            console.log('ID del seguidor:', notiId);
 
-                // Aquí iría la redirección a la página relacionada con la notificación
-                // window.location.href = 'url-destino';
+            const response = await fetch("<?= APP_URL ?>controllers/SolicitudController.php", {
+                method:'POST',
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify({
+                    notiId: notiId,
+                    estado: 'Aceptada'
+                })
             });
+
+            const data = await response.json();
+
+            if(data.tipo == 'success') {
+                notificationItem.style.display = 'none'
+            } 
+
+        }
+    });
+
+
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
         });
 
+
+        async function enviarSolicitud(e) {
+            const otherUser = e.currentTarget.closest('.search-item').dataset.id;
+
+            const response = await fetch("<?= APP_URL ?>controllers/SolicitudController.php", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    otherUser,
+                    estado: 'Enviar'
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.tipo === "success") {
+                Swal.fire({
+                    icon: data.icono,
+                    title: data.titulo,
+                    text: data.texto,
+                    timer: 1000,
+                    confirmButtonText: 'Aceptar',
+                    showConfirmButton: false
+                });
+            } else if (data.tipo === "error") {
+                Swal.fire({
+                    icon: data.icono,
+                    title: data.titulo,
+                    text: data.texto,
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+        }
+
+
+
+    });
+</script>
+
+<script>
+    // Agregar al final del archivo nav-bar.php o en un script separado
+    document.addEventListener('DOMContentLoaded', function() {
+        // Para el botón de Crear
+        const createDropdownToggle = document.querySelector('.dropdown .header-nav-item[href="#"]:not(.user-menu-item)');
+        const createDropdownContent = createDropdownToggle.nextElementSibling;
+
+        // Para el botón de Perfil
+        const profileDropdownToggle = document.querySelector('.dropdown .user-menu-item');
+        const profileDropdownContent = profileDropdownToggle.nextElementSibling;
+
+        // Función para cerrar todos los menús desplegables
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        }
+
+        // Manejador para el botón de Crear
+        createDropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Cerrar el menú de perfil si está abierto
+            profileDropdownContent.classList.remove('show');
+
+            // Alternar la visibilidad del menú de crear
+            createDropdownContent.classList.toggle('show');
+        });
+
+        // Manejador para el botón de Perfil
+        profileDropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Cerrar el menú de crear si está abierto
+            createDropdownContent.classList.remove('show');
+
+            // Alternar la visibilidad del menú de perfil
+            profileDropdownContent.classList.toggle('show');
+        });
+
+        // Cerrar menús al hacer clic en cualquier parte del documento
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                closeAllDropdowns();
+            }
+        });
     });
 </script>

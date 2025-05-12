@@ -74,4 +74,6 @@ class Router
         return require Functions::base_path("..\\views\\pages\\404.php");
         die();
     }
+
+    
 }
