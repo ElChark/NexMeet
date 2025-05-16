@@ -23,7 +23,7 @@
     $url = explode('/', $viewPath);
 
     if (empty($url[0])) {
-        $url = ['login'];
+        $url = ['landing'];
     }
 
 
@@ -52,6 +52,9 @@
             break;
         case 'publicacion':
             echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/publicacion.css">';
+            break;
+        case 'landing':
+            echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/landing_page_style.css">';
             break;
     }
     ?>

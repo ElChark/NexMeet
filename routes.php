@@ -13,6 +13,7 @@ $router->get('publicacion', 'views\\pages\\publicacion.php')->only('auth');
 $router->get('mensajes', 'views\\pages\\mensajes.php');
 $router->get('admin', 'views\\pages\\administrador.php');
 $router->get('eventos', 'controllers\\handleSingleEvent.php');
+$router->get('landing', 'views\\pages\\landing_page.php');
 
 
 $router->post('user', 'api\\user\\create_user.php');

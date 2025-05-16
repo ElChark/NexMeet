@@ -26,7 +26,7 @@ $url = explode('/', $viewPath);
 
 
 if (empty($url[0])) {
-    $url = ['login'];
+    $url = ['landing'];
 }
 
 
