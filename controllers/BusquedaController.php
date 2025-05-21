@@ -1,7 +1,7 @@
 <?php
 require_once '../model/MainModel.php';
+require_once '../views/partials/session-start.php';
 
-use Core\Functions;
 use model\MainModel;
 
 $conexion = new MainModel();
@@ -22,11 +22,13 @@ if (isset($data['input'])) {
     $usuarios = [];
 
     foreach ($result as $usuario) {
-        $usuarios[] = [
-            'id_usuario' => $usuario['id_usuario'],
-            'nombre' => htmlspecialchars($usuario['nombre']),
-            'foto_perfil' => $usuario['foto_perfil'] 
-        ];
+        if($usuario['id_usuario'] !== $_SESSION['id_usuario']) {
+            $usuarios[] = [
+                'id_usuario' => $usuario['id_usuario'],
+                'nombre' => htmlspecialchars($usuario['nombre']),
+                'foto_perfil' => $usuario['foto_perfil'] 
+            ];
+        }
     }
 
     echo json_encode($usuarios);

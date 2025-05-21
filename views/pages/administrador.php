@@ -438,20 +438,14 @@
             </div>
 
             <div class="admin-sidebar-section">
-                <div class="admin-sidebar-title">Gestión de usuarios</div>
+                <div class="admin-sidebar-title">Generar reportes</div>
                 <ul class="admin-sidebar-menu">
                     <li class="admin-sidebar-item">
-                        <a href="#" class="admin-sidebar-link">
+                        <a href="/reporte" class="admin-sidebar-link" target="_blank">
                             <i class="fas fa-users"></i>
                             <span>Usuarios</span>
                         </a>
                     </li>
-                </ul>
-            </div>
-
-            <div class="admin-sidebar-section">
-                <div class="admin-sidebar-title">Contenido</div>
-                <ul class="admin-sidebar-menu">
                     <li class="admin-sidebar-item">
                         <a href="#" class="admin-sidebar-link">
                             <i class="fas fa-calendar-alt"></i>
@@ -533,27 +527,13 @@
 
                         </tbody>
                     </table>
-
-                    <div class="pagination">
-                        <div class="pagination-item">
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-                        <div class="pagination-item active">1</div>
-                        <div class="pagination-item">2</div>
-                        <div class="pagination-item">3</div>
-                        <div class="pagination-item">4</div>
-                        <div class="pagination-item">5</div>
-                        <div class="pagination-item">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <!-- Lista de eventos -->
             <div class="content-panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">Eventos recientes</h2>
+                    <h2 class="panel-title">Gestión de eventos</h2>
                     <div class="panel-actions">
                     </div>
                 </div>
@@ -565,31 +545,28 @@
                                 <th>Organizador</th>
                                 <th>Fecha de publicacion</th>
                                 <th>Asistentes</th>
-                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-
-
+                                
+                                <?php foreach($allEventos as $evento) {?>
                                 <td>
-                                    <div style="font-weight: 500;">Festival de Música</div>
-                                    <div style="font-size: 12px; color: var(--medium-gray);">ID: EVT-2589</div>
+                                    <div style="font-weight: 500;"><?= $evento['titulo'] ?></div>
+                                    <div style="font-size: 12px; color: var(--medium-gray);">ID: <?= $evento['id_evento'] ?></div>
                                 </td>
-                                <td>Ana López</td>
-                                <td>28/04/2025</td>
+                                <td><?= $evento['nombre'] ?></td>
+                                <td><?= $evento['fecha_publicacion'] ?></td>
                                 <td>187</td>
                                 <td>
-                                    <span class="status-badge active">Activo</span>
-                                </td>
-                                <td>
                                     <div class="action-buttons">
-                                        <div class="action-button delete" title="Eliminar evento">
+                                        <div class="action-button delete" title="Eliminar evento" data-id="<?= $evento['id_evento'] ?>">
                                             <i class="fas fa-trash-alt"></i>
                                         </div>
                                     </div>
                                 </td>
+                                <?php }?>
 
 
                             </tr>
@@ -601,7 +578,7 @@
             <!-- Lista de publicaciones -->
             <div class="content-panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">Publicaciones recientes</h2>
+                    <h2 class="panel-title">Gestión de publicaciones</h2>
                 </div>
                 <div class="panel-body">
                     <table class="data-table">
@@ -611,7 +588,6 @@
                                 <th>Autor</th>
                                 <th>Fecha de publicacion</th>
                                 <th>Interacciones</th>
-                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -624,9 +600,6 @@
                                 <td>Ana López</td>
                                 <td>18/04/2025</td>
                                 <td>52</td>
-                                <td>
-                                    <span class="status-badge active">Publicado</span>
-                                </td>
                                 <td>
                                     <div class="action-buttons">
                                         <div class="action-button delete" title="Eliminar publicación">

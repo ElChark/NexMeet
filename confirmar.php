@@ -16,8 +16,11 @@ if ($token) {
         $userId = $row['id_usuario'];
         $eventId = $row['id_evento'];
 
+        //Cambiar por trigger para que se haga atumaticamente en la db
         $conn->ejecutarConsulta("INSERT INTO Usuarios_eventos (id_usuario, id_evento) VALUES ($userId, $eventId)");
 
+
+        //Remplazar echo por la funcion 'view' para mostrar una pagina aparte
         echo "<h1>¡Asistencia confirmada! <br> Ya puedes cerrar esta pagina. Te vemos en el evento</h1>";
     } else {
         echo "<h1>Token inválido o ya confirmado.</h1>";

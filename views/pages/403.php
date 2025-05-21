@@ -26,8 +26,9 @@
         }
     </style>
     <div id="not-found">
-        <h1>404</h1>
-        <h3>Pagina no encontrada</h3>
+        <h1>403</h1>
+        <h3>No autorizado</h3>
+        <h4>favor de comunicarse con un administrador</h4>
     </div>
 </body>
 

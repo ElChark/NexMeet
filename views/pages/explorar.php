@@ -30,21 +30,20 @@
             <div class="filter-group">
                 <h3>Fecha</h3>
                 <div class="date-buttons">
-                    <button class="date-btn active">Todos</button>
-                    <button class="date-btn">Hoy</button>
-                    <button class="date-btn">Esta semana</button>
-                    <button class="date-btn">Este mes</button>
-                    <button class="date-btn">Elegir fecha</button>
+                    <button class="date-btn active" data-category="todos">Todos</button>
+                    <button class="date-btn" data-category="hoy">Hoy</button>
+                    <button class="date-btn" data-category="semana">Esta semana</button>
+                    <button class="date-btn" data-category="mes">Este mes</button>
                 </div>
             </div>
 
-            <div class="filter-group">
+            <!-- <div class="filter-group">
                 <h3>Ubicación</h3>
                 <div class="location-search">
                     <input type="text" placeholder="Buscar por ubicación" class="location-input" />
                     <button class="location-btn"><i class="fas fa-map-marker-alt"></i></button>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <!-- Grid de eventos encontrados -->
@@ -64,8 +63,12 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
     <script type="module">
-        import { addEventToList } from '/views/js/add-event-to-grid.js';
-        import { addMarkerToMap } from "/views/js/add-marker-to-map.js";
+        import {
+            addEventToList
+        } from '/views/js/add-event-to-grid.js';
+        import {
+            addMarkerToMap
+        } from "/views/js/add-marker-to-map.js";
 
 
         const eventosGustados = <?php echo json_encode($eventosGustados); ?>;
@@ -89,7 +92,7 @@
 
         map.on('load', function loadEvents() {
             <?php foreach ($eventos as $evento) { ?>
-            events.push(<?php echo json_encode($evento); ?>);
+                events.push(<?php echo json_encode($evento); ?>);
             <?php } ?>
 
             // Verificar que los datos están completos antes de procesar
@@ -128,14 +131,72 @@
 
             // filtros por fecha
             const dateButtons = document.querySelectorAll('.date-btn');
+
             dateButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
+                    const now = new Date();
+                    const diaSemana = now.getDay(); // 0=domingo, 1=lunes, ..., 6=sábado
+                    const hoy = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+                    // Calcular inicio (lunes) y fin (domingo) de esta semana
+                    const inicioSemana = new Date(hoy);
+                    const ajusteLunes = diaSemana === 0 ? -6 : 1 - diaSemana; // si es domingo, retroceder 6 días
+                    inicioSemana.setDate(hoy.getDate() + ajusteLunes);
+
+                    const finSemana = new Date(inicioSemana);
+                    finSemana.setDate(inicioSemana.getDate() + 6);
+
+                    // Activar botón actual y desactivar los demás
                     dateButtons.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
 
-                    if (this.textContent === 'Elegir fecha') {}
+                    // Activar botón actual y desactivar los demás
+                    dateButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filterCategory = this.dataset.category;
+                    const eventCards = document.querySelectorAll('.event-card');
+
+                    eventCards.forEach(card => {
+                        const diaTexto = card.querySelector(".event-day").textContent.trim();
+                        const mesTexto = card.querySelector(".event-month").textContent.trim();
+
+                        const fechaEvento = convertirDiaYMesAFecha(diaTexto, mesTexto);
+                        // Ocultar por defecto
+                        card.classList.add('notShow');
+
+                        if (filterCategory === 'todos') {
+                            card.classList.remove('notShow');
+                        }
+
+                        if (filterCategory === 'hoy') {
+                            if (fechaEvento.toDateString() === now.toDateString()) {
+                                card.classList.remove('notShow');
+                            }
+                        }
+
+                        if (filterCategory === 'semana') {
+                            if (fechaEvento >= inicioSemana && fechaEvento <= finSemana) {
+                                card.classList.remove('notShow');
+                            }
+                        }
+
+                        if (filterCategory === 'mes') {
+                            if (mesEvento === now.getMonth() && añoEvento === now.getFullYear()) {
+                                card.classList.remove('notShow');
+                            }
+                        }
+                    });
                 });
             });
+
+
+            function convertirDiaYMesAFecha(dia, mesTexto) {
+                const meses = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+                const mesIndex = meses.indexOf(mesTexto.toUpperCase());
+                const añoActual = new Date().getFullYear();
+                return new Date(añoActual, mesIndex, parseInt(dia));
+            }
 
         });
     </script>

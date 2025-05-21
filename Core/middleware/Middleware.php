@@ -2,12 +2,13 @@
 
 namespace Core\middleware;
 
-class Middleware{
+class Middleware
+{
 
     const MAP = [
         'guests' => GuestsOnly::class,
-        'auth'=>AuthOnly::class
+        'auth' => AuthOnly::class,
+        'admin' => AdminOnly::class,
+        'active' => ActiveOnly::class
     ];
-    
-
 }

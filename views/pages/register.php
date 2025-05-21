@@ -26,47 +26,6 @@
         <p class="login-link">¿Ya tienes cuenta? <a href="<?php echo APP_URL; ?>login">Iniciar Sesión</a></p>
     </div>
 
-
-    <script>
-        //document.getElementById('register-form').addEventListener('submit', async function(e) {
-        //    e.preventDefault();
-        //
-        //    console.log('Formulario enviado');
-        //
-        //    const formData = new FormData(this);
-        //
-        //    console.log(formData);
-        //
-        //    try {
-        //        const response = await fetch("<?php //echo  APP_URL; ?>//api/user/usuario-ajax.php", {
-        //            method: 'POST',
-        //            body: formData
-        //        });
-        //
-        //        const data = await response.json();
-        //
-        //        document.getElementById('new-username').value = '';
-        //        document.getElementById('new-email').value = '';
-        //        document.getElementById('new-password').value = '';
-        //        document.getElementById('new-password2').value = '';
-        //        document.getElementById('new-birth').value = '';
-        //
-        //        if (data.tipo == "error") {
-        //            Swal.fire({
-        //                icon: data.icono,
-        //                title: data.titulo,
-        //                text: data.texto,
-        //                confirmButtonText: 'Aceptar'
-        //            });
-        //        }
-        //
-        //    } catch (error) {
-        //        console.error('Error:', error);
-        //        document.getElementById('error-message').style.display = 'block';
-        //        document.getElementById('error-message').textContent = 'Error de conexión con el servidor';
-        //    }
-        //});
-    </script>
 </body>
 
 </html>

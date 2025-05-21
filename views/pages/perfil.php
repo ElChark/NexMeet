@@ -73,12 +73,16 @@
             <div class="profile-tab active" id="photos-tab">
                 <div class="photos-grid">
 
-                    <?php if(count($publicacionesPerfil)>0) {?>
+                    <?php if (count($publicacionesPerfil) > 0) { ?>
 
                         <?php foreach ($publicacionesPerfil as $publicacion): ?>
-                            <article class="profile-card" >
+                            <article class="profile-card">
                                 <div class="card-image">
-                                    <img src="<?= $publicacion['foto_portada'] ?>" alt="<?= $publicacion['titulo'] ?>">
+
+                                    <?php if ($publicacion['foto_portada'] !== 'images/notFound.jpg'): ?>
+                                        <img src="<?= $publicacion['foto_portada'] ?>" alt="Imagen de la publicación">
+                                    <?php endif; ?>
+                                        
                                     <div class="card-overlay">
                                     </div>
                                 </div>
@@ -108,9 +112,9 @@
             <div class="profile-tab" id="events-tab">
                 <div class="profile-grid">
 
-                    <?php if(count($eventosPropios)>0) {?>
+                    <?php if (count($eventosPropios) > 0) { ?>
                         <?php foreach ($eventosPropios as $evento) { ?>
-                            <article class="profile-card" >
+                            <article class="profile-card">
                                 <div class="card-image">
                                     <img src="<?= $evento['foto_portada'] ?>" alt="Evento">
                                     <div class="card-overlay">
@@ -126,7 +130,7 @@
                                 </div>
                             </article>
                         <?php } ?>
-                    <?php } else {?>
+                    <?php } else { ?>
                         <div class="empty-message" style="margin-left: 270px; width: 300px">
                             <div class="empty-icon">
                                 <i class="fas fa-bookmark"></i>
@@ -144,7 +148,7 @@
             <div class="profile-tab" id="saved-tab">
                 <div class="profile-grid">
 
-                    <?php if(count($eventosGustadosPerfil)>0) { ?>
+                    <?php if (count($eventosGustadosPerfil) > 0) { ?>
                         <?php foreach ($eventosGustadosPerfil as $eventoGustado) { ?>
                             <article class="profile-card">
                                 <div class="card-image">
@@ -159,7 +163,7 @@
                                 </div>
                             </article>
                         <?php } ?>
-                    <?php } else {?>
+                    <?php } else { ?>
                         <div class="empty-message" style="margin-left: 270px; width: 300px">
                             <div class="empty-icon">
                                 <i class="fas fa-bookmark"></i>
@@ -177,7 +181,7 @@
             <div class="profile-tab" id="attending-tab">
                 <div class="profile-grid">
 
-                    <?php if(count($asistiendo) > 0) { ?>
+                    <?php if (count($asistiendo) > 0) { ?>
 
                         <?php foreach ($asistiendo as $evento) { ?>
                             <article class="profile-card">
@@ -201,7 +205,7 @@
                             <h3>No tienes asistencias confirmadas</h3>
                             <p>Tus próximos eventos aparecerían aquí</p>
                         </div>
-                    <?php }?>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -372,7 +376,7 @@
                         confirmButtonText: 'Aceptar',
                         showConfirmButton: false
                     });
-                } else if(data.tipo === "error") {
+                } else if (data.tipo === "error") {
                     Swal.fire({
                         icon: data.icono,
                         title: data.titulo,
@@ -385,7 +389,7 @@
 
             });
 
-            let currentPostId=null;
+            let currentPostId = null;
             //Eliminar publicaciones
             const deleteButtons = document.querySelectorAll('.delete-button-post');
             deleteButtons.forEach(deleteBtn => {
@@ -407,13 +411,16 @@
                                 headers: {
                                     'Content-type': 'Application/json'
                                 },
-                                body: JSON.stringify({id: currentPostId, tipo: 'Publicación'})
+                                body: JSON.stringify({
+                                    id: currentPostId,
+                                    tipo: 'Publicación'
+                                })
                             }
 
                             fetch("<?php echo  APP_URL; ?>api/delete-ajax.php", fetchOpt).then(res => res.json())
                                 .then(data => {
 
-                                    if(data.tipo === "success") {
+                                    if (data.tipo === "success") {
                                         Swal.fire({
                                             title: data.title,
                                             text: `La publicación ha sido eliminada`,
@@ -456,13 +463,16 @@
                                 headers: {
                                     'Content-type': 'Application/json'
                                 },
-                                body: JSON.stringify({id: currentPostId, tipo: 'Evento'})
+                                body: JSON.stringify({
+                                    id: currentPostId,
+                                    tipo: 'Evento'
+                                })
                             }
 
                             fetch("<?php echo  APP_URL; ?>api/delete-ajax.php", fetchOpt).then(res => res.json())
                                 .then(data => {
 
-                                    if(data.tipo === "success") {
+                                    if (data.tipo === "success") {
                                         Swal.fire({
                                             title: data.title,
                                             text: `El evento ha sido eliminado`,

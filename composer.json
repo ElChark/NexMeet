@@ -16,6 +16,7 @@
         "resend/resend-php": "^0.1.0",
         "phpmailer/phpmailer": "^6.9",
       "ext-json": "*",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "dompdf/dompdf": "^3.1"
     }
 }

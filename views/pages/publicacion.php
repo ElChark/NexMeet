@@ -1,4 +1,5 @@
 <?php require_once './views/partials/head.php' ?>
+
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
 
@@ -27,19 +28,20 @@
 
                 <!-- Multimedia -->
                 <div class="form-section">
-                    <h2 class="section-title">Multimedia</h2>
+                    <h2 class="section-title">Multimedia (Elige una opción)</h2>
                     <div class="form-group">
-                        <label for="publicacion-image">Imágenes</label>
+                        <label for="publicacion-image">Imagen (Opcional)</label>
                         <div class="file-upload-container">
                             <div class="file-upload-preview" id="image-preview">
                                 <div class="upload-placeholder">
                                     <i class="fas fa-images"></i>
-                                    <span>Arrastra o haz clic para subir imágenes</span>
+                                    <span>Arrastra o haz clic para subir una imagen</span>
                                 </div>
                             </div>
                             <input type="file" id="publicacion-image" class="form-control-file" accept="image/*" name="foto">
                         </div>
                         <div class="gallery-preview" id="gallery-preview"></div>
+                        <small class="form-text">Formato JPG, PNG, GIF - Máximo 5MB</small>
                     </div>
 
                     <div class="form-group">
@@ -48,7 +50,7 @@
                             <div class="file-upload-btn">
                                 <i class="fas fa-video"></i> Subir video
                             </div>
-                            <input type="file" id="publicacion-video" class="form-control-file" accept="video/*">
+                            <input type="file" id="publicacion-video" class="form-control-file" accept="video/*" name="video">
                         </div>
                         <div id="video-preview" class="video-preview"></div>
                         <small class="form-text">Formato MP4, MOV - Máximo 50MB, duración máxima 2 minutos</small>

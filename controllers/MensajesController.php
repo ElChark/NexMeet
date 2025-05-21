@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use Core\Functions;
 use model\MainModel;
 use PDO;
 
@@ -18,7 +19,7 @@ class MensajesController extends MainModel
                 "nombre" => $fila['nombre'],
                 "contenido" => $fila['contenido'],
                 "fecha" => $fila['fecha'],
-                "fotoPerfil"=>$fila['foto_perfil']
+                "fotoPerfil" => $fila['foto_perfil']
             ];
         }
 
@@ -45,9 +46,22 @@ class MensajesController extends MainModel
             ]
         ];
 
-        $newMensaje = $this ->insertarMensaje('Mensajes', $mensajesDatos);
+        $newMensaje = $this->insertarMensaje('Mensajes', $mensajesDatos);
 
-        if ($newMensaje->rowCount() != 1) {
+        $lastMessage = $this->seleccionDatos('getMensajeInsertado', 'Ultimo_Mensaje', 'id_emisor', $emisor);
+        $resultado = $lastMessage->fetch();
+
+
+        if ($newMensaje->rowCount() == 1) {
+            $alerta = [
+                "tipo" => "success",
+                "titulo" => "Exito",
+                "contenido" => $resultado,
+                "icono" => "error"
+            ];
+            return json_encode($alerta);
+            exit();
+        } else {
             $alerta = [
                 "tipo" => "error",
                 "titulo" => "Error",

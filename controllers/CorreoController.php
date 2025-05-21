@@ -42,7 +42,7 @@ try {
         <p>Para confirmar tu asistencia al evento, por favor haz clic en el botón de abajo:</p>
         <a href='$link' style='padding: 10px 20px; background: #0088cc; color: white; text-decoration: none; border-radius: 5px;'>Confirmar asistencia</a>
         ";
-
+    // Se tiene que mejorar el diseño del correo 
     $mail->send();
     $alerta = [
         "tipo" => "success",

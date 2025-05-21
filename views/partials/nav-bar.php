@@ -530,6 +530,7 @@
         <div class="dropdown">
             <a href="#" class="header-nav-item user-menu-item <?php echo isset($url[0]) && $url[0] == 'perfil' ? 'active' : ''; ?>">
                 <div class="user-avatar">
+                    <img src="<?php echo $_SESSION['fotoPerfil'] ?? '../../images/perfilPrueba.jpg'; ?>" alt="Profile picture">
                 </div>
                 <span>Perfil</span>
             </a>
@@ -605,7 +606,7 @@
                         html += `
                                 <div class="search-item" data-id="${usuario.id_usuario}">
                                     <div class="search-item-image">
-                                        <img src="${usuario.foto_perfil}" alt="Usuario">
+                                        <img src="${usuario.foto_perfil ?? 'images/perfilPrueba.jpg'}" alt="Usuario">
                                     </div>
                                     <div class="search-item-info">
                                         <div class="search-item-name">${usuario.nombre}</div>

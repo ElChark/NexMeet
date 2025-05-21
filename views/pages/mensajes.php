@@ -30,9 +30,9 @@
                         $nombreAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['nombre_receptor'] : $usuario['nombre_emisor'];
                         $fotoAmigo = $usuario['id_emisor'] == $_SESSION['id_usuario'] ? $usuario['foto_receptor'] : $usuario['foto_emisor'];
                     ?>
-                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $idAmigo ?>" onclick="changeNamePhoto.call(this)">
+                        <div class="conversation-item" data-conversation="1" data-id="<?php echo $idAmigo ?>" onclick=changeNamePhoto(this)>
                             <div class="conversation-avatar">
-                                <img class="conversatio-photo" src="../api/<?php echo $fotoAmigo ?? 'images/perfilPrueba.jpg' ?>" alt="Avatar">
+                                <img class="conversatio-photo" src="<?php echo $fotoAmigo ?? 'images/perfilPrueba.jpg' ?>" alt="Avatar">
                                 <span class="status-indicator online"></span>
                             </div>
                             <div class="conversation-info">
@@ -51,9 +51,6 @@
                 <!-- Cabecera del chat -->
                 <div class="chat-header">
                     <div class="chat-user-info">
-                        <div class="chat-avatar">
-                            <span class="status-indicator online"></span>
-                        </div>
                         <div class="chat-user-details">
                             <h3 class="chat-username" id="name-chat">Selecciona a un contacto para empezar a charlar</h3>
                             <!-- <p class="chat-status">En línea</p> -->
@@ -242,7 +239,7 @@
         function displayMessage(msg) {
             const chatContainer = document.getElementById('chat-messages');
             const message = document.createElement('div');
-
+            message.classList.add('message-received');
             message.innerHTML = `
                 <div class="message-avatar">
                     <p>${msg.nombre}</p>
@@ -287,7 +284,7 @@
                 });
 
                 const data = await response.json();
-                console.log('El mensaje se ha guardado en la db);
+                console.log('El mensaje se ha guardado en la db');
 
                 if (data.tipo === 'error') {
                     Swal.fire({
@@ -296,18 +293,12 @@
                         text: data.texto,
                         confirmButtonText: 'Aceptar'
                     });
+                } else if(data.tipo === 'success') {
+                    const lastMessage = data.contenido;
+
+                    displayMessage(lastMessage);
+
                 }
-
-
-                const mensajeTmp = {
-                    contenido: contenido,
-                    convoId: convoId,
-                    nombre: emisor,
-                    fecha: new Date().toLocaleTimeString()
-                }
-
-
-                displayMessage(mensajeTmp); // en un futuro lo ideal es que inserte la data traída de la db, la que viene con el nombre y la fecha
             } catch (error) {
                 console.error('Error cargando mensajes:', error);
             }

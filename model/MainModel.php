@@ -203,6 +203,9 @@ class MainModel
         } elseif ($tipo === 'Comentario') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id");
             $sql->bindParam(':id', $id);
+        } elseif ($tipo === 'getMensajeInsertado') {
+            $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id ORDER BY id_mensaje DESC");
+            $sql->bindParam(':id', $id);
         }
 
         $sql->execute();
@@ -267,5 +270,24 @@ class MainModel
         $sql->execute();
 
         return $sql;
+    }
+
+    public function handlePostReaction($id_publicacion, $id_usuario, $accion)
+    {
+        if ($accion === 'Like') {
+            $sql = $this->connect()->prepare("CALL Aumentar_reaccion_publicacion(:id_publicacion, :id_usuario)");
+            $sql->bindParam(':id_publicacion', $id_publicacion);
+            $sql->bindParam(':id_usuario', $id_usuario);
+            $sql->execute();
+
+            return $sql;
+        } else if ($accion === 'QuitarLike') {
+            $sql = $this->connect()->prepare("CALL Quitar_reaccion_publicacion(:in_id_publicacion, :in_id_usuario)");
+            $sql->bindParam(':in_id_publicacion', $id_publicacion);
+            $sql->bindParam(':in_id_usuario', $id_usuario);
+            $sql->execute();
+
+            return $sql;
+        }
     }
 }
