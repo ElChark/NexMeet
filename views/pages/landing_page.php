@@ -6,7 +6,7 @@
     <nav class="navbar landing-navbar">
         <div class="container nav-container">
             <a href="<?php echo APP_URL; ?>#home" class="nav-logo">
-                <img src="<?php echo APP_URL; ?>images/logo_nexmeet_blanco.png" alt="NexMeet Logo">
+                <img src="<?php echo APP_URL; ?>images/NexMeetLogo.png" alt="NexMeet Logo">
             </a>
             <ul class="nav-menu">
                 <li><a href="#home">Inicio</a></li>
@@ -50,9 +50,9 @@
                     <p>Mensajería instantánea, emojis y compartición de archivos durante tus reuniones.</p>
                 </div>
                 <div class="service-item card-style">
-                    <i class="fas fa-screen-share fa-3x service-icon"></i> <?php // Icono no existe en FA por defecto, usa 'fas fa-desktop' o 'fas fa-share-square' ?>
-                    <i class="fas fa-desktop fa-3x service-icon" style="display:none;"></i> <h3>Compartir Pantalla</h3>
-                    <p>Presenta tus ideas y colabora fácilmente compartiendo tu pantalla con un clic.</p>
+                    <i class="fas fa-map-marked-alt fa-3x service-icon"></i> 
+                    <h3>Eventos Cerca de Ti</h3>
+                    <p>Descubre y conéctate con eventos y actividades locales que te interesan.</p>
                 </div>
                 <div class="service-item card-style">
                     <i class="fas fa-users fa-3x service-icon"></i>

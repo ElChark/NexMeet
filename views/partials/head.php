@@ -56,6 +56,9 @@
         case 'landing':
             echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/landing_page_style.css">';
             break;
+        case 'eventos':
+            echo '<link rel="stylesheet" href="' . APP_URL . 'views/CSS/event.css">';
+            break;
     }
     ?>
 

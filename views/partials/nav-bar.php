@@ -345,7 +345,7 @@
     }
 
     .search-input {
-        width: 100%;
+        width: 70%;
         padding: 10px 15px;
         border: 1px solid #ddd;
         border-radius: 25px;

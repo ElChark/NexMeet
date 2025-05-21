@@ -1,0 +1,363 @@
+/* Nuevas Variables de Color y reset básico */
+:root {
+    --primary-color: #ff5a5f;    /* Rojo-Rosa principal */
+    --primary-dark: #e63946;     /* Oscuro del primario */
+    --primary-light: #ffebe6;    /* Claro del primario */
+    --secondary-color: #00a699;  /* Verde secundario (lo usaré para elementos como títulos de sección) */
+    --accent-color: #ff8a5c;     /* Naranja acento (para etiquetas de categoría) */
+    --text-color: #484848;       /* Color de texto principal */
+    --light-gray: #f7f7f7;       /* Gris muy claro (fondos) */
+    --medium-gray: #e4e4e4;      /* Gris medio (bordes) */
+    --dark-gray: #767676;        /* Gris oscuro (texto secundario, iconos) */
+    --white: #ffffff;            /* Blanco */
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+    --bold-shadow: 0 5px 15px rgba(255, 90, 95, 0.2); /* Sombra con acento primario */
+    --transition: all 0.3s ease; /* Transición por defecto */
+    --radius: 8px;               /* Radio de borde general */
+}
+
+/* Reset básico y estilos de body */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Manteniendo la fuente de tu CSS original */
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-gray);
+    padding-top: 70px; /* Espacio para la barra de navegación si es fija */
+    padding-bottom: 40px;
+}
+
+/* Contenedor principal del evento */
+.event-container {
+    width: 90%;
+    max-width: 900px; /* Un poco más compacto */
+    margin: 30px auto;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* Cabecera del evento */
+.event-header {
+    position: relative;
+}
+
+.event-image-container {
+    width: 100%;
+    height: 350px; /* Un poco menos alto para balancear con el contenido */
+    overflow: hidden;
+    position: relative;
+    background-color: var(--medium-gray); /* Fondo mientras carga la imagen */
+}
+
+.event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.event-image-container:hover .event-image {
+    transform: scale(1.05); /* Efecto sutil al pasar el mouse */
+}
+
+.event-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 10%, rgba(0,0,0,0.4) 60%, transparent); /* Degradado más pronunciado */
+    padding: 25px 30px; /* Más padding */
+    color: var(--white);
+}
+
+.event-category {
+    display: inline-block;
+    background-color: var(--accent-color); /* Usando el nuevo color de acento */
+    color: var(--white);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.event-title {
+    font-size: 2.4em; /* Ligeramente más grande */
+    font-weight: 700; /* Un poco más bold */
+    margin-bottom: 0; /* Ajustado, el padding del overlay da espacio */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Contenido del evento */
+.event-content {
+    padding: 30px;
+}
+
+/* Meta información del evento - Mejoras de layout y estilo */
+.event-meta {
+    display: grid; /* Cambiado a grid para mejor control de columnas */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+    gap: 20px; /* Espacio entre items */
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.event-meta-item {
+    display: flex;
+    align-items: flex-start; /* Alinear items al inicio para textos largos */
+    font-size: 0.95em; /* Tamaño de texto para meta-info */
+    color: var(--dark-gray);
+}
+
+.event-meta-item i {
+    color: var(--primary-color); /* Nuevo color primario para iconos */
+    margin-right: 12px; /* Más espacio */
+    font-size: 1.2em; /* Iconos un poco más grandes */
+    width: 22px; /* Ancho fijo para alineación */
+    text-align: center;
+    margin-top: 2px; /* Pequeño ajuste vertical */
+}
+.event-meta-item span {
+    flex: 1;
+}
+
+
+/* Descripción del evento */
+.event-description {
+    margin-bottom: 35px;
+    line-height: 1.75; /* Más interlineado para legibilidad */
+    color: var(--text-color); /* Asegurar color de texto principal */
+}
+.event-description h2 { /* Estilo para "Acerca de este evento" */
+    font-size: 1.6em;
+    color: var(--primary-color); /* Usando color secundario */
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-light); /* Borde sutil con primario claro */
+}
+
+
+/* Mapa de ubicación */
+.event-location-map {
+    height: 350px; /* Altura ajustada */
+    background-color: var(--medium-gray);
+    margin-bottom: 35px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--medium-gray); /* Borde sutil */
+}
+.event-location-map iframe {
+    border: none; /* Quitar borde por defecto del iframe */
+}
+
+
+/* Sección de comentarios */
+.comments-section {
+    margin-top: 40px;
+    background-color: var(--white); /* Fondo blanco para destacar sobre el gris claro del body */
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Sombra muy sutil */
+}
+
+.comments-title {
+    font-size: 1.6em; /* Consistente con el título de descripción */
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color); /* Usando nuevo color primario */
+}
+
+.comment-form {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Más espacio */
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px; /* Más espacio */
+    font-weight: 600; /* Un poco más bold */
+    color: var(--text-color); /* Usar text-color principal */
+    font-size: 0.95em;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px; /* Más padding */
+    border: 1px solid var(--medium-gray);
+    border-radius: calc(var(--radius) - 2px); /* Radio un poco menor para inputs */
+    font-family: inherit;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Añadido box-shadow a transición */
+    background-color: var(--white);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light); /* Sombra de foco con primario claro */
+}
+textarea.form-control {
+    min-height: 100px; /* Altura mínima para textarea */
+    resize: vertical; /* Permitir redimensionar verticalmente */
+}
+
+
+.btn { /* Botón de publicar comentario */
+    background-color: var(--primary-color); /* Nuevo color primario */
+    color: var(--white);
+    border: none;
+    padding: 12px 25px; /* Más padding horizontal */
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition); /* Usando variable de transición */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    background-color: var(--primary-dark); /* Usando primario oscuro para hover */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.comment-list {
+    margin-top: 30px;
+}
+
+.comment {
+    background-color: var(--white);
+    border: 1px solid var(--medium-gray); /* Borde sutil para cada comentario */
+    border-radius: var(--radius);
+    padding: 20px; /* Más padding */
+    margin-bottom: 20px; /* Más espacio entre comentarios */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); Removido, el borde es suficiente */
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Mejor alineación vertical */
+    margin-bottom: 10px;
+    padding-bottom: 10px; /* Espacio antes del cuerpo */
+    border-bottom: 1px dashed var(--medium-gray); /* Separador sutil */
+}
+
+.comment-author {
+    font-weight: bold;
+    color: var(--primary-color); /* Usando primario para destacar autor */
+    font-size: 1.05em;
+}
+
+.comment-date {
+    color: var(--dark-gray);
+    font-size: 0.85em;
+}
+
+.comment-body {
+    line-height: 1.65; /* Un poco más de interlineado */
+    padding-top: 5px; /* Espacio después del header del comentario */
+}
+.comment-body p {
+    margin: 0; /* Asegurar que no haya márgenes extra en los párrafos de comentarios */
+}
+
+
+/* Responsividad */
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px; /* Ajustar si la navbar es más pequeña en móviles */
+    }
+    .event-container {
+        width: 95%;
+        margin: 20px auto; /* Menos margen */
+    }
+
+    .event-image-container {
+        height: 280px; /* Ajustar altura de imagen para móviles */
+    }
+
+    .event-title {
+        font-size: 1.9em; /* Título más pequeño en móviles */
+    }
+    .event-category {
+        font-size: 0.8em;
+        padding: 5px 8px;
+    }
+
+    .event-overlay {
+        padding: 20px;
+    }
+
+    .event-content {
+        padding: 20px;
+    }
+
+    .event-meta {
+        grid-template-columns: 1fr; /* Una columna para meta items en móviles */
+        gap: 15px; /* Espacio reducido */
+    }
+
+    .event-meta-item {
+        /* margin-right: 0; Ya manejado por gap */
+        font-size: 0.9em;
+    }
+    .event-meta-item i {
+        margin-right: 8px;
+        font-size: 1.1em;
+    }
+
+    .event-description h2 {
+        font-size: 1.4em;
+    }
+
+    .event-location-map {
+        height: 300px;
+    }
+
+    .comments-section {
+        padding: 20px;
+    }
+    .comments-title {
+        font-size: 1.4em;
+    }
+    .comment {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .event-image-container {
+        height: 220px;
+    }
+    .event-title {
+        font-size: 1.6em;
+    }
+    .event-content, .comments-section, .comment {
+        padding: 15px;
+    }
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.95em;
+    }
+    .form-control {
+        padding: 10px;
+    }
+}

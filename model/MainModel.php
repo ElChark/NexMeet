@@ -5,7 +5,7 @@ namespace model;
 use Core\Functions;
 use PDO;
 
-require_once __DIR__ . '../../config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 class MainModel
 {
