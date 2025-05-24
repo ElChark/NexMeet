@@ -419,6 +419,7 @@
         }
     }
 </style>
+
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
 
@@ -441,21 +442,27 @@
                 <div class="admin-sidebar-title">Generar reportes</div>
                 <ul class="admin-sidebar-menu">
                     <li class="admin-sidebar-item">
-                        <a href="/reporte" class="admin-sidebar-link" target="_blank">
+                        <a href="/reporteUsers" class="admin-sidebar-link" target="_blank">
                             <i class="fas fa-users"></i>
-                            <span>Usuarios</span>
+                            <span>Total usuarios</span>
                         </a>
                     </li>
                     <li class="admin-sidebar-item">
-                        <a href="#" class="admin-sidebar-link">
+                        <a href="/reporteEvents" class="admin-sidebar-link" target="_blank">
                             <i class="fas fa-calendar-alt"></i>
-                            <span>Eventos</span>
+                            <span>Total eventos</span>
+                        </a>
+                    </li>
+                    <li class="admin-sidebar-item">
+                        <a href="/reportePosts" class="admin-sidebar-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Total publicaciones</span>
                         </a>
                     </li>
                     <li class="admin-sidebar-item">
                         <a href="#" class="admin-sidebar-link">
                             <i class="fas fa-file-alt"></i>
-                            <span>Publicaciones</span>
+                            <span>Terminos y condiciones</span>
                         </a>
                     </li>
                 </ul>
@@ -474,12 +481,6 @@
                     <h2 class="panel-title">Gestión de usuarios</h2>
                 </div>
                 <div class="panel-body">
-                    <form class="search-form">
-                        <input type="text" class="search-input" placeholder="Buscar usuarios por nombre, email o ID...">
-                        <button type="submit" class="admin-button">
-                            <i class="fas fa-search"></i> Buscar
-                        </button>
-                    </form>
 
                     <table class="data-table">
                         <thead>
@@ -487,14 +488,15 @@
                                 <th>Usuario</th>
                                 <th>Email</th>
                                 <th>Fecha registro</th>
-                                <th>Último acceso</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
+                                <th>Reporte</th>
+                                <th>Ultima conexion</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            <?php foreach($usuarios as $usuario) {?>
+                            <?php foreach ($usuarios as $usuario) { ?>
                                 <tr>
                                     <td>
                                         <div style="display: flex; align-items: center; gap: 10px;">
@@ -508,19 +510,22 @@
                                     </td>
                                     <td><?php echo $usuario['email'] ?></td>
                                     <td><?php echo $usuario['fecha_reigstro'] ?></td>
-                                    <td>Hace 2 horas</td>
                                     <td>
 
-                                            <span class="status-badge <?php echo $usuario['estado']==1 ? 'active' : 'inactive' ?>"><?php echo $usuario['estado']==1 ? 'Activo' : 'Inactivo' ?></span>
+                                        <span class="status-badge <?php echo $usuario['estado'] == 1 ? 'active' : 'inactive' ?>"><?php echo $usuario['estado'] == 1 ? 'Activo' : 'Inactivo' ?></span>
                                     </td>
                                     <td>
                                         <div class="action-buttons">
                                             <label class="toggle-switch" title="Habilitar/Deshabilitar usuario">
-                                                <input type="checkbox" <?php echo $usuario['estado'] == 1 ? 'checked' : ''?> >
+                                                <input type="checkbox" <?php echo $usuario['estado'] == 1 ? 'checked' : '' ?>>
                                                 <span class="toggle-slider"></span>
                                             </label>
                                         </div>
                                     </td>
+                                    <td>
+                                        <button class="action-button generate-pdf" data-id="<?php echo $usuario['id_usuario'] ?>"> <i class="fas fa-file-alt"></i></button>
+                                    </td>
+                                    <td><?php echo $usuario['ultima_conexion']  ?? 'N/a'?></td>
                                 </tr>
                             <?php } ?>
 
@@ -549,27 +554,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                
-                                <?php foreach($allEventos as $evento) {?>
-                                <td>
-                                    <div style="font-weight: 500;"><?= $evento['titulo'] ?></div>
-                                    <div style="font-size: 12px; color: var(--medium-gray);">ID: <?= $evento['id_evento'] ?></div>
-                                </td>
-                                <td><?= $evento['nombre'] ?></td>
-                                <td><?= $evento['fecha_publicacion'] ?></td>
-                                <td>187</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <div class="action-button delete" title="Eliminar evento" data-id="<?= $evento['id_evento'] ?>">
-                                            <i class="fas fa-trash-alt"></i>
+                            <?php foreach ($allEventos as $evento) { ?>
+                                <tr>
+
+                                    <td>
+                                        <div style="font-weight: 500;"><?= $evento['titulo'] ?></div>
+                                        <div style="font-size: 12px; color: var(--medium-gray);">ID: <?= $evento['id_evento'] ?></div>
+                                    </td>
+                                    <td><?= $evento['nombre'] ?></td>
+                                    <td><?= $evento['fecha_publicacion'] ?></td>
+                                    <td>/</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <div class="action-button delete" title="Eliminar evento" data-id="<?= $evento['id_evento'] ?>">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <?php }?>
+                                    </td>
 
-
-                            </tr>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -592,22 +596,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div style="font-weight: 500;">Cómo encontrar eventos interesantes</div>
-                                    <div style="font-size: 12px; color: var(--medium-gray);">ID: POST-5678</div>
-                                </td>
-                                <td>Ana López</td>
-                                <td>18/04/2025</td>
-                                <td>52</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <div class="action-button delete" title="Eliminar publicación">
-                                            <i class="fas fa-trash-alt"></i>
+
+
+                            <?php foreach ($allPublicaciones as $post) { ?>
+                                <tr>
+
+                                    <td>
+                                        <div style="font-weight: 500;"><?= $post['titulo'] ?></div>
+                                        <div style="font-size: 12px; color: var(--medium-gray);">ID: <?= $post['id_publicacion'] ?></div>
+                                    </td>
+                                    <td><?= $post['nombre'] ?></td>
+                                    <td><?= $post['fecha_publicacion'] ?></td>
+                                    <td>/</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <div class="action-button delete" title="Eliminar evento" data-id="<?= $post['id_publicacion'] ?>">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+
+                                </tr>
+                            <?php } ?>
+
+
                         </tbody>
                     </table>
                 </div>
@@ -642,13 +654,16 @@
                                     headers: {
                                         'Content-type': 'Application/json'
                                     },
-                                    body: JSON.stringify({name: userName, accion: 'Habilitar'})
+                                    body: JSON.stringify({
+                                        name: userName,
+                                        accion: 'Habilitar'
+                                    })
                                 }
 
                                 fetch("<?php echo  APP_URL; ?>api/user/estadoUsuario-ajax.php", fetchOpt)
                                     .then(res => res.json())
                                     .then(data => {
-                                        if(data.tipo === "success") {
+                                        if (data.tipo === "success") {
                                             Swal.fire({
                                                 title: data.title,
                                                 text: `El usuario ha ${userName} sido habilitado`,
@@ -687,13 +702,16 @@
                                     headers: {
                                         'Content-type': 'Application/json'
                                     },
-                                    body: JSON.stringify({name: userName, accion: 'Deshabilitar'})
+                                    body: JSON.stringify({
+                                        name: userName,
+                                        accion: 'Deshabilitar'
+                                    })
                                 }
 
                                 fetch("<?php echo  APP_URL; ?>api/user/estadoUsuario-ajax.php", fetchOpt)
                                     .then(res => res.json())
                                     .then(data => {
-                                        if(data.tipo === "success") {
+                                        if (data.tipo === "success") {
                                             Swal.fire({
                                                 title: data.title,
                                                 text: `El usuario ha ${userName} sido deshabilitado`,
@@ -719,27 +737,16 @@
                 });
             });
 
-            // Implementación de la funcionalidad de búsqueda
-            const searchForm = document.querySelector('.search-form');
-            searchForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const searchTerm = this.querySelector('.search-input').value.trim().toLowerCase();
-
-                if (!searchTerm) return;
-
-                const tableRows = document.querySelectorAll('.data-table tbody tr');
-
-                tableRows.forEach(row => {
-                    const userName = row.querySelector('div[style="font-weight: 500;"]').textContent.toLowerCase();
-                    const userEmail = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-
-                    if (userName.includes(searchTerm) || userEmail.includes(searchTerm)) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
+            const generatePdfsButtons = document.querySelectorAll('.generate-pdf');
+            generatePdfsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.dataset.id;
+                    const url = "<?php echo APP_URL; ?>singleUser?id=" + userId;
+                    window.open(url, '_blank');
                 });
             });
+
+            
         });
     </script>
 </body>

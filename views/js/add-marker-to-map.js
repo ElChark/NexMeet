@@ -23,8 +23,6 @@ export function addMarkerToMap(event, map) {
         .setHTML(`
                     <div class="popup-content">
                         <h3 class="popup-title">${event.titulo}</h3>
-                        <img src="${event.ruta}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;" />
-                        <p class="popup-description">${event.descripcion}</p>
                         <p class="popup-description"><i class="fas fa-map-marker-alt" style="color: #ff5a5f;"></i> ${event.nombreLugar}</p>
                     </div>
                 `);

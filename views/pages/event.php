@@ -40,7 +40,7 @@
 
                     <div class="event-meta-item">
                         <i class="fas fa-user"></i>
-                        <span>Organizador: Usuario HardCodeado</span>
+                        <?= $info['nombre'] ?></span>
                     </div>
 
                 </div>

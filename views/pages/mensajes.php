@@ -13,14 +13,8 @@
             <div class="conversations-sidebar">
                 <div class="conversations-header">
                     <h2>Mensajes</h2>
-                    <button class="new-message-btn"><i class="fas fa-edit"></i></button>
+
                 </div>
-
-                <form class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Buscar mensajes" id="buscar-input">
-                </form>
-
                 <!-- Lista de conversaciones -->
                 <div class="conversations-list">
 
@@ -57,8 +51,6 @@
                         </div>
                     </div>
                     <div class="chat-actions">
-                        <button class="chat-action-btn"><i class="fas fa-phone"></i></button>
-                        <button class="chat-action-btn"><i class="fas fa-video"></i></button>
                         <button class="chat-action-btn"><i class="fas fa-info-circle"></i></button>
                     </div>
                 </div>
@@ -66,11 +58,10 @@
                 <!-- Mensajes -->
                 <div class="chat-messages" id="chat-messages">
                     <!-- <div class="message-date-divider">
-                        <span>HOY</span>
-                    </div> -->
+                                        <span>HOY</span>
+                                    </div> -->
                 </div>
 
-                <!-- Área de entrada de mensaje -->
                 <form class="chat-input-area" id="mensaje-form">
                     <button class="input-action-btn" type="button"><i class="fas fa-paperclip"></i></button>
                     <div class="chat-input-container">
@@ -82,6 +73,8 @@
                     </div>
                     <button class="send-message-btn" id="send-message-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
                 </form>
+
+                <!-- Área de entrada de mensaje -->
             </div>
 
             <div class="event-info-panel">
@@ -293,7 +286,7 @@
                         text: data.texto,
                         confirmButtonText: 'Aceptar'
                     });
-                } else if(data.tipo === 'success') {
+                } else if (data.tipo === 'success') {
                     const lastMessage = data.contenido;
 
                     displayMessage(lastMessage);

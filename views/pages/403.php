@@ -1,6 +1,7 @@
 <?php require_once './views/partials/head.php' ?>
 
 <body>
+    <?php require_once './views/partials/nav-bar.php'; ?>
     <style>
         html,
         body {

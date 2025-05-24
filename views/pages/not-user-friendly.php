@@ -18,7 +18,6 @@
             height: 100vh;
             width: 100vw;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
-            font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -27,8 +26,9 @@
         }
     </style>
     <div id="not-found">
-        <h1>404</h1>
-        <h3>Pagina no encontrada</h3>
+        <h1>No amiguito</h1>
+        <h2>No puedes hacer eso</h2>
+        <h2>La accion ya fue comunicada con un administrador</h2>
     </div>
 </body>
 

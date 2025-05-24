@@ -11,7 +11,9 @@ $resultadoUsuariosModel = $newModel -> seleccionDatos('Administrador', 'Usuario'
 
 $resultadoEventosGustadosModel = $newModel -> ejecutarConsulta("SELECT * FROM Usuarios_evento_reaccion");
 
-$resultadoAsistiendoModel =  $newModel -> ejecutarConsulta("SELECT * FROM Usuarios_eventos");
+$resultadoAsistiendoModel =  $newModel -> ejecutarConsulta("SELECT * FROM Vista_Info_Eventos_Confirmados");
+
+$resultadoAsistiendoExplorarModel =  $newModel -> ejecutarConsulta("SELECT * FROM Vista_Info_Eventos_Confirmados WHERE id_usuario = $user");
 
 $resultadoEventosPropiosModel = $newModel -> seleccionDatos('Unico', 'Evento', 'id_usuario', $user);
 
@@ -33,11 +35,13 @@ $resultadoAllEventosModel = $newModel -> ejecutarConsulta("SELECT * FROM Vista_E
 
 $resultadoPublicacionUsuario = $newModel ->ejecutarConsulta("SELECT * FROM Usuarios_publicacion_reaccion WHERE id_usuario = $user");
 
+$resultadoAllPublicaciones = $newModel -> ejecutarConsulta("SELECT * FROM Vista_Usuarios_Publicaciones");
 
 
 $usuarios = $resultadoUsuariosModel->fetchAll();
 $eventosGustados = $resultadoEventosGustadosModel->fetchAll();
 $asistiendo = $resultadoAsistiendoModel->fetchAll();
+$asistiendoExplorar = $resultadoAsistiendoExplorarModel->fetchAll();
 $eventosPropios = $resultadoEventosPropiosModel->fetchAll();
 $eventos = $resultadoEventos->fetchAll();
 $eventosGustadosPerfil = $resultadoEventosGustadosPerfilModel->fetchAll();
@@ -48,6 +52,7 @@ $seguidores = $resultadoSeguidoresModel->fetchAll();
 $eventosPopulares = $resultadoEventosPopularesModel->fetchAll();
 $allEventos = $resultadoAllEventosModel->fetchAll();
 $PublicacionesUsuario = $resultadoPublicacionUsuario->fetchAll();
+$allPublicaciones = $resultadoAllPublicaciones->fetchAll();
 
 
 

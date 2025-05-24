@@ -127,6 +127,7 @@
                                     </div>
                                     <p class="card-date"><i class="far fa-calendar-alt"></i><?= $evento['fecha_publicacion'] ?></p>
                                     <p class="card-location"><i class="fas fa-map-marker-alt"></i><?= $evento['nombreLugar'] ?></p>
+                                    <a href="/eventos/?id=<?php echo $evento['id_evento'] ?>">info</a>
                                 </div>
                             </article>
                         <?php } ?>
@@ -186,14 +187,14 @@
                         <?php foreach ($asistiendo as $evento) { ?>
                             <article class="profile-card">
                                 <div class="card-image">
-                                    <img src="https://via.placeholder.com/300x200/484848/ffffff?text=Concierto" alt="Evento asistiendo">
+                                    <img src="<?= $evento['foto_portada'] ?>" alt="Evento asistiendo">
                                     <div class="card-overlay">
                                     </div>
                                 </div>
                                 <div class="card-info">
-                                    <h3 class="card-title"><?= $evento['nombre_evento'] ?></h3>
-                                    <p class="card-date"><i class="far fa-calendar-alt"></i><?= isset($evento['nombre_evento']) ? $evento['nombre_evento'] : 'Today' ?></p>
-                                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Auditorio Central</p>
+                                    <h3 class="card-title"><?= $evento['titulo'] ?></h3>
+                                    <p class="card-date"><i class="far fa-calendar-alt"></i><?= $evento['fecha_evento']?></p>
+                                    <p class="card-location"><i class="fas fa-map-marker-alt"></i><?= $evento['nombreLugar']?></p>
                                 </div>
                             </article>
                         <?php } ?>
@@ -403,7 +404,7 @@
                         showCancelButton: true,
                         confirmButtonColor: "#3085d6",
                         cancelButtonColor: "#d33",
-                        confirmButtonText: "Yes, delete it!"
+                        confirmButtonText: "Si, borrar"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             const fetchOpt = {

@@ -18,55 +18,59 @@
         <!-- Contenido principal -->
         <main class="main-content">
             <section id="eventos-sugeridos">
+                <?php if (count($publicaciones) == 0) { ?>
 
-                <?php foreach ($publicaciones as $publicacion): ?>
-                    <article class="post" data-id="<?= $publicacion['id_publicacion'] ?>" data-category="deportes">
-                        <div class="post-header">
-                            <div class="post-author">
-                                <div class="post-avatar">
-                                    <img src="<?= $publicacion['foto_perfil'] ?>" alt="Avatar" class="post-image">
+                    <div class="no-publicaciones">
+                        <h2>No hay publicaciones</h2>
+                        <p>¡Sé el primero en compartir algo!</p>
+                    </div>
+
+                <?php } else { ?>
+
+                    <?php foreach ($publicaciones as $publicacion): ?>
+                        <article class="post" data-id="<?= $publicacion['id_publicacion'] ?>" data-category="deportes">
+                            <div class="post-header">
+                                <div class="post-author">
+                                    <div class="post-avatar">
+                                        <img src="<?= $publicacion['foto_perfil'] ?? '../../images/perfilPrueba.jpg'; ?>" alt="Avatar" class="post-image">
+                                    </div>
+                                    <div class="post-info">
+                                        <div class="post-author-name"><?= $publicacion['nombre'] ?></div>
+                                        <div class="post-time"><?= date('d/m/Y', strtotime($publicacion['fecha_publicacion'])) ?></div>
+                                    </div>
                                 </div>
-                                <div class="post-info">
-                                    <div class="post-author-name"><?= $publicacion['nombre'] ?></div>
-                                    <div class="post-time"><?= date('d/m/Y', strtotime($publicacion['fecha_publicacion'])) ?></div>
+                                <div class="post-more">
+                                    <i class="fas fa-ellipsis-h"></i>
                                 </div>
                             </div>
-                            <div class="post-more">
-                                <i class="fas fa-ellipsis-h"></i>
+
+                            <?php if ($publicacion['foto_portada'] !== 'images/notFound.jpg' && str_starts_with($publicacion['foto_portada'], 'images/imagen')) { ?>
+                                <img src="<?= $publicacion['foto_portada'] ?>" alt="Imagen de la publicación" class="post-image">
+                            <?php } else if ($publicacion['foto_portada'] !== 'images/notFound.jpg' && str_starts_with($publicacion['foto_portada'], 'images/video')) { ?>
+                                <video src="<?= $publicacion['foto_portada'] ?>" controls preload="metadata" style="width:100%;max-height:400px;object-fit:cover;display:block;border-radius:8px;background:#000;">
+                                    Tu navegador no soporta la etiqueta de video.
+                                </video>
+                            <?php } ?>
+                            <div class="post-content">
+                                <h3 class="post-title"><?= $publicacion['titulo'] ?></h3>
+                                <p class="post-description"><?= $publicacion['contenido'] ?></p>
                             </div>
-                        </div>
 
-                        <?php if ($publicacion['foto_portada'] !== 'images/notFound.jpg' && str_starts_with($publicacion['foto_portada'], 'images/imagen')) { ?>
-                            <img src="<?= $publicacion['foto_portada'] ?>" alt="Imagen de la publicación" class="post-image">
-                        <?php } else if ($publicacion['foto_portada'] !== 'images/notFound.jpg' && str_starts_with($publicacion['foto_portada'], 'images/video')) { ?>
-                            <video src="<?= $publicacion['foto_portada'] ?>" controls preload="metadata" style="width:100%;max-height:400px;object-fit:cover;display:block;border-radius:8px;background:#000;">
-                                Tu navegador no soporta la etiqueta de video.
-                            </video>
-                        <?php } ?>
-                        <div class="post-content">
-                            <h3 class="post-title"><?= $publicacion['titulo'] ?></h3>
-                            <p class="post-description"><?= $publicacion['contenido'] ?></p>
-                        </div>
-
-                        <div class="post-stats">
-                            <div class="post-likes">
-                                <i class="fas fa-thumbs-up"></i>0 Me gusta
+                            <div class="post-stats">
+                                <div class="post-likes">
+                                    <i class="fas fa-thumbs-up"></i><?= $publicacion['reacciones'] ?> Me gusta
+                                </div>
                             </div>
-                            <div class="post-comments-count">0 comentarios</div>
-                        </div>
 
-                        <div class="post-actions">
-                            <button class="post-action like-action" data-id="<?= $publicacion['id_publicacion'] ?>" onclick=handleLike(this.dataset.id)>
-                                <i class="far fa-thumbs-up"></i>
-                                <span>Me gusta</span>
-                            </button>
-                            <!-- <div class="post-action comment-action" data-id="<?= $publicacion['id_publicacion'] ?>">
-                                <i class="far fa-comment-alt"></i>
-                                <span>Comentar</span>
-                            </div> -->
-                        </div>
-                    </article>
-                <?php endforeach; ?>
+                            <div class="post-actions">
+                                <button class="post-action like-action" data-id="<?= $publicacion['id_publicacion'] ?>" onclick=handleLike(this.dataset.id)>
+                                    <i class="far fa-thumbs-up"></i>
+                                    <span>Me gusta</span>
+                                </button>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                <?php  } ?>
 
             </section>
         </main>
@@ -82,7 +86,6 @@
                         <a href="/eventos/?id=<?= $evento['id_evento'] ?>" style="text-decoration: underline; color: blue; font-size: 14px;">Mas Info</a>
                     </article>
                 <?php endforeach; ?>
-
             </section>
         </aside>
     </div>

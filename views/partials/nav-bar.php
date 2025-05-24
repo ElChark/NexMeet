@@ -509,7 +509,7 @@
                 <?php foreach($notificaciones as $noti) {?>
                     <div class="notification-item unread" data-id="<?php echo $noti['id_seguidor'] ?>">
                         <div class="notification-avatar">
-                            <img src="../../<?php echo $noti['foto_emisor'] ?>" alt="Avatar">
+                            <img src="../../<?php echo $noti['foto_emisor'] ?? '../../images/perfilPrueba.jpg'; ?>" alt="Avatar">
                         </div>
                         <div class="notification-content">
                             <div class="notification-text"><strong><?php echo $noti['nombre_emisor'] ?></strong><strong>  quiere ser tu amigo</strong>.</div>
@@ -530,16 +530,13 @@
         <div class="dropdown">
             <a href="#" class="header-nav-item user-menu-item <?php echo isset($url[0]) && $url[0] == 'perfil' ? 'active' : ''; ?>">
                 <div class="user-avatar">
-                    <img src="<?php echo $_SESSION['fotoPerfil'] ?? '../../images/perfilPrueba.jpg'; ?>" alt="Profile picture">
+                    <img src="<?php echo $_SESSION['fotoPerfil'] ?? '/images/perfilPrueba.jpg'; ?>" alt="Profile picture">
                 </div>
                 <span>Perfil</span>
             </a>
             <div class="dropdown-content">
                 <a href="<?php echo APP_URL . 'perfil?id=' . $_SESSION['id_usuario']; ?>" class="dropdown-item">
                     <i class="fas fa-user"></i> Mi perfil
-                </a>
-                <a href="<?php echo APP_URL; ?>configuracion" class="dropdown-item">
-                    <i class="fas fa-cog"></i> Configuración
                 </a>
                 <a href="<?php echo APP_URL ?>views/partials/logout.php" class="dropdown-item">
                     <i class="fas fa-sign-out-alt"></i> Cerrar sesión

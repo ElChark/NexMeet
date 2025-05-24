@@ -72,7 +72,7 @@
 
 
         const eventosGustados = <?php echo json_encode($eventosGustados); ?>;
-        const eventosAsistiendo = <?php echo json_encode($asistiendo); ?>;
+        const eventosAsistiendo = <?php echo json_encode($asistiendoExplorar); ?>;
 
         mapboxgl.accessToken = 'pk.eyJ1Ijoic2FudGluby0yMSIsImEiOiJjbTlrOThieXUwanE2Mmtwbm14NG91Z2Y1In0.4ZaOrPV87tCrT0HIQBj_fg';
 

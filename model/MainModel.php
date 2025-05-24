@@ -198,7 +198,7 @@ class MainModel
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id AND estado='En Proceso'");
             $sql->bindParam(':id', $id);
         } elseif ($tipo === 'Administrador') {
-            $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id");
+            $sql = $this->connect()->prepare("SELECT *, Obtener_Ultima_Conexion(id_usuario) AS ultima_conexion FROM $tabla WHERE $campo = :id");
             $sql->bindParam(':id', $id);
         } elseif ($tipo === 'Comentario') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id");
@@ -206,6 +206,9 @@ class MainModel
         } elseif ($tipo === 'getMensajeInsertado') {
             $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id ORDER BY id_mensaje DESC");
             $sql->bindParam(':id', $id);
+        } elseif ($tipo === 'creadorEvento') {
+            $sql = $this->connect()->prepare("SELECT * FROM $tabla WHERE $campo = :id ORDER BY id_evento DESC");
+            $sql->bindParam(':id', $id);    
         }
 
         $sql->execute();
@@ -275,16 +278,22 @@ class MainModel
     public function handlePostReaction($id_publicacion, $id_usuario, $accion)
     {
         if ($accion === 'Like') {
-            $sql = $this->connect()->prepare("CALL Aumentar_reaccion_publicacion(:id_publicacion, :id_usuario)");
-            $sql->bindParam(':id_publicacion', $id_publicacion);
+            $sql = $this->connect()->prepare("
+                                INSERT INTO Usuarios_publicacion_reaccion (id_usuario, id_publicacion)
+                                VALUES (:id_usuario, :id_publicacion)
+                            "); 
             $sql->bindParam(':id_usuario', $id_usuario);
+            $sql->bindParam(':id_publicacion', $id_publicacion);
             $sql->execute();
 
             return $sql;
         } else if ($accion === 'QuitarLike') {
-            $sql = $this->connect()->prepare("CALL Quitar_reaccion_publicacion(:in_id_publicacion, :in_id_usuario)");
-            $sql->bindParam(':in_id_publicacion', $id_publicacion);
-            $sql->bindParam(':in_id_usuario', $id_usuario);
+            $sql = $this->connect()->prepare("
+                                DELETE FROM Usuarios_publicacion_reaccion
+                                WHERE id_usuario = :id_usuario AND id_publicacion = :id_publicacion
+                            ");
+            $sql->bindParam(':id_usuario', $id_usuario);
+            $sql->bindParam(':id_publicacion', $id_publicacion);
             $sql->execute();
 
             return $sql;

@@ -8,7 +8,7 @@ require_once './views/partials/load.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuario</title>
+    <title>Publicaciones</title>
     <style>
         :root {
             --primary-color: #ff5a5f;
@@ -138,48 +138,42 @@ require_once './views/partials/load.php';
 </head>
 
 <body>
-    <h1>Usuarios registrados en NexMeet</h1>
+    <h1>Publicaciones creadas en NexMeet</h1>
 
     <div id="footer">
         <div class="page-number"></div>
-        <div>NexMeet &copy; <?php echo date('Y'); ?> - Reporte Interno</div>
+        <div>NexMeet &copy; <?php echo date('Y'); ?> - Reporte Interno</div>    
     </div>
-    <table>
+
+    <table class="data-table">
         <thead>
             <tr>
-                <th>Usuario</th>
-                <th>Email</th>
-                <th>Fecha registro</th>
-                <th>Último acceso</th>
-                <th>Estado</th>
+                <th>Titulo</th>
+                <th>Contenido</th>
+                <th>Fecha de publicacion</th>
+                <th>Reacciones</th>
             </tr>
         </thead>
         <tbody>
 
-            <?php foreach ($usuarios as $usuario) { ?>
+            <?php foreach ($allPublicaciones as $post) { ?>
                 <tr>
                     <td>
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <div>
-                                <div style="font-weight: 500;"><?php echo $usuario['nombre'] ?></div>
+                                <div style="font-weight: 500;"><?php echo $post['titulo'] ?></div>
                             </div>
                         </div>
                     </td>
-                    <td><?php echo $usuario['email'] ?></td>
-                    <td><?php echo $usuario['fecha_reigstro'] ?></td>
-                    <td>Hace 2 horas</td>
-                    <td>
-
-                        <span class="status-badge <?php echo $usuario['estado'] == 1 ? 'active' : 'inactive' ?>"><?php echo $usuario['estado'] == 1 ? 'Activo' : 'Inactivo' ?></span>
-                    </td>
+                    <td><?php echo $post['contenido'] ?></td>
+                    <td><?php echo $post['fecha_publicacion'] ?></td>
+                    <td><?php echo $post['reacciones'] ?></td>
                 </tr>
             <?php } ?>
 
 
         </tbody>
-
     </table>
-
 </body>
 
 </html>

@@ -74,7 +74,7 @@ class EventController extends MainModel
                 $eventoSubido = $consultaEvento->fetch();
 
                 $alerta = [
-                    "tipo" => "error", 
+                    "tipo" => "error",
                     "tituloTipo" => "Success",
                     "texto" => "El evento se ha guardado con éxito",
                     "icono" => "success",
@@ -116,6 +116,13 @@ class EventController extends MainModel
     {
         $consultaEvento = $this->seleccionDatos('Comentario', 'Vista_Comentarios', 'id_evento', $eventId);
         $resultado = $consultaEvento->fetchAll();
+        return $resultado;
+    }
+
+    public function getCreatorOfEvent($eventId)
+    {
+        $consultaEvento = $this->seleccionDatos('creadorEvento', 'Vista_Eventos_Explorar', 'id_evento', $eventId);
+        $resultado = $consultaEvento->fetch();
         return $resultado;
     }
 }
