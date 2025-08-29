@@ -1,6 +1,7 @@
 <?php require_once './views/partials/head.php' ?>
 
 <body>
+    <?php require_once './views/partials/nav-bar.php'; ?>
     <style>
         html,
         body {
@@ -19,6 +20,7 @@
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 50px;

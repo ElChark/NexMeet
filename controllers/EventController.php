@@ -9,7 +9,7 @@ use PDO;
 
 class EventController extends MainModel
 {
-    function addEvento($titulo, $descripcion, $file, $coordenadas, $nombreLugar)
+    function addEvento($titulo, $descripcion, $file, $coordenadas, $nombreLugar, $categoria, $fechaEvento)
     {
         $coor = json_decode($coordenadas, true);
         $longitud = $coor[0];
@@ -53,6 +53,16 @@ class EventController extends MainModel
                     'nombre' => 'latitud',
                     'nombre_marcador' => ':latitud',
                     'valor' => $latitud
+                ],
+                [
+                    'nombre' => 'fechaEvento',
+                    'nombre_marcador' => ':fechaEvento',
+                    'valor' => $fechaEvento
+                ],
+                [
+                    'nombre' => 'categoria',
+                    'nombre_marcador' => ':categoria',
+                    'valor' => $categoria
                 ]
             ];
 
@@ -60,11 +70,11 @@ class EventController extends MainModel
             $subirEvento = $this->subirEvento('Evento', $eventoDatos);
 
             if ($subirEvento->rowCount() == 1) {
-                $consultaEvento = $this->seleccionDatos('Unico', 'Evento', 'id_usuario', $_SESSION['id_usuario']);
+                $consultaEvento = $this->seleccionDatos('CrearEvento', 'Evento', 'id_usuario', $_SESSION['id_usuario']);
                 $eventoSubido = $consultaEvento->fetch();
 
                 $alerta = [
-                    "tipo" => "error", 
+                    "tipo" => "error",
                     "tituloTipo" => "Success",
                     "texto" => "El evento se ha guardado con éxito",
                     "icono" => "success",
@@ -93,5 +103,26 @@ class EventController extends MainModel
                 "icono" => "error"
             ]);
         }
+    }
+
+    public function getEvento($eventId)
+    {
+        $consultaEvento = $this->seleccionDatos('Unico', 'Evento', 'id_evento', $eventId);
+        $resultado = $consultaEvento->fetch();
+        return $resultado;
+    }
+
+    public function getCommentsOfEvent($eventId)
+    {
+        $consultaEvento = $this->seleccionDatos('Comentario', 'Vista_Comentarios', 'id_evento', $eventId);
+        $resultado = $consultaEvento->fetchAll();
+        return $resultado;
+    }
+
+    public function getCreatorOfEvent($eventId)
+    {
+        $consultaEvento = $this->seleccionDatos('creadorEvento', 'Vista_Eventos_Explorar', 'id_evento', $eventId);
+        $resultado = $consultaEvento->fetch();
+        return $resultado;
     }
 }

@@ -1,4 +1,5 @@
 <?php require_once './views/partials/head.php' ?>
+
 <body>
     <?php require_once './views/partials/nav-bar.php'; ?>
 
@@ -9,8 +10,8 @@
         </div>
 
         <div class="publicacion-form-container">
-            <form id="publicacion-form" enctype="multipart/form-data" method="post">
-                <!-- Contenido principal de la publicación -->
+
+            <form enctype="multipart/form-data" method="post" action="/post">
                 <div class="form-section">
                     <h2 class="section-title">Información principal</h2>
 
@@ -27,19 +28,20 @@
 
                 <!-- Multimedia -->
                 <div class="form-section">
-                    <h2 class="section-title">Multimedia</h2>
+                    <h2 class="section-title">Multimedia (Elige una opción)</h2>
                     <div class="form-group">
-                        <label for="publicacion-image">Imágenes (opcional)</label>
+                        <label for="publicacion-image">Imagen (Opcional)</label>
                         <div class="file-upload-container">
                             <div class="file-upload-preview" id="image-preview">
                                 <div class="upload-placeholder">
                                     <i class="fas fa-images"></i>
-                                    <span>Arrastra o haz clic para subir imágenes</span>
+                                    <span>Arrastra o haz clic para subir una imagen</span>
                                 </div>
                             </div>
                             <input type="file" id="publicacion-image" class="form-control-file" accept="image/*" name="foto">
                         </div>
                         <div class="gallery-preview" id="gallery-preview"></div>
+                        <small class="form-text">Formato JPG, PNG, GIF - Máximo 5MB</small>
                     </div>
 
                     <div class="form-group">
@@ -48,7 +50,7 @@
                             <div class="file-upload-btn">
                                 <i class="fas fa-video"></i> Subir video
                             </div>
-                            <input type="file" id="publicacion-video" class="form-control-file" accept="video/*">
+                            <input type="file" id="publicacion-video" class="form-control-file" accept="video/*" name="video">
                         </div>
                         <div id="video-preview" class="video-preview"></div>
                         <small class="form-text">Formato MP4, MOV - Máximo 50MB, duración máxima 2 minutos</small>
@@ -64,6 +66,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
 
@@ -73,6 +76,7 @@
             const imageInput = document.getElementById('publicacion-image');
             const galleryPreview = document.getElementById('gallery-preview');
             const imagePreview = document.getElementById('image-preview');
+
             imageInput.addEventListener('change', function() {
                 if (this.files.length > 0) {
                     document.querySelector('.upload-placeholder').style.display = 'none';
@@ -97,15 +101,18 @@
                             removeBtn.addEventListener('click', function(e) {
                                 e.preventDefault();
                                 imgContainer.remove();
+
                                 // Mostrar placeholder si se eliminan todas las imágenes
                                 if (galleryPreview.children.length === 0) {
                                     document.querySelector('.upload-placeholder').style.display = 'flex';
                                 }
                             });
+
                             imgContainer.appendChild(img);
                             imgContainer.appendChild(removeBtn);
                             galleryPreview.appendChild(imgContainer);
                         }
+
                         reader.readAsDataURL(file);
                     });
                 }
@@ -139,10 +146,12 @@
                         videoPreview.innerHTML = '';
                         videoInput.value = '';
                     });
+
                     videoPreview.appendChild(videoElement);
                     videoPreview.appendChild(removeBtn);
                 }
             });
+
             // Hacer clic en el área de previsualización para subir imágenes
             imagePreview.addEventListener('click', function() {
                 imageInput.click();
@@ -163,43 +172,44 @@
                 });
             });
 
-            // Crear publicacion reiiiii
-            document.getElementById('publicacion-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
 
-                const formData = new FormData(document.getElementById('publicacion-form'));
-
-                console.log('Enviando formulario...');
-
-                const response = await fetch("<?php echo  APP_URL; ?>ajax/publicaciones-ajax.php", {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (data.tipo == "error") {
-
-
-                    document.getElementById('publicacion-titulo').value = '';
-                    document.getElementById('publicacion-contenido').value = '';
-                    document.getElementById('publicacion-image').value = '';
-
-                    
-
-
-                    Swal.fire({
-                        icon: data.icono,
-                        title: data.titulo,
-                        text: data.texto,
-                        timer: 1000,
-                        confirmButtonText: 'Aceptar',
-                        showConfirmButton: false
-                    });
-                }
-
-            });
+            //document.getElementById('publicacion-form').addEventListener('submit', async (e) => {
+            //    e.preventDefault();
+            //
+            //    const formData = new FormData(document.getElementById('publicacion-form'));
+            //
+            //    console.log('Enviando formulario...');
+            //
+            //    const response = await fetch("//ajax/publicaciones-ajax.php", {
+            //        method: 'POST',
+            //        body: formData
+            //    });
+            //
+            //    const data = await response.json();
+            //
+            //    if (data.tipo == "error") {
+            //
+            //
+            //        document.getElementById('publicacion-titulo').value = '';
+            //        document.getElementById('publicacion-contenido').value = '';
+            //        document.getElementById('publicacion-image').value = '';
+            //
+            //
+            //
+            //
+            //        Swal.fire({
+            //            icon: data.icono,
+            //            title: data.titulo,
+            //            text: data.texto,
+            //            timer: 1000,
+            //            confirmButtonText: 'Aceptar',
+            //            showConfirmButton: false
+            //        });
+            //    }
+            //
+            //});
         });
     </script>
 </body>
+
 </html>

@@ -634,7 +634,7 @@ textarea.form-control {
     padding: 8px 20px;
 }
 
-.post-action {
+.like-action {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -1013,4 +1013,8 @@ textarea.form-control {
     .modal {
         width: 95%;
     }
+}
+
+.like-action {
+    border: none;
 }

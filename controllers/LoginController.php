@@ -10,11 +10,10 @@ class LoginController extends MainModel
     {
         $checkUsuario = $this->ejecutarConsulta("SELECT * FROM Usuario WHERE nombre = '$nombre'");
 
-        if ($checkUsuario->rowCount() >0) {
+        if ($checkUsuario->rowCount() > 0) {
             $checkUsuario = $checkUsuario->fetch();
 
-            if ($checkUsuario['nombre'] == $nombre && password_verify($contra, $checkUsuario['contra'])) 
-            {
+            if ($checkUsuario['nombre'] == $nombre && password_verify($contra, $checkUsuario['contra'])) {
 
                 $_SESSION['id_usuario'] = $checkUsuario['id_usuario'];
                 $_SESSION['nombre'] = $checkUsuario['nombre'];
@@ -22,16 +21,19 @@ class LoginController extends MainModel
                 $_SESSION['fechaNac'] = $checkUsuario['fecha_nacimiento'];
                 $_SESSION['tipo'] = $checkUsuario['tipo'];
                 $_SESSION['fotoPerfil'] = $checkUsuario['foto_perfil'];
+                $_SESSION['estado'] = $checkUsuario['estado'];
 
+
+                //cambio
+                $this->ejecutarConsulta("UPDATE Usuario SET ultima_conexion = NOW() WHERE id_usuario = " . $checkUsuario['id_usuario']);
 
                 $alerta = [
                     "estado" => "ok",
-                    "redirect" => APP_URL.'home'
+                    "redirect" => APP_URL . 'home'
                 ];
                 return json_encode($alerta);
                 exit();
-
-            }else{
+            } else {
                 $alerta = [
                     "tipo" => "error",
                     "titulo" => "Ha ocurrido algo inesperado",

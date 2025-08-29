@@ -5,7 +5,7 @@ use model\MainModel;
 
 class UserController extends MainModel
 {
-    public function registrarUsuario($nombre, $email, $contra, $contra2, $fecha_nacimiento)
+    public function registrarUsuario($nombre, $email, $contra, $contra2, $fecha_nacimiento):bool
     {
         
         if ($contra != $contra2) {
@@ -15,8 +15,8 @@ class UserController extends MainModel
                 "texto" => "Las contraseñas deben coincidir",
                 "icono" => "error"
             ];
-            return json_encode($alerta);
-            exit();
+            //return json_encode($alerta);
+            return false;
         }
 
         if (!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/', $contra)) {
@@ -26,8 +26,8 @@ class UserController extends MainModel
                 "texto" => "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.",
                 "icono" => "error"
             ];
-            return json_encode($alerta);
-            exit();
+            //return json_encode($alerta);
+            return false;
         }
 
         $checkCorreo = $this -> ejecutarConsulta("SELECT * FROM usuario WHERE email = '$email'");
@@ -39,8 +39,8 @@ class UserController extends MainModel
                 "texto" => "El correo ya se encuentra en uso",
                 "icono" => "error"
             ];
-            return json_encode($alerta);
-            exit();
+            //return json_encode($alerta);
+            return false;
         }
 
 
@@ -80,11 +80,11 @@ class UserController extends MainModel
             $alerta = [
                 "tipo" => "error",
                 "titulo" => "Success",
-                "texto" => "El usuario ha sido registrado con exito",
+                "texto" => "El usuario ha sido registrado con éxito",
                 "icono" => "success"
             ];
-            return json_encode($alerta);
-            exit();
+            return true;
+            //return json_encode($alerta);
         }
     }
 }
